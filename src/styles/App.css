@@ -1,0 +1,91 @@
+.calendar-container {
+  width: 350px;
+  margin: 0 auto;
+}
+
+.d-flex {
+  display: flex;
+}
+
+
+.date-box {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin: 0;
+  border: solid 1px gray;
+}
+
+.f-center {
+  justify-self: center;
+}
+
+.f-between {
+  justify-content: space-between;
+}
+.m-center {
+  margin: 0 auto;
+}
+
+.main-title {
+  text-align: center;
+}
+
+.max-width {
+  width: 100%;
+}
+
+.midium-space {
+  margin: 30px;
+}
+
+.n-margin {
+  margin: 0;
+}
+
+.second-button {
+  width: 35%;
+  text-align: center;
+  cursor: pointer;
+  line-height: 55px;
+}
+
+.text-container {
+  width: 340px;
+  margin: 20px auto;
+  height: 60px;
+  border: solid 1px gray;
+  border-radius: 6px;
+  background-color: mintcream;
+  font-size: 18px;
+}
+
+.time-line {
+  margin: 0 10px 0 5px;
+  line-height: 65px;
+  font-size: 20px;
+}
+
+.time-field {
+  border: solid 2px gray;
+  width: 90%;
+  margin: 0 auto;
+  height: 55px;
+  max-width: 420px;
+}
+
+.time-field > h2 {
+  line-height: 55px;
+  margin: 0;
+  width: 65%;
+  text-align: center;
+  /* border-right: solid 1px gray; */
+}
+
+.time-field > h3{
+  width: 20%;
+  line-height: 55px;
+  margin: 0;
+  text-align: center;
+  border-right: solid 1px gray;
+}
