@@ -1,32 +1,13 @@
 const initialState = {
-  cards: {
-    list: [],
-  },
-  card: {
-    nextTaskList: [],
-    prevTaskList: [],
-    runTask: [],
-    lookingBackText: "",
-    scheduledTime: "",
-    id: "",
-    username: "",
-    icon: "",
-    enthusiasmText: "",
-    hours: "",
-    minutes: "",
-    arr: [],
-  },
   groups: {
-    users: [],
     groupName: "",
     groupId: "",
+    administratorPassword: "",
   },
   users: {
-    icon: "",
     isSignedIn: false,
     role: "",
     uid: "",
-    enterGroups: [],
     username: "",
   },
 };

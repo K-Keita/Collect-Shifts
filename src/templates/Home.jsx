@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import {TextArea} from '../components/UIkit/index';
+import {TextArea, TextInput} from '../components/UIkit/index';
 import {push} from 'connected-react-router';
 
 const d = new Date();
@@ -24,7 +24,7 @@ const Home = () => {
   const maxDate = new Date(y, m + 2 ,1)
 
   return (
-    <div>
+    <div className="main-container">
       <h2 className="main-title">calendar</h2>
       <div className="calendar-container">
         <Calendar 
@@ -42,7 +42,7 @@ const Home = () => {
       <TextArea text={"tesuto"} />
 
       <h3>{startDate}〜{endDate}のシフト締め切りは{deadlineDate}です。</h3>
-      <button onClick={() => dispatch(push("/"))}>aaaa</button>
+
     </div>
   )
 }

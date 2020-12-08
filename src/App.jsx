@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles/App.css";
 import { Header } from "./header/index";
+import { Footer } from "./footer/index";
 import Router from "./Router";
 
 const App = () => {
@@ -8,11 +9,10 @@ const App = () => {
   return (
     <>
       <Header />
-      <div className="main-position">
-        <div className="main-container">
-          <Router />
-        </div>
-      </div>
+      <main className="main">
+      <Router />
+      </main>
+      <Footer />
     </>
   );
 };

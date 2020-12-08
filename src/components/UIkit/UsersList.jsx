@@ -8,10 +8,13 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '90%',
-    margin: "20px auto",
+    margin: "0 auto",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
+  child: {
+    padding: 5,
+  }
 }));
 
 const UsersList = () => {
@@ -19,40 +22,17 @@ const UsersList = () => {
 
   return (
     <List component="nav" className={classes.root} aria-label="mailbox folders">
-      <ListItem button>
+      <ListItem className={classes.child} divider>
         <ListItemText primary="Inbox" />
       </ListItem>
-      <Divider />
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
+      <ListItem className={classes.child} divider>
+        <ListItemText primary="Inbox" />
       </ListItem>
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
+      <ListItem className={classes.child} divider>
+        <ListItemText primary="Inbox" />
       </ListItem>
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button divider>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button>
-        <ListItemText primary="Trash" />
-      </ListItem>
-      <Divider light />
-      <ListItem button>
-        <ListItemText primary="Spam" />
+      <ListItem className={classes.child} divider>
+        <ListItemText primary="Inbox" />
       </ListItem>
     </List>
   );

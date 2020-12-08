@@ -3,40 +3,30 @@ import { makeStyles } from '@material-ui/core/styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {push} from 'connected-react-router';
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleIcon from '@material-ui/icons/People';
 
 const useStyles = makeStyles((theme) => ({
   iconBox: {
     width: "20%",
+    margin: 0,
   },
-  text: {
-    padding: theme.spacing(2, 2, 0),
-  },
-  paper: {
-    paddingBottom: 50,
-  },
-  list: {
-    marginBottom: theme.spacing(2),
-  },
-  subheader: {
-    backgroundColor: theme.palette.background.paper,
+  toolBar: {
+    padding: 0,
+    width: '100%',
   },
   appBar: {
+    width: "100%",
+    margin: 0,
     top: 'auto',
     bottom: 0,
-  },
-  fabButton: {
-    position: 'absolute',
-    zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: '0 auto',
+    
   },
 }));
 
@@ -45,29 +35,30 @@ const Footer = () => {
   const dispatch = useDispatch();
   const selector = useSelector(state => state);
 
+  const templatePage = [
+    {icon: <PeopleIcon />, path: "/list"},
+    {icon: <PlaylistAddIcon />, path: "/regist"},
+    {icon: <HomeIcon />, path: "/"},
+    {icon: <ListAltIcon />, path: "/shift"},
+    {icon: <SettingsIcon />, path: "/management"},
+  ]
+
+  const linkPage = (path) => {
+    dispatch(push(path));
+  }
+
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="fixed" color="primary" className={classes.appBar}>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.iconBox} >
-            <MenuIcon />
-          </IconButton>
-          <IconButton color="inherit" className={classes.iconBox} >
-            <SearchIcon />
-          </IconButton>
-          <IconButton color="inherit" className={classes.iconBox} >
-            <SearchIcon />
-          </IconButton>
-          <IconButton color="inherit" className={classes.iconBox} >
-            <SearchIcon />
-          </IconButton>
-          <IconButton onClick={() => dispatch(push("/list"))} edge="end" color="inherit" className={classes.iconBox}>
-            <MoreIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
+    <AppBar position="fixed" color="primary" className={classes.appBar}>
+      <Toolbar className={classes.toolBar}>
+        {templatePage.map((page,index) => {
+          return (
+            <IconButton key={String(index)} onClick={() => linkPage(page.path)} color="inherit" className={classes.iconBox} >
+              {page.icon}
+            </IconButton>
+          )
+        })}
+      </Toolbar>
+    </AppBar>
   );
 }
 

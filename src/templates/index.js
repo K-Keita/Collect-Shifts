@@ -1,5 +1,9 @@
+export {default as CreateGroupPage} from './CreateGroupPage';
 export {default as Home} from './Home';
 export {default as ManagementPage} from './ManagementPage';
 export {default as Members} from './Members';
 export {default as MyInfomation} from './MyInfomation';
 export {default as RegistShift} from './RegistShift';
+export {default as SignIn} from './SignIn';
+export {default as SignUp} from './SignUp';
+export {default as ShiftList} from './ShiftList';
