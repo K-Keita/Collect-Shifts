@@ -5,16 +5,22 @@ service cloud.firestore {
       // allow read: if request.auth.uid != null;
       allow read;
       allow create;
-      allow update: if request.auth.uid == userId;
-      allow delete: if request.auth.uid == userId;
+      allow update: if request.auth.uid != null;
+      allow delete: if request.auth.uid != null;
     }
     match /groups/{groupId} {
       allow read;
       // allow create: if request.auth.uid != null;
       allow create;
-      // allow update: if request.auth.uid != null;
-      allow update;
+      allow update: if request.auth.uid != null;
       allow delete: if request.auth.groupId == userId;
+
+      match /shiftsList/{shiftsListId} {
+        allow read: if request.auth.uid != null;
+        allow create: if request.auth.uid != null;
+        allow update: if request.auth.uid != null;
+        allow delete: if request.auth.uid != null;
+      }
     }
   }
 }

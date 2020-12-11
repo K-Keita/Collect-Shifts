@@ -1,6 +1,9 @@
 .calendar-container {
   width: 350px;
   margin: 0 auto;
+  color: black;
+  border: solid 3px #90a4ae;
+  box-sizing: border-box;
 }
 
 .d-flex {
@@ -28,6 +31,7 @@
 }
 
 .main {
+  margin-top: 70px;
   margin-bottom: 65px;
 }
 
@@ -35,6 +39,7 @@
   width: 90%;
   margin: 0 auto;
   max-width: 420px;
+  min-width: 350px;
 }
 
 .main-title {
@@ -68,14 +73,27 @@
   margin: 8px;
 }
 
+.sub-border {
+  border: solid 2px #eceff1;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.sub-title {
+  padding-left: 30px;
+  margin: 20px auto 0;
+}
+
 .text-container {
-  width: 340px;
-  margin: 20px auto;
-  height: 60px;
-  border: solid 1px gray;
-  border-radius: 6px;
-  background-color: mintcream;
-  font-size: 18px;
+  width: 320px;
+  margin: 0px auto;
+  height: 65px;
+  padding: 5px;
+  border: solid 3px #90a4ae;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #37474f;
+  font-size: 16px;
 }
 
 .time-line {
@@ -85,27 +103,44 @@
 }
 
 .time-field {
-  border: solid 2px gray;
-  width: 90%;
+  border-bottom: solid 1px #eceff1;
+  background-color: #90a4ae;
+  width: 100%;
   margin: 0 auto;
-  height: 55px;
+  height: 50px;
   max-width: 420px;
-  min-width: 350px;
+  min-width: 340px;
 }
 
-.time-field > h2 {
+.time-field_date {
   line-height: 55px;
   margin: 0;
-  width: 65%;
+  width: 20%;
+  text-align: center;
+  font-size: 18px;
+  border-right: solid 1px #eceff1;
+  background-color: #78909c;
+}
+
+
+.time-field_label {
+  line-height: 55px;
+  margin: 0;
+  font-size: 18px;
+  width: 55%;
   text-align: center;
 }
 
-.time-field > h3 {
-  line-height: 55px;
-  margin: 0;
-  width: 30%;
+.time-field_title {
+  background-color: #607d8b;
+  font-size: 20px;
+  font-weight: bold;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: solid 2px #eceff1;
+  width: 100%;
   text-align: center;
-  font-size: 15px;
+  margin: 0;
 }
 
 .text-area {
@@ -117,11 +152,5 @@
   margin: 2px;
 }
 
-.time-field > h3{
-  width: 20%;
-  line-height: 55px;
-  margin: 0;
-  text-align: center;
-  border-right: solid 1px gray;
-}
+
 

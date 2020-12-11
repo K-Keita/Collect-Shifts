@@ -29,7 +29,7 @@ const CreateGroupPage = () => {
       <TextInput label={"グループID"} type={"text"} fullWidth={true} value={groupId} onChange={inputGroupId} />
       <Divider />
       <TextInput label={"管理者パスワード"} type={"password"} fullWidth={true} value={groupPassword} onChange={inputGroupPassword} />
-      <PrimaryButton onClick={() => dispatch(createGroup(groupName, groupId, groupPassword))} label={"登録"} fullWidth={true}/>
+      <PrimaryButton onClick={() => dispatch(createGroup(groupName, groupId, groupPassword, "1234"))} label={"登録"} fullWidth={true}/>
     </div>
   )
 }

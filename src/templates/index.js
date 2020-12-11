@@ -1,4 +1,5 @@
 export {default as CreateGroupPage} from './CreateGroupPage';
+export {default as EnterGroupPage} from './EnterGroupPage';
 export {default as Home} from './Home';
 export {default as ManagementPage} from './ManagementPage';
 export {default as Members} from './Members';

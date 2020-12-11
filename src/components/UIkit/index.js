@@ -1,5 +1,4 @@
-import { formatMs } from '@material-ui/core';
-
+export {default as ConfirmDialog} from './ConfirmDialog';
 export {default as DialogTime} from './ToggleShift';
 export {default as PrimaryButton} from './PrimaryButton';
 export {default as SecondButton} from './SecondButton';

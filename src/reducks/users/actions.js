@@ -7,6 +7,7 @@ export const signInAction = (userState) => {
       role: userState.role,
       uid: userState.uid,
       username: userState.username,
+      groupId: userState.groupId,
     },
   };
 };

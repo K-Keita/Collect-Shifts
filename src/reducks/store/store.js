@@ -6,12 +6,15 @@ import {
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import thunk from "redux-thunk";
 
-import { GroupsReducer} from "../groups/reducers";
+import { GroupsReducer } from "../groups/reducers";
+import { ShiftsListReducer } from "../groups/reducers";
 import { UsersReducer } from "../users/reducers";
 
 export default function createStore(history) {
   return reduxCreateStore(
     combineReducers({
+      groups: GroupsReducer,
+      shifts: ShiftsListReducer,
       router: connectRouter(history),
       users: UsersReducer,
     }),

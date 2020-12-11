@@ -7,10 +7,16 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import blueGrey from '@material-ui/core/colors/blueGrey'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
+    background: blueGrey[500],
+    width: "100%",
+    margin: 0,
+    top: 0,
+    bottom: "auto",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -67,8 +73,7 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -96,7 +101,6 @@ const Header = () => {
           </div>
         </Toolbar>
       </AppBar>
-    </div>
   );
 }
 
