@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
 import blueGrey from '@material-ui/core/colors/blueGrey';
 
 const useStyles = makeStyles({
@@ -17,7 +16,6 @@ const useStyles = makeStyles({
     border: "solid 2px #cfd8dc",
   },
   child: {
-    // paddingTop: 5,
     padding: "5px 10px",
   },
   title: {
@@ -27,7 +25,6 @@ const useStyles = makeStyles({
     margin: "0 auto",
     padding: 3,
     backgroundColor: blueGrey[500],
-    // borderRadius: 10,
     borderBottom: "solid 1px #cfd8dc",
   }
 });

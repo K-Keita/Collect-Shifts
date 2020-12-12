@@ -1,11 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import React, {useState} from 'react'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import {TextArea, TextInput} from '../components/UIkit/index';
-import {push} from 'connected-react-router';
-import {getIsSignedIn, getUserName} from '../reducks/users/selectors';
-import {listenAuthState} from '../reducks/users/operations';
+import {TextArea} from '../components/UIkit/index';
 
 const d = new Date();
 const y = d.getFullYear();
@@ -28,7 +24,7 @@ const Home = () => {
   return (
     <div className="main-container">
       <h3>{startDate}〜{endDate}のシフト締め切りは{deadlineDate}です。</h3>
-      <h2 className="main-title">calendar</h2>
+      <h2 className="main-title">Home</h2>
       <div className="calendar-container">
         <Calendar 
           value={value}

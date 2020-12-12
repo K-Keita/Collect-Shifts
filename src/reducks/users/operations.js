@@ -3,7 +3,6 @@ import { push } from "connected-react-router";
 import {signInAction, signOutAction} from './actions';
 import {groupIn} from '../groups/operations';
 import {fetchShifts} from '../groups/operations';
-import { getGroupId } from "./selectors";
 
 const usersRef = db.collection("users");
 const d = new Date();
@@ -36,9 +35,7 @@ export const listenAuthState = () => {
             if (groupId !== "") {
               dispatch(fetchShifts(groupId, dateId))
               dispatch(groupIn(groupId))
-            } else {
-              dispatch(push("/enter"))
-            }
+            } 
       } else {
         dispatch(push("/signin"));
       }

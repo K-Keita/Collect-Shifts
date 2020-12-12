@@ -1,10 +1,8 @@
-import { Divider } from '@material-ui/core';
 import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import { PrimaryButton, TimeSelect, ToggleShift, ConfirmDialog } from '../components/UIkit/index';
-import Button from '@material-ui/core/Button';
+import { PrimaryButton, ToggleShift, ConfirmDialog } from '../components/UIkit/index';
 import {saveShifts} from '../reducks/groups/operations';
-import { getUserName, getUserGroupId } from '../reducks/users/selectors';
+import { getUserName } from '../reducks/users/selectors';
 import {getGroupId, getGroupName} from '../reducks/groups/selectors';
 
 const d = new Date();
@@ -18,7 +16,6 @@ const RegistShift = () => {
   const groupId = getGroupId(selector);
   const username= getUserName(selector);
   const groupName = getGroupName(selector);
-  const id = getUserGroupId(selector);
 
   const [monday,setMonday] = useState("");
   const [tuesday, setTuesday] = useState("");
@@ -29,35 +26,39 @@ const RegistShift = () => {
   const [sunday, setSunday] = useState("");
 
   const [open, setOpen] = React.useState(false);
-
+  // const [emptyTime, setEmptyTime] = useState(true);
+  
+  const startDate = d.getDate() + ((14 - d.getDay() + 1));
+  const firstDate = new Date(y, m - 1, startDate);
+  const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
+  const shiftWeek = [{func: setMonday, name: monday},{func: setTuesday, name: tuesday}, {func: setWednesday, name: wednesday}, {func: setThursday, name: thursday}, {func: setFriday, name: friday}, {func: setSaturday, name: saturday}, {func: setSunday, name: sunday}]
+  
   const handleClickOpen = () => {
+    // if (!emptyTime) {
+    //   alert ("空白があります");
+    //   return false;
+    // }
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   const enterShift = () => {
     const arr = []
     shiftWeek.map(shift => {
       arr.push(shift.name)
     })
-
+    
     dispatch(saveShifts(groupId, dateId, arr, username));
     setOpen(false);
   }
 
-  const startDate = d.getDate() + ((14 - d.getDay() + 1));
-  const firstDate = new Date(y, m - 1, startDate);
-  const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
-  const shiftWeek = [{func: setMonday, name: monday},{func: setTuesday, name: tuesday}, {func: setWednesday, name: wednesday}, {func: setThursday, name: thursday}, {func: setFriday, name: friday}, {func: setSaturday, name: saturday}, {func: setSunday, name: sunday}]
-
   for (var i = 0; i < 7; i++) {
-    // const shiftDate = (firstDate.getMonth() + 1 + '/' + firstDate.getDate());
     const shiftDate = (firstDate.getDate());
     const shiftDay = ["日", "月", "火", "水", "木", "金", "土"][firstDate.getDay()];
-
+    
     firstDate.setDate(firstDate.getDate() + 1);
   
     shiftWeek[i].date = shiftDate
@@ -79,8 +80,6 @@ const RegistShift = () => {
       <PrimaryButton onClick={handleClickOpen} label={"確認"} fullWidth={true} width={"50%"}  />
       <div>
       <ConfirmDialog open={open} handleClose={handleClose} saveShift={enterShift} shiftWeek={shiftWeek} dateId={dateId}  />
-      <PrimaryButton label={"シフト１"} fullWidth={false} />
-      <PrimaryButton label={"シフト２"} fullWidth={false} />
       </div>
     </div>
   )

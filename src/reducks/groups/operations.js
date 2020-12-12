@@ -1,15 +1,21 @@
 import {auth, db, FirebaseTimestamp} from '../../firebase/index';
-import { ShiftList } from '../../templates';
 import { fetchShiftsListAction, groupInAction } from '../groups/actions';
 import {saveGroupId} from '../users/operations';
+import {push} from 'connected-react-router'
 
-export const createGroup = (groupName, groupId, administratorPassword, uid, username) => {
+export const createGroup = (groupName, groupId, administratorPassword, username, uid) => {
   return async (dispatch) => {
+    if (username === "" || uid === "") {
+      alert("アカウントが必要です");
+      dispatch(push("/signup"))
+      return false;
+    }
 
     const timestamp = FirebaseTimestamp.now();
     const memberList = {
       name: username,
-      id: uid
+      id: uid,
+      manage: true,
     }
 
     const initializeDate = {
@@ -18,13 +24,23 @@ export const createGroup = (groupName, groupId, administratorPassword, uid, user
       password: administratorPassword,
       created_at: timestamp,
       updated_at: timestamp,
-      managementUser: [uid],
+      managementUser: [memberList],
       memberList: [memberList]
     }
 
+    dispatch(groupInAction({
+      groupId: groupId,
+      administratorPassword: administratorPassword,
+      groupName: groupName,
+      memberList: [memberList],
+    }))
+
+    // const fetch = await dispatch(fetchShifts(groupId, dateId))
+
     db.collection("groups").doc(groupId).set(initializeDate)
       .then(() => {
-        console.log("ok");
+        dispatch(saveGroupId(groupId, uid))
+        dispatch(push("/"))
       })
   }
 }
@@ -53,7 +69,8 @@ export const enterGroup = (groupname, groupId, username, uid) => {
 
     const newMember = {
         name: username,
-        pass: uid,
+        id: uid,
+        manage: false,
     }
     memberList.push(newMember);
 
@@ -65,9 +82,9 @@ export const enterGroup = (groupname, groupId, username, uid) => {
       groupId: data.groupId,
       administratorPassword: data.administratorPassword,
       groupName: data.groupName,
-      shiftList: data.ShiftList,
       memberList: memberList,
     }))
+
     const fetch = await dispatch(fetchShifts(groupId, dateId))
 
     db.collection("groups").doc(id).set(newData, {merge: true})
@@ -97,7 +114,6 @@ export const fetchShifts = (groupId, dateId) => {
   
       dispatch(fetchShiftsListAction({
         shiftList: data.shiftList,
-        // dateId: data.dateId
       }))
     }
   }
@@ -111,6 +127,7 @@ export const saveShifts = (groupId, dateId, shift, name) => {
       name: name,
       list: shift
     }
+
     if (doc.exists)  {
       const data = doc.data();
         const shiftList = data.shiftList;
@@ -136,8 +153,8 @@ export const saveShifts = (groupId, dateId, shift, name) => {
   
           dispatch(fetchShiftsListAction({
             shiftList: shiftList,
-            // dateId: data.dateId
           }))
+          alert("登録しました")
         })  
       } else {
         const initializeDate = {
@@ -154,8 +171,8 @@ export const saveShifts = (groupId, dateId, shift, name) => {
             console.log('create');
             dispatch(fetchShiftsListAction({
               shiftList: [newData],
-              // dateId: data.dateId
             }))
+            alert("登録しました")
           })
       }
   }

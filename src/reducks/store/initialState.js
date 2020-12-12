@@ -8,7 +8,6 @@ const initialState = {
   },
   shift: {
     shiftList: [],
-    // dateId: "",
   },
   users: {
     isSignedIn: false,

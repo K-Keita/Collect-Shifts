@@ -8,11 +8,9 @@ import {getUserGroupId} from './reducks/users/selectors';
 const Router = () => {
   const selector = useSelector(state => state)
   const groupId = getUserGroupId(selector);
-  console.log(groupId)
 
   return (
     <Switch>
-      <Route exact path={"/create"} component={CreateGroupPage} />
       <Route exact path={"/signin"} component={SignIn} />
       <Route exact path={"/signup"} component={SignUp} />
       <Auth>
@@ -26,6 +24,7 @@ const Router = () => {
             <Route exact path={"(/)?"} component={Home} />
           </>
         )}
+        <Route exact path={"/create"} component={CreateGroupPage} />
         <Route exact path={"/enter"} component={EnterGroupPage} />
       </Auth>
     </Switch>

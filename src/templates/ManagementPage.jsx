@@ -1,51 +1,51 @@
 import React, {useCallback, useState} from 'react'
 import {useDispatch} from 'react-redux';
-import { Divider } from '@material-ui/core';
-import { ShiftTable } from '../components'
 import { PrimaryButton, TextInput } from '../components/UIkit';
-import {enterGroup} from '../reducks/groups/operations';
-import {signOut} from '../reducks/users//operations';
-import {makeStyles} from '@material-ui/core';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-
-
-const useStyles = makeStyles({
-  // divider: {
-  //   borderTopColor: blueGrey[300],
-  //   color: blueGrey[300]
-  // }
-});
+import {ToggleContent} from '../components/index';
+import {ChangeGroupName, ChangeName, ChangePassword, RegistManage} from "../components/MinComponents"
 
 const ManagementPage = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const [newName, setNewName] = useState(''),
     [newId, setNewId] = useState('');
 
-  const inputNewName = useCallback((event) => {
-    setNewName(event.target.value)
-  }, [setNewName])
+  const changeName = 
+  <>
+    <ChangeName />
+  </>
 
-  const inputNewId = useCallback((event) => {
-    setNewId(event.target.value)
-  }, [setNewId])
+  const changePassword =    <>
+  <ChangePassword />
+  </>
 
-  return (
-    <div className="setting">
-      <h2>パスワード変更</h2>
-      <Divider />
-      <h2>管理者登録</h2>
-      <Divider />
-      <h2>グループ名変更</h2>
-      <Divider />
-      <h2>グループID変更</h2>
-      <Divider />
-      <h2>退会</h2>
-      <Divider  />
-      <div onClick={() => dispatch(signOut())}>
-      <h2>ログアウト</h2>
-      </div>
-    </div>
+  const registManagement =
+  <>
+   <RegistManage />
+  </>
+  
+  const changeGroupName = 
+  <>
+  <ChangeGroupName />
+  </>
+
+  const exitGroup = <>
+        <div className="content-button">
+        <PrimaryButton label={"退会する"} />
+        </div>
+  </>
+
+return (
+  <>
+    <ToggleContent label={"管理者登録"} content={registManagement} />
+    <div className="w-border" />
+    <ToggleContent label={"名前の変更"} content={changeName} />
+    <div className="w-border" />
+    <ToggleContent label={"パスワードの変更"} content={changePassword} />
+    <div className="w-border" />
+    <ToggleContent label={"グループ名変更"} content={changeGroupName} />
+    <div className="w-border" />
+    <ToggleContent label={"グループを退会"} content={exitGroup} />
+  </>
   )
 }
 

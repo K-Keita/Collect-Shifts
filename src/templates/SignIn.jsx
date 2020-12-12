@@ -1,10 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import {useDispatch} from 'react-redux'
-import { Divider } from '@material-ui/core'
 import { TextInput, PrimaryButton } from '../components/UIkit/index'
-import {createGroup} from '../reducks/groups/operations';
-import {signUp} from '../reducks/users/operations';
-import { SettingsBackupRestoreOutlined } from '@material-ui/icons';
 import {signIn} from '../reducks/users/operations';
 
 const SignIn = () => {
@@ -24,7 +20,7 @@ const SignIn = () => {
       <h2>サインイン</h2>
       <TextInput label={"email"} type={"email"} fullWidth={true} onChange={inputEmail} value={email} />
       <TextInput label={"パスワード"} type={"password"} fullWidth={true} onChange={inputPassword} value={password} />
-      <PrimaryButton label={"サインイン"} fullWidth={true} onClick={() => dispatch(signIn(email, password))} />
+      <PrimaryButton label={"サインイン"} width={"70%"} fullWidth={true} onClick={() => dispatch(signIn(email, password))} />
     </div>
   )
 }

@@ -7,18 +7,17 @@ export const groupInAction = (groupState) => {
       groupId: groupState.groupId,
       administratorPassword: groupState.administratorPassword,
       memberList: groupState.memberList,
+      managementList: groupState.managementList,
     }
   }
 }
 
 export const FETCH_SHIFTLIST = "FETCH_SHIFTLIST";
 export const fetchShiftsListAction = (shiftState) => {
-  console.log(shiftState.shiftList)
   return {
     type: "FETCH_SHIFTLIST",
     payload: {
       shiftList: shiftState.shiftList,
-      // dateId: shiftState.dateId
     }
   }
 }

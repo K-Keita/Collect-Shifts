@@ -2,8 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import blueGrey from '@material-ui/core/colors/blueGrey'
-import { Autorenew, BorderColor } from '@material-ui/icons';
-import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   button: {

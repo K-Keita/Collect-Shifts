@@ -7,3 +7,4 @@ export {default as TextInput} from './TextInput';
 export {default as TimeSelect} from './TimeSelect';
 export {default as ToggleShift} from './ToggleShift';
 export {default as UsersList} from './UsersList';
+export {default as SelectBox} from './SelectBox';

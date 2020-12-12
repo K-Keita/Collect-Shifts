@@ -1,20 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 const useStyles = makeStyles({
-  form: {
-    margin: "10px 2%",
-  },
   root: {
-    borderRadius: 0,
-    background: "mintCream",
-    margin: "5px 0",
+    color: blueGrey[800],
+    margin: 12,
+    padding: 0,
+    backgroundColor: blueGrey[100],
   },
   textField: {
-    height: 18,
-    fontSize: 18,
-    padding: "12px 8px",
+    fontSize: 14,
+    padding: 0,
+    margin: "-8px 0 0 0",
   },
 })
 
@@ -22,22 +21,17 @@ const TextInput = (props) => {
   const classes = useStyles();
 
   return (
-    <form className={classes.form} noValidate autoComplete="off">
+    <form className={classes.root} noValidate autoComplete="off">
       <TextField 
-        InputProps={{
-          classes: {
-            input: classes.textField,
-            root: classes.root,
-          },
-        }} 
-        fullWidth={props.fullWidth}
+        className={classes.textField}
+        fullWidth={true}
         id="outlined-basic" 
         value={props.value}
         label={props.label} 
-        variant="outlined" 
+        variant="filled" 
         type={props.type}
         onChange={props.onChange}
-      />
+        />
     </form>
   );
 }

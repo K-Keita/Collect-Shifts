@@ -6,8 +6,35 @@
   box-sizing: border-box;
 }
 
+.content-button {
+  width: 30%;
+  margin: 0 0 0 auto;
+  text-align: right;
+  padding: 15px;
+  align-self: flex-end;
+}
+
+.content_close {
+  display: hidden;
+  margin-top: 10px;
+  display: block;
+}
+
+.content-form {
+  width: 70%;
+}
+
+.icon-box {
+  margin: 5px 10px 0 0;
+  color: white;
+}
+
 .d-flex {
   display: flex;
+}
+
+.d-hidden {
+  display: none;
 }
 
 .date-box {
@@ -54,6 +81,11 @@
   margin: 30px;
 }
 
+/* .min-content {
+  width: 75%;
+
+} */
+
 .n-margin {
   margin: 0;
 }
@@ -69,8 +101,24 @@
   line-height: 55px;
 }
 
-.setting > h2 {
-  margin: 8px;
+.setting {
+  margin: 0;
+}
+
+.set-title {
+  padding: 6px;
+  margin: 0;
+  width: 80%;
+  font-size: 18px;
+}
+
+.side-text {
+  font-size: 14px;
+  margin: -10px 0 0 0;
+  padding: 0;
+  display: block;
+  color: rgb(150, 6, 6);
+  opacity: 0.7;
 }
 
 .sub-border {
@@ -152,5 +200,9 @@
   margin: 2px;
 }
 
-
-
+.w-border {
+  border: solid 1px #cfd8dc;
+  opacity: 0.7;
+  margin: 10px auto;
+  width: 90%;
+}

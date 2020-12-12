@@ -6,6 +6,11 @@ const shiftsSelector = (state) => state.shifts;
 export const getGroupId = createSelector(
   [groupsSelector],
   state => state.groupId
+  )
+
+export const getManagementList = createSelector(
+  [groupsSelector],
+  state => state.managementList
 )
 
 export const getGroupName = createSelector(
