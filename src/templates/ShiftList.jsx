@@ -36,7 +36,7 @@ const ShiftList = () => {
   const prevShiftList = getPrevShiftList(selector);
 
   return (
-    <div>
+    <div className="aaa">
       <h2>シフト一覧</h2>
       <h3>{prevShiftWeek[0]}〜{prevShiftWeek[6]}</h3>
       <ShiftTable shiftList={prevShiftList} shiftWeek={prevShiftWeek} />

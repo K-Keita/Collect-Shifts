@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     margin: "5px auto 25px",
     maxWidth: 360,
     backgroundColor: blueGrey[400],
-    borderRadius: 5,
+    borderRadius: 3,
     padding: 0,
     border: "solid 2px #cfd8dc",
   },

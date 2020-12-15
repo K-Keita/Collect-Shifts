@@ -46,7 +46,6 @@ export const listenAuthState = () => {
   const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
   return async (dispatch) => {
     return auth.onAuthStateChanged( async (user) => {
-      console.log("tesuto")
       if (user) {
         const uid = user.uid;
 

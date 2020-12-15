@@ -13,8 +13,9 @@ const useStyles = makeStyles({
     boxSizing: "border-box",
     '&:hover': {
       background: blueGrey[500],
-      fontSize: 18, 
+      fontSize: 16, 
       padding: 0,
+      fontWeight: "bold",
     }
   }
 })

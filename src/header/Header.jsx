@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 10px 0 auto"
   },
   root: {
-    background: blueGrey[500],
+    background: blueGrey[400],
     padding: 0,
     width: "100%",
     margin: 0,

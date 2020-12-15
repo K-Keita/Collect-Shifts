@@ -1,7 +1,7 @@
 import React from "react";
 import {useSelector} from 'react-redux';
 import { Route, Switch } from "react-router";
-import {CreateGroupPage, EnterGroupPage, Home, ManagementPage, Members, MyInfomation, RegistShift, ShiftList, SignIn, SignUp, Top} from "./templates/index";
+import {CreateGroupPage, EnterGroupPage, Home, ManagementPage, Members, MyInfomation, RegistShift, Reset, ShiftList, SignIn, SignUp, Top} from "./templates/index";
 import Auth from "./Auth";
 import {getUserGroupId} from './reducks/users/selectors';
 
@@ -14,6 +14,7 @@ const Router = () => {
       <Route exact path={"/signin"} component={SignIn} />
       <Route exact path={"/signup"} component={SignUp} />
       <Route exact path={"/Top"} component={Top} />
+      <Route exact path={"/reset"} component={Reset} />
       <Auth>
         {groupId !== "" && (
           <>
