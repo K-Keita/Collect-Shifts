@@ -3,15 +3,46 @@ import { push } from "connected-react-router";
 import {signInAction, signOutAction} from './actions';
 import {groupIn} from '../groups/operations';
 import {fetchShifts} from '../groups/operations';
+import {changeMemberName} from '../groups/operations';
 
 const usersRef = db.collection("users");
 const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
 
+export const deleteGroupId = (uid, groupId) => {
+  return async (dispatch) => {
+    const snapshot = await db.collection("users").doc(uid).get();
+    const data = snapshot.data();
+
+    if (data.groupId !== groupId) {
+      return false;
+    }
+
+    const updateData = {
+      groupId: ""
+    }
+
+    dispatch(
+      signInAction({
+        isSignIn: true,
+        role: data.role,
+        uid: uid,
+        username: data.username,
+        groupId: "",
+      })
+    )
+    db.collection("users").doc(uid).set(updateData, {merge: true})
+      .then(() => {
+        dispatch(push("/enter"))
+      })
+  }
+}
+
 export const listenAuthState = () => {
-  const startDate = d.getDate() + ((14 - d.getDay() + 1));
-  const firstDate = new Date(y, m - 1, startDate);
+  const sun = d.getDay() === 0 ? 7 : d.getDay();
+  const s = d.getDate() + (14 - sun + 1);
+  const firstDate = new Date(y, m - 1, s);
   const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
   return async (dispatch) => {
     return auth.onAuthStateChanged( async (user) => {
@@ -42,6 +73,30 @@ export const listenAuthState = () => {
     })
   }
 };
+
+export const changeName = (name, uid, groupId) => {
+  return async (dispatch) => {
+    const snapshot = await db.collection("users").doc(uid).get();
+    const data = snapshot.data()
+    const updateData = {
+      username: name
+    }
+    dispatch(
+      signInAction({
+        isSignIn: true,
+        role: data.role,
+        uid: uid,
+        username: name,
+        groupId: data.groupId,
+      })
+    )
+    db.collection("users").doc(uid).set(updateData, {merge: true})
+      .then(() => {
+
+        dispatch(changeMemberName(name, uid, groupId))
+      })
+  }
+}
 
 export const signIn = (email, password) => {
   return async (dispatch) => {
@@ -81,6 +136,31 @@ export const signIn = (email, password) => {
 
   }
 }
+
+export const resetPassword = (email) => {
+  return async (dispatch) => {
+    // if (email === "") {
+    //   alert("必須項目が未入力です");
+    //   return false;
+    // } else if (!isValidEmailFormat(email)) {
+    //   alert("メールアドレスの形式が不正です。");
+    //   return false;
+    // }
+    {
+      auth
+        .sendPasswordResetEmail(email)
+        .then(() => {
+          alert(
+            "入力されたアドレスにパスワードリセット用のメールをお送りしました。"
+          );
+          dispatch(push("/signin"));
+        })
+        .catch(() => {
+          alert("パスワードリセットに失敗しました。通信状況をご確認ください");
+        });
+    }
+  };
+};
 
 export const signUp = (username, email, password, confirmPassword) => {
   return async (dispatch) => {
@@ -131,7 +211,7 @@ export const signUp = (username, email, password, confirmPassword) => {
   }
 }
 
-export const saveGroupId = (groupId, uid) => {
+export const saveGroupId = (groupId, uid, username) => {
   const timestamp = FirebaseTimestamp.now();
   return async (dispatch) => {
     const data = {
@@ -143,7 +223,7 @@ export const saveGroupId = (groupId, uid) => {
         isSignIn: true,
         role: data.role,
         uid: uid,
-        username: data.username,
+        username: username,
         groupId: groupId,
       })
     );
@@ -158,7 +238,7 @@ export const signOut = () => {
   return async (dispatch) => {
     auth.signOut().then(() => {
       dispatch(signOutAction());
-      dispatch(push("/enter"));
+      dispatch(push("/signin"));
     });
   };
 };

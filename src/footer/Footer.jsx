@@ -11,6 +11,8 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import blueGrey from '@material-ui/core/colors/blueGrey'
+import {useSelector} from 'react-redux';
+import { getIsSignedIn } from "../reducks/users/selectors";
 
 const useStyles = makeStyles({
   iconBox: {
@@ -42,6 +44,8 @@ const useStyles = makeStyles({
 const Footer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const selector = useSelector(state => state);
+  const isSignedIn = getIsSignedIn(selector)
 
   const templatePage = [
     {icon: <PeopleIcon />, path: "/list", text: "メンバー"},
@@ -58,16 +62,18 @@ const Footer = () => {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
-        {templatePage.map((page,index) => {
-          return (
-            <div key={String(index)} className={classes.iconBox} >
-            <IconButton key={String(index)} className={classes.icon} onClick={() => linkPage(page.path)} color="inherit">
-              {page.icon}
-            </IconButton>
-          <p className={classes.iconText}>{page.text}</p>
-            </div>
-          )
-        })}
+        {isSignedIn && (
+          templatePage.map((page,index) => {
+            return (
+              <div key={String(index)} className={classes.iconBox} >
+              <IconButton key={String(index)} className={classes.icon} onClick={() => linkPage(page.path)} color="inherit">
+                {page.icon}
+              </IconButton>
+            <p className={classes.iconText}>{page.text}</p>
+              </div>
+            )
+          })
+        )}
       </Toolbar>
     </AppBar>
   );

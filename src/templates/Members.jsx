@@ -26,10 +26,14 @@ const Members = () => {
   const member = [];
   const shift = [];
   const manager = [];
-
+  
   getName(memberList, member);
   getName(shiftList, shift);
   getManage(memberList, manager);
+  
+  console.log(member);
+  console.log(shift)
+  console.log(manager)
 
   const handInShift = [...new Set(member)].filter(value => shift.includes(value))
   

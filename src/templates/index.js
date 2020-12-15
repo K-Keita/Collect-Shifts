@@ -8,3 +8,4 @@ export {default as RegistShift} from './RegistShift';
 export {default as SignIn} from './SignIn';
 export {default as SignUp} from './SignUp';
 export {default as ShiftList} from './ShiftList';
+export {default as Top} from './Top'

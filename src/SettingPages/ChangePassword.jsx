@@ -1,9 +1,12 @@
 import React, {useCallback, useState} from 'react'
+import {useDispatch} from 'react-redux';
 import { PrimaryButton, TextInput } from '../components/UIkit';
 import {ToggleContent} from '../components/index';
+import { resetPassword } from '../reducks/users/operations';
 
 const ChangePassword = () => {
   const [email, setEmail] = useState("");
+  const dispatch = useDispatch()
 
   const inputEmail = useCallback((event) => {
     setEmail(event.target.value)
@@ -13,11 +16,9 @@ const ChangePassword = () => {
     <>
     <div className="content-form" >
     <TextInput label={"メールアドレス"} type={"email"} value={email} onChange={inputEmail} />
-    {/* <TextInput label={"新しいパスワード"} />
-    <TextInput label={"新しいパスワード(確認用)"} /> */}
     </div>
     <div className="content-button">
-    <PrimaryButton label={"変更メールを送る"} />
+    <PrimaryButton label={"変更メールを送る"} onClick={() => dispatch(resetPassword(email))} />
     </div>
     </>
   )

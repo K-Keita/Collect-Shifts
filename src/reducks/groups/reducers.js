@@ -20,7 +20,21 @@ export const ShiftsListReducer = (state = initialState.shift, action) => {
         ...state,
         ...action.payload,
       };
+    
       default: 
         return state;
   }
 }
+
+// export const PrevShiftsListReducer = (state = initialState.prevShift, action) => {
+//   switch (action.type) {
+//     case Actions.FETCH_PREVSHIFTLIST:
+//       return {
+//         ...state,
+//         ...action.payload,
+//       };
+    
+//       default: 
+//         return state;
+//   }
+// }

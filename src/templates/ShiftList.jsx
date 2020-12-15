@@ -1,15 +1,17 @@
 import React from 'react'
 import {useSelector} from 'react-redux';
 import { ShiftTable } from '../components'
-import {getShiftList} from '../reducks/groups/selectors';
+import {getShiftList, getPrevShiftList} from '../reducks/groups/selectors';
 
 const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
 
 const ShiftList = () => {
-  const startDate = d.getDate() + ((14 - d.getDay() + 1));
-  const firstDate = new Date(y, m - 1, startDate);
+  const sun = d.getDay() === 0 ? 7 : d.getDay();
+  const s = d.getDate() + (14 - sun + 1);
+  const firstDate = new Date(y, m - 1, s);
+  const prevFirstDate = new Date(y, m - 1, s - 7);
 
   const shiftWeek = [];
   for (var i = 0; i < 7; i++) {
@@ -20,12 +22,26 @@ const ShiftList = () => {
     shiftWeek.push(`${shiftDate}(${shiftDay})`);
   }
 
-    const selector = useSelector(state => state);
-    const shiftList = getShiftList(selector);
+  const prevShiftWeek = [];
+  for (var i = 0; i < 7; i++) {
+    const shiftDate = (prevFirstDate.getDate());
+    const shiftDay = ["日", "月", "火", "水", "木", "金", "土"][prevFirstDate.getDay()];
+
+    prevFirstDate.setDate(prevFirstDate.getDate() + 1);
+    prevShiftWeek.push(`${shiftDate}(${shiftDay})`);
+  } 
+
+  const selector = useSelector(state => state);
+  const shiftList = getShiftList(selector);
+  const prevShiftList = getPrevShiftList(selector);
 
   return (
     <div>
       <h2>シフト一覧</h2>
+      <h3>{prevShiftWeek[0]}〜{prevShiftWeek[6]}</h3>
+      <ShiftTable shiftList={prevShiftList} shiftWeek={prevShiftWeek} />
+      <div className="midium-space" />
+      <h3>{shiftWeek[0]}〜{shiftWeek[6]}</h3>
       <ShiftTable shiftList={shiftList} shiftWeek={shiftWeek} />
     </div>
   )

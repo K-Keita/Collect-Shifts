@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import blueGrey from '@material-ui/core/colors/blueGrey';
+import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   table: {
@@ -24,12 +25,29 @@ const useStyles = makeStyles({
     fontSize: 16,
     color: blueGrey[50],
   },
-  BodyCell: {
+  bodyCell: {
     background: blueGrey[300],
     border: "solid 1px #fff",
     padding: "12px 0px",
     textAlign: "center",
     color: "#fff",
+  },
+  bodyCell_name: {
+    border: "solid 1px #fff",
+    padding: "12px 0px",
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "#fff",
+    background: blueGrey[300],
+  },
+  bodyCell_out: {
+    border: "solid 1px #fff",
+    padding: "12px 0px",
+    textAlign: "center",
+    color: "#fff",
+    background: blueGrey[300],
+    opacity: 0.8,
+
   }
 });
 
@@ -42,7 +60,11 @@ const ShiftTable = (props) =>  {
           <TableRow >
             <TableCell width="120px" className={classes.headCell}>名前</TableCell>
             {props.shiftWeek.map(value => {
-              return <TableCell width="75px" key={value} className={classes.headCell} >{value}</TableCell>
+              if (value === "休み") {
+                return <TableCell width="75px" key={value} className={classes.headCell} >{value}</TableCell>
+              } else {
+                return <TableCell width="75px" key={value} className={classes.headCell} >{value}</TableCell>
+              }
             })}
           </TableRow>
         </TableHead>
@@ -50,13 +72,15 @@ const ShiftTable = (props) =>  {
           {props.shiftList.map((shift, index) => {
             return (
               <TableRow key={String(index)}>
-                <TableCell className={classes.BodyCell} component="th" scope="row">
+                <TableCell className={classes.bodyCell_name} component="th" scope="row">
                   {shift.name}
                 </TableCell>
                 {shift.list.map((value, index) => {
-                  return (
-                    <TableCell key={String(index)} className={classes.BodyCell}>{value}</TableCell>
-                  )
+                  if (value === "休み") {
+                    return <TableCell key={String(index)} className={classes.bodyCell_out}>{value}</TableCell>
+                  } else {
+                    return  <TableCell key={String(index)} className={classes.bodyCell}>{value}</TableCell>
+                  }
                 })}
               </TableRow>
             )

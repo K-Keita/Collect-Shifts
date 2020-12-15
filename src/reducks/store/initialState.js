@@ -2,12 +2,12 @@ const initialState = {
   group: {
     groupName: "",
     groupId: "",
-    administratorPassword: "",
-    shiftList: [],
+    groupPassword: "",
     memberList: [],
   },
   shift: {
     shiftList: [],
+    prevShiftList: [],
   },
   users: {
     isSignedIn: false,

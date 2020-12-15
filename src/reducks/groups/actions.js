@@ -5,7 +5,7 @@ export const groupInAction = (groupState) => {
     payload: {
       groupName: groupState.groupName,
       groupId: groupState.groupId,
-      administratorPassword: groupState.administratorPassword,
+      groupPassword: groupState.groupPassword,
       memberList: groupState.memberList,
       managementList: groupState.managementList,
     }
@@ -18,6 +18,7 @@ export const fetchShiftsListAction = (shiftState) => {
     type: "FETCH_SHIFTLIST",
     payload: {
       shiftList: shiftState.shiftList,
+      prevShiftList: shiftState.prevShiftList,
     }
   }
 }

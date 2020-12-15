@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { PrimaryButton, ToggleShift, ConfirmDialog } from '../components/UIkit/index';
 import {saveShifts} from '../reducks/groups/operations';
-import { getUserName } from '../reducks/users/selectors';
+import { getUserName, getUserId } from '../reducks/users/selectors';
 import {getGroupId, getGroupName} from '../reducks/groups/selectors';
 
 const d = new Date();
@@ -26,10 +26,17 @@ const RegistShift = () => {
   const [sunday, setSunday] = useState("");
 
   const [open, setOpen] = React.useState(false);
+  const uid = getUserId(selector);
+  console.log(uid)
   // const [emptyTime, setEmptyTime] = useState(true);
+
+  const sun = d.getDay() === 0 ? 7 : d.getDay();
+  const s = d.getDate() + (14 - sun + 1);
+  const firstDate = new Date(y, m - 1, s);
+  const finishDate = new Date(y, m - 1, s + 6);
   
-  const startDate = d.getDate() + ((14 - d.getDay() + 1));
-  const firstDate = new Date(y, m - 1, startDate);
+  // const startDate = d.getDate() + ((14 - d.getDay() + 1));
+  // const firstDate = new Date(y, m - 1, startDate);
   const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
   const shiftWeek = [{func: setMonday, name: monday},{func: setTuesday, name: tuesday}, {func: setWednesday, name: wednesday}, {func: setThursday, name: thursday}, {func: setFriday, name: friday}, {func: setSaturday, name: saturday}, {func: setSunday, name: sunday}]
   
@@ -51,7 +58,7 @@ const RegistShift = () => {
       arr.push(shift.name)
     })
     
-    dispatch(saveShifts(groupId, dateId, arr, username));
+    dispatch(saveShifts(groupId, arr, username, uid));
     setOpen(false);
   }
 

@@ -23,6 +23,11 @@ export const getShiftList = createSelector(
   state => state.shiftList
 )
 
+export const getPrevShiftList = createSelector(
+  [shiftsSelector],
+  state => state.prevShiftList
+)
+
 export const getMemberList = createSelector(
   [groupsSelector],
   state => state.memberList

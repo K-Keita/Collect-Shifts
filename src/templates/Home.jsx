@@ -23,7 +23,6 @@ const Home = () => {
 
   return (
     <div className="main-container">
-      <h3>{startDate}〜{endDate}のシフト締め切りは{deadlineDate}です。</h3>
       <h2 className="main-title">Home</h2>
       <div className="calendar-container">
         <Calendar 
@@ -36,13 +35,16 @@ const Home = () => {
           maxDate={maxDate}
           next2Label={null}
           prev2Label={null}
-        />
+          />
       </div>
       
-      <h4 className="sub-title">〜連絡事項〜</h4>
+      <div className="midium-space" />
       <TextArea text={"特になし"} />
 
+      <h3>・シフト範囲: 　{startDate}〜{endDate}</h3>
+      <h3>・締め切り　: 　{deadlineDate}</h3>
       
+      {/* <h4 className="sub-title">〜連絡事項〜</h4> */}
 
     </div>
   )

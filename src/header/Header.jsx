@@ -12,6 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import blueGrey from '@material-ui/core/colors/blueGrey'
 import {getGroupName} from '../reducks/groups/selectors';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { getIsSignedIn } from '../reducks/users/selectors';
 
 const useStyles = makeStyles((theme) => ({
   iconBox: {
@@ -46,7 +47,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const selector = useSelector(state => state)
 
-  const groupName = getGroupName(selector)
+  const groupName = getGroupName(selector);
+  const isSignedIn = getIsSignedIn(selector);
 
   return (
       <AppBar position="fixed" className={classes.root}>
@@ -55,12 +57,15 @@ const Header = () => {
           <Typography variant="h6" className={classes.headTitle}>
             {groupName}
           </Typography>
-          <div className={classes.iconBox}>
+            {isSignedIn && (
+              
+              <div className={classes.iconBox}>
         <IconButton className={classes.icon} onClick={() => dispatch(signOut())} color="inherit">
               <ExitToAppIcon />
             </IconButton>
             <p className={classes.iconText}>ログアウト</p>
           </div>
+              )}
         </Toolbar>
       </AppBar>
   );
