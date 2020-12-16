@@ -1,13 +1,13 @@
-import React from 'react';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import blueGrey from "@material-ui/core/colors/blueGrey";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    width: '90%',
+    width: "90%",
     margin: "5px auto 25px",
     maxWidth: 360,
     backgroundColor: blueGrey[400],
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     padding: 3,
     backgroundColor: blueGrey[500],
     borderBottom: "solid 1px #cfd8dc",
-  }
+  },
 });
 
 const UsersList = (props) => {
@@ -36,14 +36,14 @@ const UsersList = (props) => {
     <List component="nav" className={classes.root} aria-label="mailbox folders">
       <p className={classes.title}>{props.title}</p>
       {props.memberList.map((member, index) => {
-        return(
-        <ListItem key={String(index)} className={classes.child} divider>
-          <ListItemText primary={member} />
-        </ListItem>
-          )
+        return (
+          <ListItem key={String(index)} className={classes.child} divider>
+            <ListItemText primary={member} />
+          </ListItem>
+        );
       })}
     </List>
   );
-}
+};
 
 export default UsersList;

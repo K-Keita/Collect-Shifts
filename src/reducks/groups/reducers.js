@@ -20,8 +20,8 @@ export const ShiftsListReducer = (state = initialState.shift, action) => {
         ...state,
         ...action.payload,
       };
-    
-      default: 
-        return state;
+
+    default:
+      return state;
   }
-}
+};

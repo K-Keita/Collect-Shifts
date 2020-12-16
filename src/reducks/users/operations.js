@@ -1,9 +1,9 @@
 import { auth, db, FirebaseTimestamp } from "../../firebase/index";
 import { push } from "connected-react-router";
-import {signInAction, signOutAction} from './actions';
-import {groupIn} from '../groups/operations';
-import {fetchShifts} from '../groups/operations';
-import {changeMemberName} from '../groups/operations';
+import { signInAction, signOutAction } from "./actions";
+import { groupIn } from "../groups/operations";
+import { fetchShifts } from "../groups/operations";
+import { changeMemberName } from "../groups/operations";
 
 const usersRef = db.collection("users");
 const d = new Date();
@@ -20,8 +20,8 @@ export const deleteGroupId = (uid, groupId) => {
     }
 
     const updateData = {
-      groupId: ""
-    }
+      groupId: "",
+    };
 
     dispatch(
       signInAction({
@@ -31,13 +31,15 @@ export const deleteGroupId = (uid, groupId) => {
         username: data.username,
         groupId: "",
       })
-    )
-    db.collection("users").doc(uid).set(updateData, {merge: true})
+    );
+    db.collection("users")
+      .doc(uid)
+      .set(updateData, { merge: true })
       .then(() => {
-        dispatch(push("/enter"))
-      })
-  }
-}
+        dispatch(push("/enter"));
+      });
+  };
+};
 
 export const listenAuthState = () => {
   const sun = d.getDay() === 0 ? 7 : d.getDay();
@@ -45,41 +47,41 @@ export const listenAuthState = () => {
   const firstDate = new Date(y, m - 1, s);
   const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
   return async (dispatch) => {
-    return auth.onAuthStateChanged( async (user) => {
+    return auth.onAuthStateChanged(async (user) => {
       if (user) {
         const uid = user.uid;
 
-        const doc = await usersRef.doc(uid).get()
-            const data = doc.data();
-            const groupId = data.groupId;
+        const doc = await usersRef.doc(uid).get();
+        const data = doc.data();
+        const groupId = data.groupId;
 
-            dispatch(
-              signInAction({
-                isSignIn: true,
-                role: data.role,
-                uid: uid,
-                username: data.username,
-                groupId: groupId,
-              })
-            )
-            if (groupId !== "") {
-              dispatch(fetchShifts(groupId, dateId))
-              dispatch(groupIn(groupId))
-            } 
+        dispatch(
+          signInAction({
+            isSignIn: true,
+            role: data.role,
+            uid: uid,
+            username: data.username,
+            groupId: groupId,
+          })
+        );
+        if (groupId !== "") {
+          dispatch(fetchShifts(groupId, dateId));
+          dispatch(groupIn(groupId));
+        }
       } else {
         dispatch(push("/top"));
       }
-    })
-  }
+    });
+  };
 };
 
 export const changeName = (name, uid, groupId) => {
   return async (dispatch) => {
     const snapshot = await db.collection("users").doc(uid).get();
-    const data = snapshot.data()
+    const data = snapshot.data();
     const updateData = {
-      username: name
-    }
+      username: name,
+    };
     dispatch(
       signInAction({
         isSignIn: true,
@@ -88,21 +90,22 @@ export const changeName = (name, uid, groupId) => {
         username: name,
         groupId: data.groupId,
       })
-    )
-    db.collection("users").doc(uid).set(updateData, {merge: true})
+    );
+    db.collection("users")
+      .doc(uid)
+      .set(updateData, { merge: true })
       .then(() => {
-
-        dispatch(changeMemberName(name, uid, groupId))
-      })
-  }
-}
+        dispatch(changeMemberName(name, uid, groupId));
+      });
+  };
+};
 
 export const signIn = (email, password) => {
   return async (dispatch) => {
     const timestamp = FirebaseTimestamp.now();
     auth.signInWithEmailAndPassword(email, password).then((result) => {
       const user = result.user;
-      
+
       if (user) {
         const uid = user.uid;
 
@@ -124,7 +127,7 @@ export const signIn = (email, password) => {
             );
 
             dispatch(push("/"));
-            console.log("test-ol")
+            console.log("test-ol");
           })
           .catch(() => {
             alert("メールアドレスとパスワードが一致しません");
@@ -132,9 +135,8 @@ export const signIn = (email, password) => {
           });
       }
     });
-
-  }
-}
+  };
+};
 
 export const resetPassword = (email) => {
   return async (dispatch) => {
@@ -145,17 +147,17 @@ export const resetPassword = (email) => {
     //   alert("メールアドレスの形式が不正です。");
     //   return false;
     // }
-      auth
-        .sendPasswordResetEmail(email)
-        .then(() => {
-          alert(
-            "入力されたアドレスにパスワードリセット用のメールをお送りしました。"
-          );
-          dispatch(push("/signin"));
-        })
-        .catch(() => {
-          alert("パスワードリセットに失敗しました。通信状況をご確認ください");
-        });
+    auth
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        alert(
+          "入力されたアドレスにパスワードリセット用のメールをお送りしました。"
+        );
+        dispatch(push("/signin"));
+      })
+      .catch(() => {
+        alert("パスワードリセットに失敗しました。通信状況をご確認ください");
+      });
   };
 };
 
@@ -183,7 +185,7 @@ export const signUp = (username, email, password, confirmPassword) => {
 
     return auth
       .createUserWithEmailAndPassword(email, password)
-      .then( async (result) => {
+      .then(async (result) => {
         const user = result.user;
 
         if (user) {
@@ -200,22 +202,23 @@ export const signUp = (username, email, password, confirmPassword) => {
             groupId: "",
           };
 
-          usersRef.doc(uid).set(userInitialData)
+          usersRef
+            .doc(uid)
+            .set(userInitialData)
             .then(() => {
               dispatch(push("/enter"));
-            })
-
+            });
         }
       });
-  }
-}
+  };
+};
 
 export const saveGroupId = (groupId, uid, username) => {
   // const timestamp = FirebaseTimestamp.now();
   return async (dispatch) => {
     const data = {
-      groupId: groupId
-    }
+      groupId: groupId,
+    };
 
     dispatch(
       signInAction({
@@ -226,14 +229,15 @@ export const saveGroupId = (groupId, uid, username) => {
         groupId: groupId,
       })
     );
-    db.collection("users").doc(uid).set(data, {merge: true})
+    db.collection("users")
+      .doc(uid)
+      .set(data, { merge: true })
       .then(() => {
-        alert ("保存しました");
+        alert("保存しました");
         dispatch(push("/"));
-      })
-
-  }
-}
+      });
+  };
+};
 
 export const signOut = () => {
   return async (dispatch) => {

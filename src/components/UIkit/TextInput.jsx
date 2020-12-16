@@ -1,7 +1,7 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import blueGrey from '@material-ui/core/colors/blueGrey';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import blueGrey from "@material-ui/core/colors/blueGrey";
 
 const useStyles = makeStyles({
   root: {
@@ -15,25 +15,25 @@ const useStyles = makeStyles({
     padding: 0,
     margin: "-8px 0 0 0",
   },
-})
+});
 
 const TextInput = (props) => {
   const classes = useStyles();
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <TextField 
+      <TextField
         className={classes.textField}
         fullWidth={true}
-        id={props.id} 
+        id={props.id}
         value={props.value}
-        label={props.label} 
-        variant="filled" 
+        label={props.label}
+        variant="filled"
         type={props.type}
         onChange={props.onChange}
-        />
+      />
     </form>
   );
-}
+};
 
 export default TextInput;

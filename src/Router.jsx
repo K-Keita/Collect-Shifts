@@ -1,12 +1,24 @@
 import React from "react";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router";
-import {CreateGroupPage, EnterGroupPage, Home, ManagementPage, Members, RegistShift, Reset, ShiftList, SignIn, SignUp, Top} from "./templates/index";
+import {
+  CreateGroupPage,
+  EnterGroupPage,
+  Home,
+  ManagementPage,
+  Members,
+  RegistShift,
+  Reset,
+  ShiftList,
+  SignIn,
+  SignUp,
+  Top,
+} from "./templates/index";
 import Auth from "./Auth";
-import {getUserGroupId} from './reducks/users/selectors';
+import { getUserGroupId } from "./reducks/users/selectors";
 
 const Router = () => {
-  const selector = useSelector(state => state)
+  const selector = useSelector((state) => state);
   const groupId = getUserGroupId(selector);
 
   return (

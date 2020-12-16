@@ -9,9 +9,9 @@ export const groupInAction = (groupState) => {
       memberList: groupState.memberList,
       managementList: groupState.managementList,
       groupIcon: groupState.groupIcon,
-    }
-  }
-}
+    },
+  };
+};
 
 export const FETCH_SHIFTLIST = "FETCH_SHIFTLIST";
 export const fetchShiftsListAction = (shiftState) => {
@@ -20,6 +20,6 @@ export const fetchShiftsListAction = (shiftState) => {
     payload: {
       shiftList: shiftState.shiftList,
       prevShiftList: shiftState.prevShiftList,
-    }
-  }
-}
+    },
+  };
+};

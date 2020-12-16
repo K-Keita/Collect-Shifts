@@ -3,16 +3,14 @@ import "./styles/App.css";
 import { Header } from "./header/index";
 import { Footer } from "./footer/index";
 import Router from "./Router";
-import 'react-calendar/dist/Calendar.css';
-
+import "react-calendar/dist/Calendar.css";
 
 const App = () => {
-
   return (
     <>
       <Header />
       <main className="main">
-      <Router />
+        <Router />
       </main>
       <Footer />
     </>

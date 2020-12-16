@@ -1,14 +1,13 @@
-import React from 'react'
-import {useDispatch} from 'react-redux';
-import topImage from '../images/topImage.jpg';
-import {push} from 'connected-react-router';
+import React from "react";
+import { useDispatch } from "react-redux";
+import topImage from "../images/topImage.jpg";
+import { push } from "connected-react-router";
 
 const Top = () => {
   const dispatch = useDispatch();
 
-
   return (
-    <div style={{overflow: "hidden"}}>
+    <div style={{ overflow: "hidden" }}>
       <div>
         <img src={topImage} alt="maintitle" className="image-box" />
       </div>
@@ -21,7 +20,7 @@ const Top = () => {
         <p onClick={() => dispatch(push("/signin"))}>ログイン</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Top
+export default Top;

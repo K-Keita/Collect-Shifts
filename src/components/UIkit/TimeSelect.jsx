@@ -1,10 +1,10 @@
-import React from 'react';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import React from "react";
+import blueGrey from "@material-ui/core/colors/blueGrey";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   dropdownStyle: {
@@ -28,7 +28,7 @@ const TimeSelect = (props) => {
   const classes = useStyles();
 
   return (
-      <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl}>
       <InputLabel id="select-label">{props.label}</InputLabel>
       <Select
         labelId="select-label"
@@ -57,6 +57,6 @@ const TimeSelect = (props) => {
       </Select>
     </FormControl>
   );
-}
+};
 
 export default TimeSelect;
