@@ -23,7 +23,7 @@ const ShiftList = () => {
   }
 
   const prevShiftWeek = [];
-  for (var i = 0; i < 7; i++) {
+  for (var index = 0; index < 7; index ++) {
     const shiftDate = (prevFirstDate.getDate());
     const shiftDay = ["日", "月", "火", "水", "木", "金", "土"][prevFirstDate.getDay()];
 

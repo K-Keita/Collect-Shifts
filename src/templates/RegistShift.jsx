@@ -27,24 +27,15 @@ const RegistShift = () => {
 
   const [open, setOpen] = React.useState(false);
   const uid = getUserId(selector);
-  console.log(uid)
-  // const [emptyTime, setEmptyTime] = useState(true);
 
   const sun = d.getDay() === 0 ? 7 : d.getDay();
   const s = d.getDate() + (14 - sun + 1);
   const firstDate = new Date(y, m - 1, s);
-  const finishDate = new Date(y, m - 1, s + 6);
   
-  // const startDate = d.getDate() + ((14 - d.getDay() + 1));
-  // const firstDate = new Date(y, m - 1, startDate);
   const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
   const shiftWeek = [{func: setMonday, name: monday},{func: setTuesday, name: tuesday}, {func: setWednesday, name: wednesday}, {func: setThursday, name: thursday}, {func: setFriday, name: friday}, {func: setSaturday, name: saturday}, {func: setSunday, name: sunday}]
   
   const handleClickOpen = () => {
-    // if (!emptyTime) {
-    //   alert ("空白があります");
-    //   return false;
-    // }
     setOpen(true);
   };
   
@@ -55,7 +46,7 @@ const RegistShift = () => {
   const enterShift = () => {
     const arr = []
     shiftWeek.map(shift => {
-      arr.push(shift.name)
+      return arr.push(shift.name)
     })
     
     dispatch(saveShifts(groupId, arr, username, uid));

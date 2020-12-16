@@ -1,9 +1,7 @@
-import {auth, db, FirebaseTimestamp} from '../../firebase/index';
+import {db, FirebaseTimestamp} from '../../firebase/index';
 import { fetchShiftsListAction, groupInAction } from '../groups/actions';
 import {saveGroupId, deleteGroupId} from '../users/operations';
 import {push} from 'connected-react-router'
-import { ControlPointSharp } from '@material-ui/icons';
-import ExitGroup from '../../SettingPages/ExitGroup';
 
 const d = new Date();
 const y = d.getFullYear();
@@ -15,6 +13,33 @@ const prevFirstDate = new Date(y, m - 1, s - 7);
 const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
 const prevDateId = `${prevFirstDate.getFullYear()}${prevFirstDate.getMonth()}${prevFirstDate.getDate()}`;
 console.log(prevDateId)
+
+export const saveGroupIcon = (images, groupId, password) => {
+  return async (dispatch) => {
+    const snapshot = await db.collection("groups").doc(groupId).get()
+    const data = snapshot.data();
+    if (data.password !== password) {
+      alert ("パスワードが違います");
+      return false;
+    }
+
+    const updateData = {
+      groupIcon: images
+    }
+
+    db.collection("groups").doc(groupId).set(updateData, {merge: true})
+      .then(() => {
+        dispatch(groupInAction({
+          groupId: groupId,
+          groupPassword: data.groupPassword,
+          groupName: data.groupName,
+          memberList: data.memberList,
+          groupIcon: images,
+        }))
+        alert ("アイコンを変更しました")
+      })
+  }
+}
 
 
 export const createGroup = (groupName, groupId, groupPassword, username, uid) => {
@@ -38,7 +63,8 @@ export const createGroup = (groupName, groupId, groupPassword, username, uid) =>
       groupPassword: groupPassword,
       created_at: timestamp,
       updated_at: timestamp,
-      memberList: [memberList]
+      memberList: [memberList],
+      groupIcon: "",
     }
 
     dispatch(groupInAction({
@@ -46,6 +72,7 @@ export const createGroup = (groupName, groupId, groupPassword, username, uid) =>
       groupPassword: groupPassword,
       groupName: groupName,
       memberList: [memberList],
+      groupIcon: "",
     }))
 
     // const fetch = await dispatch(fetchShifts(groupId, dateId))
@@ -69,7 +96,7 @@ export const deleeteShift = (uid, groupId, username) => {
       if(value.name === username) {
         return false;
       }
-      upShift.push(value);
+      return upShift.push(value);
     })
     const updateData = {
       shiftList: upShift,
@@ -101,7 +128,7 @@ export const exitGroup = (uid, groupId, username) => {
       if (value.name === username && value.id === uid) {
         return false
       } 
-      updateList.push(value);
+      return updateList.push(value);
     })
     const updateData = {
       memberList: updateList,
@@ -117,6 +144,7 @@ export const exitGroup = (uid, groupId, username) => {
           groupPassword: data.groupPassword,
           groupName: data.groupName,
           memberList: updateList,
+          groupIcon: data.groupIcon,
         }))
       })
 
@@ -155,9 +183,10 @@ export const enterGroup = (groupname, groupId, username, uid) => {
       groupPassword: data.groupPassword,
       groupName: data.groupName,
       memberList: memberList,
+      groupIcon: data.groupIcon
     }))
 
-    const fetch = await dispatch(fetchShifts(groupId, dateId))
+    dispatch(fetchShifts(groupId, dateId))
 
     db.collection("groups").doc(id).set(newData, {merge: true})
       .then(() => {
@@ -262,7 +291,7 @@ export const saveShifts = (groupId, shift, name, uid) => {
       const shiftList = data.shiftList;
       const arr = [];
       shiftList.map(value => {
-        arr.push(value.name);
+        return arr.push(value.name);
       })
       if (arr.includes(newData.name)) {
         alert("既に登録されています。")
@@ -361,14 +390,14 @@ export const registManage = (managePassword, uid, groupId) => {
   return async (dispatch) => {
     const snapshot = await db.collection("groups").doc(groupId).get()
     const data = snapshot.data()
-    if (data.groupPassword !== managePassword) {
+    if (data.password !== managePassword) {
       alert ("管理者パスワードが違います");
       return false;
     } 
 
     const memberList = data.memberList;
     memberList.forEach(value => {
-      if (value.pass === uid) {
+      if (value.id === uid) {
         value.manage = true;
       }
     })
@@ -380,6 +409,7 @@ export const registManage = (managePassword, uid, groupId) => {
       groupPassword: data.groupPassword,
       groupName: data.groupName,
       memberList: memberList,
+      groupIcon: data.groupIcon
     }))
     db.collection("groups").doc(groupId).set(updateData, {merge: true})
       .then(() => {
@@ -410,6 +440,7 @@ export const changeMemberName = (name, uid, groupId) => {
       groupPassword: data.groupPassword,
       groupName: data.groupName,
       memberList: memberList,
+      groupIcon: data.groupIcon,
     }))
 
     db.collection("groups").doc(groupId).set(updateData, {merge: true})
@@ -440,6 +471,7 @@ export const changeGroupName = (groupId, newGroupName, password) => {
       groupPassword: data.groupPassword,
       groupName: newGroupName,
       memberList: data.memberList,
+      groupIcon: data.groupIcon,
     }))
 
     db.collection("groups").doc(groupId).set(updateData, {merge: true})
@@ -489,6 +521,7 @@ export const groupIn = (groupId) => {
             groupPassword: data.groupPassword,
             groupName: data.groupName,
             memberList: memberList,
+            groupIcon: data.groupIcon,
           }))
         })
   }

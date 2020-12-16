@@ -67,7 +67,7 @@ export const listenAuthState = () => {
               dispatch(groupIn(groupId))
             } 
       } else {
-        dispatch(push("/signin"));
+        dispatch(push("/top"));
       }
     })
   }
@@ -145,7 +145,6 @@ export const resetPassword = (email) => {
     //   alert("メールアドレスの形式が不正です。");
     //   return false;
     // }
-    {
       auth
         .sendPasswordResetEmail(email)
         .then(() => {
@@ -157,7 +156,6 @@ export const resetPassword = (email) => {
         .catch(() => {
           alert("パスワードリセットに失敗しました。通信状況をご確認ください");
         });
-    }
   };
 };
 
@@ -202,16 +200,18 @@ export const signUp = (username, email, password, confirmPassword) => {
             groupId: "",
           };
 
-          const snapshot = await usersRef.doc(uid).set(userInitialData);
+          usersRef.doc(uid).set(userInitialData)
+            .then(() => {
+              dispatch(push("/enter"));
+            })
 
-          dispatch(push("/enter"));
         }
       });
   }
 }
 
 export const saveGroupId = (groupId, uid, username) => {
-  const timestamp = FirebaseTimestamp.now();
+  // const timestamp = FirebaseTimestamp.now();
   return async (dispatch) => {
     const data = {
       groupId: groupId
@@ -226,10 +226,12 @@ export const saveGroupId = (groupId, uid, username) => {
         groupId: groupId,
       })
     );
-    const setData = await db.collection("users").doc(uid).set(data, {merge: true});
+    db.collection("users").doc(uid).set(data, {merge: true})
+      .then(() => {
+        alert ("保存しました");
+        dispatch(push("/"));
+      })
 
-    alert ("保存しました");
-    dispatch(push("/"));
   }
 }
 

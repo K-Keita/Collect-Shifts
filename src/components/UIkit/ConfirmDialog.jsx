@@ -1,34 +1,34 @@
 import React from 'react'
+import blueGrey from '@material-ui/core/colors/blueGrey';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import blueGrey from '@material-ui/core/colors/blueGrey';
 
 const useStyles = makeStyles({
-  dialogTitle: {
-    padding: "8px 3px",
-    textAlign: "center",
-    borderBottom: "solid 1px #eceff1",
-    backgroundColor: blueGrey[400],
-  },
-  dialogText: {
-    fontWeight: "bold",
-    color: blueGrey[50],
-    padding: 3,
-  },
   dialog: {
-    border: "solid 1px #eceff1",
     backgroundColor: blueGrey[300],
+    border: "solid 1px #eceff1",
     color: blueGrey[50],
     width: 290,
   }, 
-  dialogButton: {
+  dialogText: {
     color: blueGrey[50],
+    fontWeight: "bold",
+    padding: 3,
+  },
+  dialogTitle: {
+    backgroundColor: blueGrey[400],
+    borderBottom: "solid 1px #eceff1",
+    padding: "8px 3px",
+    textAlign: "center",
+  },
+  dialogButton: {
     backgroundColor: blueGrey[500],
+    color: blueGrey[50],
     "&:hover": {
       backgroundColor: blueGrey[700],
     }

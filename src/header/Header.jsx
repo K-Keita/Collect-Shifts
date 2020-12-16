@@ -1,18 +1,14 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import {useDispatch, useSelector} from 'react-redux';
-import {signOut} from '../reducks/users/operations';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles } from '@material-ui/core/styles';
 import blueGrey from '@material-ui/core/colors/blueGrey'
-import {getGroupName} from '../reducks/groups/selectors';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {getGroupIcon, getGroupName} from '../reducks/groups/selectors';
 import { getIsSignedIn } from '../reducks/users/selectors';
+import { ImagePreview } from '../components';
+import {push} from 'connected-react-router'
 
 const useStyles = makeStyles((theme) => ({
   iconBox: {
@@ -24,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
   headTitle: {
     margin: "0 10px 0 auto"
+  },
+  topTitle: {
+    margin: "0 10px 0 auto",
+    cursor: "pointer"
   },
   root: {
     background: blueGrey[400],
@@ -49,23 +49,29 @@ const Header = () => {
 
   const groupName = getGroupName(selector);
   const isSignedIn = getIsSignedIn(selector);
+  const groupIcon = getGroupIcon(selector);
 
   return (
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <div>main title</div>
+          {isSignedIn ? (
+            <>
           <Typography variant="h6" className={classes.headTitle}>
             {groupName}
           </Typography>
-            {isSignedIn && (
-              
-              <div className={classes.iconBox}>
-        <IconButton className={classes.icon} onClick={() => dispatch(signOut())} color="inherit">
-              <ExitToAppIcon />
-            </IconButton>
-            <p className={classes.iconText}>ログアウト</p>
-          </div>
-              )}
+          {groupIcon !== "" && (
+            <ImagePreview path={groupIcon.path} />
+          )}
+          </>
+          ): (
+           window.location.pathname !== ("/top") && (
+          <Typography className={classes.topTitle} onClick={() => dispatch(push("/top"))}>
+            タイトル画面
+          </Typography>
+          )
+          )}
+
         </Toolbar>
       </AppBar>
   );

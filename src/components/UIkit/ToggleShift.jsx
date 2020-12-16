@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import {TimeSelect} from './index'
+import blueGrey from '@material-ui/core/colors/blueGrey';
 import LoopIcon from '@material-ui/icons/Loop';
 import { IconButton } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core';
-import blueGrey from '@material-ui/core/colors/blueGrey';
+import {TimeSelect} from './index'
 
 const useStyles = makeStyles({
   icon: {

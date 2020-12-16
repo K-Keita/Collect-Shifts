@@ -32,3 +32,8 @@ export const getMemberList = createSelector(
   [groupsSelector],
   state => state.memberList
 )
+
+export const getGroupIcon = createSelector(
+  [groupsSelector],
+  state => state.groupIcon
+)

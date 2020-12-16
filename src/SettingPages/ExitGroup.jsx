@@ -12,8 +12,6 @@ const ExitGroup = () => {
   const username = getUserName(selector)
   const groupId = getGroupId(selector);
   const uid = getUserId(selector)
-  console.log(uid, username)
-
 
   return (
     <div className="content-button">

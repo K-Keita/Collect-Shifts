@@ -37,7 +37,9 @@ const useStyles = makeStyles({
     margin: 0,
     top: 'auto',
     bottom: 0,
-    background: blueGrey[400]
+    background: blueGrey[400],
+    borderTop: "solid 2px #37474f",
+    boxSizing: "border-box",
   },
 });
 

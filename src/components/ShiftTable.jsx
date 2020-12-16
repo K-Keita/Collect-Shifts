@@ -6,7 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import blueGrey from '@material-ui/core/colors/blueGrey';
-import { blue } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   table: {

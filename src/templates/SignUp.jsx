@@ -34,7 +34,7 @@ const CreateGroupPage = () => {
       <div className="midium-space" />
       <PrimaryButton onClick={() => dispatch(signUp(username, email, password, confirmPassword))} label={"登録"} width={"70%"} fullWidth={true} />
     <div className="w-border" />
-    <PrimaryButton label={"ログイン"} width={"50%"} fullWidth={true} onClick={() => dispatch(push("/signin"))} />
+    <PrimaryButton label={"アカウントをお持ちの方"} width={"55%"} fullWidth={true} onClick={() => dispatch(push("/signin"))} />
     </div>
   )
 }

@@ -2,17 +2,17 @@ import React from 'react'
 import { Divider } from '@material-ui/core';
 import {useSelector} from 'react-redux';
 import { UsersList } from '../components/UIkit'
-import {getManagementList, getMemberList, getShiftList} from '../reducks/groups/selectors';
+import {getMemberList, getShiftList} from '../reducks/groups/selectors';
 
 const getName = (arr, newArr) => {
   arr.map(value => {
-    newArr.push(value.name)
+    return newArr.push(value.name)
   })
 }
 const getManage = (arr, newArr) => {
   arr.map(value => {
     if (value.manage) {
-      newArr.push(value.name);
+      return newArr.push(value.name);
     }
   })
 }
@@ -30,7 +30,6 @@ const Members = () => {
   getName(memberList, member);
   getName(shiftList, shift);
   getManage(memberList, manager);
-
 
   const handInShift = [...new Set(member)].filter(value => shift.includes(value))
   

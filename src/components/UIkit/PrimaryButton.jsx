@@ -1,21 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import blueGrey from '@material-ui/core/colors/blueGrey'
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   button: {
     background: blueGrey[300],
+    border: "solid 1.5px #fff",
+    boxSizing: "border-box",
     color: blueGrey[50],
     fontSize: 14,
     padding: "3px 0",
-    border: "solid 1.5px #fff",
-    boxSizing: "border-box",
     '&:hover': {
       background: blueGrey[500],
       fontSize: 16, 
-      padding: 0,
       fontWeight: "bold",
+      padding: 0,
     }
   }
 })

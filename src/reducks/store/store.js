@@ -8,7 +8,6 @@ import thunk from "redux-thunk";
 
 import { GroupsReducer } from "../groups/reducers";
 import { ShiftsListReducer } from "../groups/reducers";
-// import { ShiftsListReducer } from "../groups/reducers";
 import { UsersReducer } from "../users/reducers";
 
 export default function createStore(history) {

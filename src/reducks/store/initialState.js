@@ -4,6 +4,7 @@ const initialState = {
     groupId: "",
     groupPassword: "",
     memberList: [],
+    groupIcon: "",
   },
   shift: {
     shiftList: [],

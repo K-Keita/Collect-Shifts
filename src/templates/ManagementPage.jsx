@@ -1,18 +1,17 @@
-import React, {useCallback, useState} from 'react'
-import {useDispatch} from 'react-redux';
-import { PrimaryButton, TextInput } from '../components/UIkit';
+import React from 'react'
 import {ToggleContent} from '../components/index';
-import {ChangeGroupName, ChangeName, ChangePassword, ExitGroup, RegistManage} from '../SettingPages/index';
-import { Divider } from '@material-ui/core';
+import {ChangeGroupName, ChangeName, SaveGroupIcon, ExitGroup, RegistManage, SignOut} from '../SettingPages/index';
 
 const ManagementPage = () => {
   const changeName =  <ChangeName />
 
-  // const changePassword = <ChangePassword />
-
   const registManagement = <RegistManage />
+
+  const saveGroupIcon = <SaveGroupIcon />
   
   const changeGroupName = <ChangeGroupName />
+
+  const signout = <SignOut />
 
   const exitGroup = <ExitGroup />
 
@@ -20,7 +19,9 @@ const ManagementPage = () => {
   const contentArr = [
     {name: "名前の変更", content: changeName},
     {name: "グループ名の変更", content: changeGroupName},
+    {name: "グループアイコンの変更", content: saveGroupIcon},
     {name: "管理者登録", content: registManagement},
+    {name: "ログアウト", content: signout},
     {name: "グループを退会", content: exitGroup}
   ]
 

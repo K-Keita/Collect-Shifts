@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import {TextArea} from '../components/UIkit/index';
 
 const d = new Date();
 const y = d.getFullYear();
@@ -35,16 +34,15 @@ const Home = () => {
           maxDate={maxDate}
           next2Label={null}
           prev2Label={null}
-          />
+        />
       </div>
       
       <div className="midium-space" />
-      <TextArea text={"特になし"} />
 
+      <div className="main-container">
       <h3>・シフト範囲: 　{startDate}〜{endDate}</h3>
       <h3>・締め切り　: 　{deadlineDate}</h3>
-      
-      {/* <h4 className="sub-title">〜連絡事項〜</h4> */}
+      </div>
 
     </div>
   )

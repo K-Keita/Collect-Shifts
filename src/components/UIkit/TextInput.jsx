@@ -25,7 +25,7 @@ const TextInput = (props) => {
       <TextField 
         className={classes.textField}
         fullWidth={true}
-        id="outlined-basic" 
+        id={props.id} 
         value={props.value}
         label={props.label} 
         variant="filled" 

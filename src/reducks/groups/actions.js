@@ -8,6 +8,7 @@ export const groupInAction = (groupState) => {
       groupPassword: groupState.groupPassword,
       memberList: groupState.memberList,
       managementList: groupState.managementList,
+      groupIcon: groupState.groupIcon,
     }
   }
 }
