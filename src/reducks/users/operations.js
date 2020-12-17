@@ -4,6 +4,7 @@ import { signInAction, signOutAction } from "./actions";
 import { groupIn } from "../groups/operations";
 import { fetchShifts } from "../groups/operations";
 import { changeMemberName } from "../groups/operations";
+import {groupOutAction} from "../groups/actions";
 
 const usersRef = db.collection("users");
 const d = new Date();
@@ -23,20 +24,13 @@ export const deleteGroupId = (uid, groupId) => {
       groupId: "",
     };
 
-    dispatch(
-      signInAction({
-        isSignIn: true,
-        role: data.role,
-        uid: uid,
-        username: data.username,
-        groupId: "",
-      })
-    );
-    db.collection("users")
+    const setData = await db.collection("users")
       .doc(uid)
       .set(updateData, { merge: true })
-      .then(() => {
-        dispatch(push("/enter"));
+
+      auth.signOut().then(() => {
+        dispatch(signOutAction());
+        dispatch(push("/top"));
       });
   };
 };
@@ -53,6 +47,7 @@ export const listenAuthState = () => {
 
         const doc = await usersRef.doc(uid).get();
         const data = doc.data();
+        console.log(data)
         const groupId = data.groupId;
 
         dispatch(
@@ -67,9 +62,11 @@ export const listenAuthState = () => {
         if (groupId !== "") {
           dispatch(fetchShifts(groupId, dateId));
           dispatch(groupIn(groupId));
+        } else {
+          dispatch(push("/enter"))
         }
       } else {
-        dispatch(push("/top"));
+        dispatch(push("/signin"));
       }
     });
   };
@@ -126,8 +123,11 @@ export const signIn = (email, password) => {
               })
             );
 
-            dispatch(push("/"));
-            console.log("test-ol");
+            if (data.groupId === "") {
+              dispatch(push("/enter"));
+            } else {
+              dispatch(push("/"));
+            }
           })
           .catch(() => {
             alert("メールアドレスとパスワードが一致しません");
@@ -202,12 +202,11 @@ export const signUp = (username, email, password, confirmPassword) => {
             groupId: "",
           };
 
-          usersRef
+          const setData = await usersRef
             .doc(uid)
             .set(userInitialData)
-            .then(() => {
-              dispatch(push("/enter"));
-            });
+
+          dispatch(push("/enter"));
         }
       });
   };
@@ -233,7 +232,7 @@ export const saveGroupId = (groupId, uid, username) => {
       .doc(uid)
       .set(data, { merge: true })
       .then(() => {
-        alert("保存しました");
+        alert("グループに加入しました");
         dispatch(push("/"));
       });
   };
@@ -243,7 +242,8 @@ export const signOut = () => {
   return async (dispatch) => {
     auth.signOut().then(() => {
       dispatch(signOutAction());
-      dispatch(push("/signin"));
+      dispatch(groupOutAction());
+      dispatch(push("/top"));
     });
   };
 };

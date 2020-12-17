@@ -13,6 +13,21 @@ export const groupInAction = (groupState) => {
   };
 };
 
+export const GROUP_OUT = "GROUP_OUT";
+export const groupOutAction = () => {
+  return {
+    type: "GROUP_OUT",
+    payload: {
+      groupName: "",
+      groupId: "",
+      groupPassword: "",
+      memberList: "",
+      managementList: "",
+      groupIcon: "",
+    },
+  };
+};
+
 export const FETCH_SHIFTLIST = "FETCH_SHIFTLIST";
 export const fetchShiftsListAction = (shiftState) => {
   return {

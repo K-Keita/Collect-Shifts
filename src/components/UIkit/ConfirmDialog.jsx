@@ -58,7 +58,7 @@ const ConfirmDialog = (props) => {
             {props.shiftWeek.map((shift, index) => {
               return (
                 <span key={String(index)}>
-                  {shift.date}({shift.day}) : {shift.name}
+                  {shift.date}({shift.day}) : {shift.name.lange}
                   <br />
                 </span>
               );

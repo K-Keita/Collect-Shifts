@@ -1,23 +1,23 @@
 const initialState = {
   group: {
-    groupName: "",
+    groupIcon: "",
     groupId: "",
+    groupName: "",
     groupPassword: "",
     memberList: [],
-    groupIcon: "",
   },
   shift: {
-    shiftList: [],
     prevShiftList: [],
+    shiftList: [],
   },
   users: {
+    groupId: "",
     isSignedIn: false,
     role: "",
+    management: false,
+    shift: [],
     uid: "",
     username: "",
-    shift: [],
-    management: false,
-    groupId: "",
   },
 };
 

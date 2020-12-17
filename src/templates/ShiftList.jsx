@@ -1,3 +1,4 @@
+import { CollectionsBookmarkOutlined } from "@material-ui/icons";
 import React from "react";
 import { useSelector } from "react-redux";
 import { ShiftTable } from "../components";
@@ -38,10 +39,13 @@ const ShiftList = () => {
   const selector = useSelector((state) => state);
   const shiftList = getShiftList(selector);
   const prevShiftList = getPrevShiftList(selector);
+  console.log(shiftList)
+  console.log(shiftWeek)
 
   return (
     <div className="aaa">
-      <h2>シフト一覧</h2>
+      <h3 className="sub-label_position">シフト一覧</h3>
+      <div className="midium-space" />
       <h3>
         {prevShiftWeek[0]}〜{prevShiftWeek[6]}
       </h3>

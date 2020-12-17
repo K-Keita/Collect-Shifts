@@ -13,6 +13,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import { useSelector } from "react-redux";
 import { getIsSignedIn } from "../reducks/users/selectors";
+import {getGroupId} from '../reducks/groups/selectors'
 
 const useStyles = makeStyles({
   iconBox: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
     top: "auto",
     bottom: 0,
     background: blueGrey[400],
-    borderTop: "solid 2px #37474f",
+    borderTop: "solid 2px #607d8b",
     boxSizing: "border-box",
   },
 });
@@ -48,6 +49,7 @@ const Footer = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const isSignedIn = getIsSignedIn(selector);
+  const groupId = getGroupId(selector);
 
   const templatePage = [
     { icon: <PeopleIcon />, path: "/list", text: "メンバー" },
@@ -64,7 +66,7 @@ const Footer = () => {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
-        {isSignedIn &&
+        {(isSignedIn && groupId !== "") &&
           templatePage.map((page, index) => {
             return (
               <div key={String(index)} className={classes.iconBox}>

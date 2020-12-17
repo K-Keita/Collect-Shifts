@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import {useSelector} from 'react-redux';
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { getUserName } from "../reducks/users/selectors";
+import { getGroupName, getShiftList } from "../reducks/groups/selectors";
 
 const d = new Date();
 const y = d.getFullYear();
@@ -8,6 +11,11 @@ const m = d.getMonth() + 1;
 
 const Home = () => {
   const [value, onChange] = useState(new Date());
+  const selector = useSelector(state => state)
+  const username = getUserName(selector);
+  const groupName = getGroupName(selector);
+  // const shiftList = getShiftList(selector);
+  // console.log(shiftList)
 
   const sun = d.getDay() === 0 ? 7 : d.getDay();
   const s = d.getDate() + (14 - sun + 1);
@@ -39,7 +47,9 @@ const Home = () => {
 
       <div className="midium-space" />
 
-      <div className="main-container">
+      <div className="text-area">
+        <h3>・名前　　　:　{username}</h3>
+        <h3>・グループ　:　{groupName}</h3>
         <h3>
           ・シフト範囲: 　{startDate}〜{endDate}
         </h3>

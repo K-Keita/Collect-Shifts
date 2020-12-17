@@ -36,22 +36,25 @@ const ToggleShift = React.memo((props) => {
   };
 
   useEffect(() => {
+    const i1 = timeLange.indexOf(start)
+    const i2 = timeLange.indexOf(end)
     if (!open) {
-      props.func("休み");
+      props.func({lange: "休み", time: 0});
     } else {
       if (
         start !== "" &&
         end !== "" &&
-        timeLange.indexOf(start) > timeLange.indexOf(end)
+        i1 > i2
       ) {
         alert("範囲に誤りがあります");
         setStart("");
         setEnd("");
       } else {
-        props.func(`${start}-${end}`);
+        props.func({lange: `${start}-${end}`, time: i2 - i1});
       }
     }
   }, [start, end, open]);
+  // console.log()
 
   return (
     <div className="d-flex f-between time-field">

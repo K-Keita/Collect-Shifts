@@ -8,6 +8,10 @@ export const GroupsReducer = (state = initialState.group, action) => {
         ...state,
         ...action.payload,
       };
+    case Actions.GROUP_OUT:
+      return {
+        ...action.payload,
+      };
     default:
       return state;
   }

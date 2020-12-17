@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   table: {
     minWidth: 720,
     maxWidth: 1000,
-    marginLeft: "1%",
+    margin: "0 1% 0 1%",
     border: "solid 2px #fff",
     borderRadius: 10,
   },
@@ -27,30 +27,34 @@ const useStyles = makeStyles({
   bodyCell: {
     background: blueGrey[300],
     border: "solid 1px #fff",
+    borderTop: "solid 2px #fff",
     padding: "12px 0px",
     textAlign: "center",
     color: "#fff",
   },
   bodyCell_name: {
     border: "solid 1px #fff",
+    borderTop: "solid 2px #fff",
     padding: "12px 0px",
     textAlign: "center",
     fontWeight: "bold",
     color: "#fff",
-    background: blueGrey[300],
+    background: blueGrey[400],
   },
   bodyCell_out: {
     border: "solid 1px #fff",
+    borderTop: "solid 2px #fff",
     padding: "12px 0px",
     textAlign: "center",
     color: "#fff",
     background: blueGrey[300],
-    opacity: 0.8,
+    opacity: 0.9,
   },
 });
 
 const ShiftTable = (props) => {
   const classes = useStyles();
+  console.log(props.shiftWeek)
 
   return (
     <Table className={classes.table} aria-label="simple table">
@@ -60,27 +64,13 @@ const ShiftTable = (props) => {
             名前
           </TableCell>
           {props.shiftWeek.map((value) => {
-            if (value === "休み") {
-              return (
-                <TableCell
+                return <TableCell
                   width="75px"
                   key={value}
                   className={classes.headCell}
                 >
                   {value}
                 </TableCell>
-              );
-            } else {
-              return (
-                <TableCell
-                  width="75px"
-                  key={value}
-                  className={classes.headCell}
-                >
-                  {value}
-                </TableCell>
-              );
-            }
           })}
         </TableRow>
       </TableHead>
@@ -96,19 +86,19 @@ const ShiftTable = (props) => {
                 {shift.name}
               </TableCell>
               {shift.list.map((value, index) => {
-                if (value === "休み") {
+                if (value.lange === "休み") {
                   return (
                     <TableCell
                       key={String(index)}
                       className={classes.bodyCell_out}
                     >
-                      {value}
+                      {value.lange}
                     </TableCell>
                   );
                 } else {
                   return (
                     <TableCell key={String(index)} className={classes.bodyCell}>
-                      {value}
+                      {value.lange}
                     </TableCell>
                   );
                 }
@@ -116,6 +106,22 @@ const ShiftTable = (props) => {
             </TableRow>
           );
         })}
+          {props.shiftList.map((shift, index) => {
+            return(
+        <TableRow key={String(index)}>
+              <TableCell className={classes.bodyCell_name}>
+            時間数
+            </TableCell>
+            {shift.list.map((value, index) => {
+              return (<TableCell key={String(index)} className={classes.bodyCell}>
+                {value.time} h
+              </TableCell>
+              )
+            })}
+        </TableRow>
+            )     
+          })}
+        
       </TableBody>
     </Table>
   );

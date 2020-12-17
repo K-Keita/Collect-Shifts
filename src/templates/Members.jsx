@@ -43,7 +43,7 @@ const Members = () => {
 
   return (
     <div className="main-container">
-      <h2>メンバー: {member.length}</h2>
+      <h3 className="sub-label">メンバー: {member.length}人</h3>
       <UsersList memberList={manager} title={"管理者"} />
       <UsersList memberList={handInShift} title={"提出者"} />
       <Divider />

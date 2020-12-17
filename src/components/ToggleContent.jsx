@@ -17,13 +17,13 @@ const ToggleContent = (props) => {
   const moreContent = open ? "main-container d-flex" : "d-hidden";
 
   return (
-    <div className="main-container">
+    <>
       <div className="d-flex f-between" onClick={toggleOpen}>
         <p className="set-title">{props.label}</p>
         {icon}
       </div>
       <div className={moreContent}>{props.content}</div>
-    </div>
+    </>
   );
 };
 
