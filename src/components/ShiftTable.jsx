@@ -54,7 +54,7 @@ const useStyles = makeStyles({
 
 const ShiftTable = (props) => {
   const classes = useStyles();
-  console.log(props.shiftWeek)
+  console.log(props.shiftWeek);
 
   return (
     <Table className={classes.table} aria-label="simple table">
@@ -64,13 +64,11 @@ const ShiftTable = (props) => {
             名前
           </TableCell>
           {props.shiftWeek.map((value) => {
-                return <TableCell
-                  width="75px"
-                  key={value}
-                  className={classes.headCell}
-                >
-                  {value}
-                </TableCell>
+            return (
+              <TableCell width="75px" key={value} className={classes.headCell}>
+                {value}
+              </TableCell>
+            );
           })}
         </TableRow>
       </TableHead>
@@ -106,22 +104,20 @@ const ShiftTable = (props) => {
             </TableRow>
           );
         })}
-          {props.shiftList.map((shift, index) => {
-            return(
-        <TableRow key={String(index)}>
-              <TableCell className={classes.bodyCell_name}>
-            時間数
-            </TableCell>
-            {shift.list.map((value, index) => {
-              return (<TableCell key={String(index)} className={classes.bodyCell}>
-                {value.time} h
-              </TableCell>
-              )
-            })}
-        </TableRow>
-            )     
-          })}
-        
+        {props.shiftList.map((shift, index) => {
+          return (
+            <TableRow key={String(index)}>
+              <TableCell className={classes.bodyCell_name}>時間数</TableCell>
+              {shift.list.map((value, index) => {
+                return (
+                  <TableCell key={String(index)} className={classes.bodyCell}>
+                    {value.time} h
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

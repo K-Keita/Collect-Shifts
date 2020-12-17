@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { getUserName } from "../reducks/users/selectors";
@@ -11,7 +11,7 @@ const m = d.getMonth() + 1;
 
 const Home = () => {
   const [value, onChange] = useState(new Date());
-  const selector = useSelector(state => state)
+  const selector = useSelector((state) => state);
   const username = getUserName(selector);
   const groupName = getGroupName(selector);
   // const shiftList = getShiftList(selector);

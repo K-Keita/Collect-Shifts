@@ -62,11 +62,20 @@ const SignIn = () => {
       {/* <div className="g-container d-flex"> */}
 
       <div className="w-border midium-space" />
-      <PrimaryButton width={"50%"} fullWidth={true} label={"グループに参加"} onClick={() => dispatch(push("/enter"))} />
+      <PrimaryButton
+        width={"50%"}
+        fullWidth={true}
+        label={"グループに参加"}
+        onClick={() => dispatch(push("/enter"))}
+      />
       <div className="small-space" />
-      <PrimaryButton width={"50%"} fullWidth={true} label={"グループを作成"} onClick={() => dispatch(push("/create"))} />
+      <PrimaryButton
+        width={"50%"}
+        fullWidth={true}
+        label={"グループを作成"}
+        onClick={() => dispatch(push("/create"))}
+      />
       {/* </div> */}
-
     </div>
   );
 };

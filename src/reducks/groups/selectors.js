@@ -11,18 +11,18 @@ export const getGroupId = createSelector(
 export const getGroupIcon = createSelector(
   [groupsSelector],
   (state) => state.groupIcon
-  );
-  
+);
+
 export const getGroupName = createSelector(
   [groupsSelector],
   (state) => state.groupName
-  );
-    
+);
+
 export const getManagementList = createSelector(
   [groupsSelector],
   (state) => state.managementList
-  );
-      
+);
+
 export const getMemberList = createSelector(
   [groupsSelector],
   (state) => state.memberList

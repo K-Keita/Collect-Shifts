@@ -4,7 +4,7 @@ import { signInAction, signOutAction } from "./actions";
 import { groupIn } from "../groups/operations";
 import { fetchShifts } from "../groups/operations";
 import { changeMemberName } from "../groups/operations";
-import {groupOutAction} from "../groups/actions";
+import { groupOutAction } from "../groups/actions";
 
 const usersRef = db.collection("users");
 const d = new Date();
@@ -24,14 +24,15 @@ export const deleteGroupId = (uid, groupId) => {
       groupId: "",
     };
 
-    const setData = await db.collection("users")
+    const setData = await db
+      .collection("users")
       .doc(uid)
-      .set(updateData, { merge: true })
+      .set(updateData, { merge: true });
 
-      auth.signOut().then(() => {
-        dispatch(signOutAction());
-        dispatch(push("/top"));
-      });
+    auth.signOut().then(() => {
+      dispatch(signOutAction());
+      dispatch(push("/top"));
+    });
   };
 };
 
@@ -47,7 +48,7 @@ export const listenAuthState = () => {
 
         const doc = await usersRef.doc(uid).get();
         const data = doc.data();
-        console.log(data)
+        console.log(data);
         const groupId = data.groupId;
 
         dispatch(
@@ -63,7 +64,7 @@ export const listenAuthState = () => {
           dispatch(fetchShifts(groupId, dateId));
           dispatch(groupIn(groupId));
         } else {
-          dispatch(push("/enter"))
+          dispatch(push("/enter"));
         }
       } else {
         dispatch(push("/signin"));
@@ -202,9 +203,7 @@ export const signUp = (username, email, password, confirmPassword) => {
             groupId: "",
           };
 
-          const setData = await usersRef
-            .doc(uid)
-            .set(userInitialData)
+          const setData = await usersRef.doc(uid).set(userInitialData);
 
           dispatch(push("/enter"));
         }

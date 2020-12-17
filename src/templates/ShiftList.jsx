@@ -39,8 +39,8 @@ const ShiftList = () => {
   const selector = useSelector((state) => state);
   const shiftList = getShiftList(selector);
   const prevShiftList = getPrevShiftList(selector);
-  console.log(shiftList)
-  console.log(shiftWeek)
+  console.log(shiftList);
+  console.log(shiftWeek);
 
   return (
     <div className="aaa">

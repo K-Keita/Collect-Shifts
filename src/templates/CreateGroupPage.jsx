@@ -4,7 +4,7 @@ import { Divider } from "@material-ui/core";
 import { TextInput, PrimaryButton } from "../components/UIkit/index";
 import { createGroup } from "../reducks/groups/operations";
 import { getUserName, getUserId } from "../reducks/users/selectors";
-import {push} from 'connected-react-router'
+import { push } from "connected-react-router";
 
 const CreateGroupPage = () => {
   const dispatch = useDispatch();
@@ -71,7 +71,12 @@ const CreateGroupPage = () => {
         width={"70%"}
       />
       <div className="w-border" />
-      <PrimaryButton label={"グループに参加"} width={"50%"} fullWidth={true} onClick={() => dispatch(push("/enter"))} />
+      <PrimaryButton
+        label={"グループに参加"}
+        width={"50%"}
+        fullWidth={true}
+        onClick={() => dispatch(push("/enter"))}
+      />
     </div>
   );
 };

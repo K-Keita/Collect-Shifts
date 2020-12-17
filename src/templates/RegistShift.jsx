@@ -46,7 +46,7 @@ const RegistShift = () => {
     { func: setSaturday, name: saturday },
     { func: setSunday, name: sunday },
   ];
-  console.log(monday.time)
+  console.log(monday.time);
 
   const handleClickOpen = () => {
     // shiftWeek.forEach(value => {
@@ -64,9 +64,9 @@ const RegistShift = () => {
   const enterShift = () => {
     const arr = [];
     shiftWeek.map((shift) => {
-      return arr.push({lange: shift.name.lange, time: shift.name.time});
+      return arr.push({ lange: shift.name.lange, time: shift.name.time });
     });
-    console.log(arr)
+    console.log(arr);
 
     dispatch(saveShifts(groupId, arr, username, uid));
     setOpen(false);
@@ -88,7 +88,9 @@ const RegistShift = () => {
     <div className="main-container">
       <h3 className="sub-label">シフト登録</h3>
       <div className="sub-border">
-      <div className="time-field_title">{shiftWeek[0].date}日　〜　{shiftWeek[6].date}日</div>
+        <div className="time-field_title">
+          {shiftWeek[0].date}日　〜　{shiftWeek[6].date}日
+        </div>
         {shiftWeek.map((value, index) => {
           return (
             <ToggleShift

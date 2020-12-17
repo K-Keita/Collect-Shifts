@@ -5,7 +5,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import blueGrey from "@material-ui/core/colors/blueGrey";
-import { getGroupIcon, getGroupName, getGroupId } from "../reducks/groups/selectors";
+import {
+  getGroupIcon,
+  getGroupName,
+  getGroupId,
+} from "../reducks/groups/selectors";
 import { getIsSignedIn } from "../reducks/users/selectors";
 import { ImagePreview } from "../components";
 import { push } from "connected-react-router";
@@ -47,7 +51,7 @@ const Header = () => {
   const groupName = getGroupName(selector);
   const isSignedIn = getIsSignedIn(selector);
   const groupIcon = getGroupIcon(selector);
-  const groupId = getGroupId(selector)
+  const groupId = getGroupId(selector);
 
   return (
     <AppBar position="fixed" className={classes.root}>

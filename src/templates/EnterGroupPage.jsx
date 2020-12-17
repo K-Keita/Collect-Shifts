@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TextInput, PrimaryButton } from "../components/UIkit/index";
 import { enterGroup } from "../reducks/groups/operations";
 import { getUserName, getUserId } from "../reducks/users/selectors";
-import {push} from 'connected-react-router';
+import { push } from "connected-react-router";
 
 const EnterGroupPage = () => {
   const dispatch = useDispatch();
@@ -50,7 +50,12 @@ const EnterGroupPage = () => {
         onClick={() => dispatch(enterGroup(groupName, groupId, username, uid))}
       />
       <div className="midium-space w-border" />
-      <PrimaryButton label={"グループを作成"} width={"50%"} fullWidth={true} onClick={() => dispatch(push("/create"))} />
+      <PrimaryButton
+        label={"グループを作成"}
+        width={"50%"}
+        fullWidth={true}
+        onClick={() => dispatch(push("/create"))}
+      />
     </div>
   );
 };

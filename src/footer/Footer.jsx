@@ -13,7 +13,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import { useSelector } from "react-redux";
 import { getIsSignedIn } from "../reducks/users/selectors";
-import {getGroupId} from '../reducks/groups/selectors'
+import { getGroupId } from "../reducks/groups/selectors";
 
 const useStyles = makeStyles({
   iconBox: {
@@ -66,7 +66,8 @@ const Footer = () => {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
-        {(isSignedIn && groupId !== "") &&
+        {isSignedIn &&
+          groupId !== "" &&
           templatePage.map((page, index) => {
             return (
               <div key={String(index)} className={classes.iconBox}>

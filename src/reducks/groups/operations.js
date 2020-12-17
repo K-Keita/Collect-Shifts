@@ -1,5 +1,9 @@
 import { db, FirebaseTimestamp } from "../../firebase/index";
-import { fetchShiftsListAction, groupInAction, groupOutAction } from "../groups/actions";
+import {
+  fetchShiftsListAction,
+  groupInAction,
+  groupOutAction,
+} from "../groups/actions";
 import { saveGroupId, deleteGroupId, signOut } from "../users/operations";
 import { push } from "connected-react-router";
 import { SignalCellularOff } from "@material-ui/icons";
@@ -59,11 +63,11 @@ export const createGroup = (
       return false;
     }
     if (groupId === "" || groupPassword === "") {
-      alert ("必須項目が未入力です。")
+      alert("必須項目が未入力です。");
       return false;
     }
     if (db.collection("groups").doc(groupId).exists) {
-      alert ("IDが既に存在しています。別のIDを選択してください。")
+      alert("IDが既に存在しています。別のIDを選択してください。");
       return false;
     }
 
@@ -137,14 +141,18 @@ export const deleteShift = (groupId, username) => {
         //     prevShiftList: data.prevShiftList,
         //   })
         // );
-        console.log("pp")
+        console.log("pp");
       });
   };
 };
 
 export const exitGroup = (uid, groupId, username) => {
   return async (dispatch) => {
-    if (!window.confirm("このグループを退会します。本当によろしいですか？(退会すると自動でログアウトされます）")) {
+    if (
+      !window.confirm(
+        "このグループを退会します。本当によろしいですか？(退会すると自動でログアウトされます）"
+      )
+    ) {
       return false;
     }
     const timestamp = FirebaseTimestamp.now();
@@ -165,13 +173,12 @@ export const exitGroup = (uid, groupId, username) => {
       updated_at: timestamp,
     };
     db.collection("groups")
-    .doc(groupId)
-    .set(updateData, { merge: true })
-    .then(() => {
-      dispatch(groupOutAction());
-      dispatch(deleteShift(groupId, username));
-      dispatch(deleteGroupId(uid, groupId));
-      
+      .doc(groupId)
+      .set(updateData, { merge: true })
+      .then(() => {
+        dispatch(groupOutAction());
+        dispatch(deleteShift(groupId, username));
+        dispatch(deleteGroupId(uid, groupId));
       });
   };
 };

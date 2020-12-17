@@ -36,21 +36,17 @@ const ToggleShift = React.memo((props) => {
   };
 
   useEffect(() => {
-    const i1 = timeLange.indexOf(start)
-    const i2 = timeLange.indexOf(end)
+    const i1 = timeLange.indexOf(start);
+    const i2 = timeLange.indexOf(end);
     if (!open) {
-      props.func({lange: "休み", time: 0});
+      props.func({ lange: "休み", time: 0 });
     } else {
-      if (
-        start !== "" &&
-        end !== "" &&
-        i1 > i2
-      ) {
+      if (start !== "" && end !== "" && i1 > i2) {
         alert("範囲に誤りがあります");
         setStart("");
         setEnd("");
       } else {
-        props.func({lange: `${start}-${end}`, time: i2 - i1});
+        props.func({ lange: `${start}-${end}`, time: i2 - i1 });
       }
     }
   }, [start, end, open]);
