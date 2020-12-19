@@ -1,18 +1,20 @@
-import { CollectionsBookmarkOutlined } from "@material-ui/icons";
 import React from "react";
-import { useSelector } from "react-redux";
-import { ShiftTable } from "../components";
 import { getShiftList, getPrevShiftList } from "../reducks/groups/selectors";
+import { ShiftTable } from "../components";
+import { useSelector } from "react-redux";
 
 const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
+const sun = d.getDay() === 0 ? 7 : d.getDay();
+const s = d.getDate() + (14 - sun + 1);
+const firstDate = new Date(y, m - 1, s);
+const prevFirstDate = new Date(y, m - 1, s - 7);
 
 const ShiftList = () => {
-  const sun = d.getDay() === 0 ? 7 : d.getDay();
-  const s = d.getDate() + (14 - sun + 1);
-  const firstDate = new Date(y, m - 1, s);
-  const prevFirstDate = new Date(y, m - 1, s - 7);
+  const selector = useSelector((state) => state);
+  const prevShiftList = getPrevShiftList(selector),
+    shiftList = getShiftList(selector);
 
   const shiftWeek = [];
   for (var i = 0; i < 7; i++) {
@@ -36,12 +38,6 @@ const ShiftList = () => {
     prevShiftWeek.push(`${shiftDate}(${shiftDay})`);
   }
 
-  const selector = useSelector((state) => state);
-  const shiftList = getShiftList(selector);
-  const prevShiftList = getPrevShiftList(selector);
-  console.log(shiftList);
-  console.log(shiftWeek);
-
   return (
     <div className="aaa">
       <h3 className="sub-label_position">シフト一覧</h3>
@@ -50,7 +46,7 @@ const ShiftList = () => {
         {prevShiftWeek[0]}〜{prevShiftWeek[6]}
       </h3>
       <ShiftTable shiftList={prevShiftList} shiftWeek={prevShiftWeek} />
-      <div className="midium-space" />
+      <div className="large-space" />
       <h3>
         {shiftWeek[0]}〜{shiftWeek[6]}
       </h3>

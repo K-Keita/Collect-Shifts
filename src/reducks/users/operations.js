@@ -10,9 +10,15 @@ const usersRef = db.collection("users");
 const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
+const sun = d.getDay() === 0 ? 7 : d.getDay();
+const s = d.getDate() + (14 - sun + 1);
+const firstDate = new Date(y, m - 1, s);
+const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
 
+//グループIDの削除
 export const deleteGroupId = (uid, groupId) => {
   return async (dispatch) => {
+    const timestamp = FirebaseTimestamp.now();
     const snapshot = await db.collection("users").doc(uid).get();
     const data = snapshot.data();
 
@@ -22,6 +28,7 @@ export const deleteGroupId = (uid, groupId) => {
 
     const updateData = {
       groupId: "",
+      updated_at: timestamp,
     };
 
     const setData = await db
@@ -36,11 +43,8 @@ export const deleteGroupId = (uid, groupId) => {
   };
 };
 
+//ログイン情報の取得
 export const listenAuthState = () => {
-  const sun = d.getDay() === 0 ? 7 : d.getDay();
-  const s = d.getDate() + (14 - sun + 1);
-  const firstDate = new Date(y, m - 1, s);
-  const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
   return async (dispatch) => {
     return auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -48,23 +52,23 @@ export const listenAuthState = () => {
 
         const doc = await usersRef.doc(uid).get();
         const data = doc.data();
-        console.log(data);
         const groupId = data.groupId;
 
         dispatch(
           signInAction({
-            isSignIn: true,
+            groupId: groupId,
             role: data.role,
+            isSignIn: true,
             uid: uid,
             username: data.username,
-            groupId: groupId,
           })
         );
-        if (groupId !== "") {
+
+        if (groupId === "") {
+          dispatch(push("/enter"));
+        } else {
           dispatch(fetchShifts(groupId, dateId));
           dispatch(groupIn(groupId));
-        } else {
-          dispatch(push("/enter"));
         }
       } else {
         dispatch(push("/signin"));
@@ -73,22 +77,27 @@ export const listenAuthState = () => {
   };
 };
 
+//ユーザー名の変更
 export const changeName = (name, uid, groupId) => {
   return async (dispatch) => {
+    const timestamp = FirebaseTimestamp.now();
     const snapshot = await db.collection("users").doc(uid).get();
     const data = snapshot.data();
+
     const updateData = {
       username: name,
+      updated_at: timestamp,
     };
     dispatch(
       signInAction({
+        groupId: data.groupId,
         isSignIn: true,
         role: data.role,
         uid: uid,
         username: name,
-        groupId: data.groupId,
       })
     );
+
     db.collection("users")
       .doc(uid)
       .set(updateData, { merge: true })
@@ -98,9 +107,9 @@ export const changeName = (name, uid, groupId) => {
   };
 };
 
+//サインイン
 export const signIn = (email, password) => {
   return async (dispatch) => {
-    const timestamp = FirebaseTimestamp.now();
     auth.signInWithEmailAndPassword(email, password).then((result) => {
       const user = result.user;
 
@@ -115,12 +124,11 @@ export const signIn = (email, password) => {
 
             dispatch(
               signInAction({
+                groupId: data.groupId,
                 isSignIn: true,
                 role: data.role,
                 uid: uid,
                 username: data.username,
-                updated_at: timestamp,
-                groupId: data.groupId,
               })
             );
 
@@ -196,11 +204,11 @@ export const signUp = (username, email, password, confirmPassword) => {
           const userInitialData = {
             created_at: timestamp,
             email: email,
+            groupId: "",
             role: "customer",
-            uid: uid,
             updated_at: timestamp,
             username: username,
-            groupId: "",
+            uid: uid,
           };
 
           const setData = await usersRef.doc(uid).set(userInitialData);
@@ -211,6 +219,7 @@ export const signUp = (username, email, password, confirmPassword) => {
   };
 };
 
+//グループIDの登録
 export const saveGroupId = (groupId, uid, username) => {
   // const timestamp = FirebaseTimestamp.now();
   return async (dispatch) => {
@@ -220,13 +229,14 @@ export const saveGroupId = (groupId, uid, username) => {
 
     dispatch(
       signInAction({
+        groupId: groupId,
         isSignIn: true,
         role: data.role,
         uid: uid,
         username: username,
-        groupId: groupId,
       })
     );
+
     db.collection("users")
       .doc(uid)
       .set(data, { merge: true })
@@ -237,6 +247,7 @@ export const saveGroupId = (groupId, uid, username) => {
   };
 };
 
+//サインアウト
 export const signOut = () => {
   return async (dispatch) => {
     auth.signOut().then(() => {

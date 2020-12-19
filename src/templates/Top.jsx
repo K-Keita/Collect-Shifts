@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import topImage from "../images/topImage.jpg";
 import { push } from "connected-react-router";
+import { useDispatch } from "react-redux";
 
 const Top = () => {
   const dispatch = useDispatch();

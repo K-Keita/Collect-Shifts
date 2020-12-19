@@ -6,26 +6,26 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  root: {
-    width: "90%",
-    margin: "5px auto 25px",
-    maxWidth: 360,
-    backgroundColor: blueGrey[400],
-    borderRadius: 3,
-    padding: 0,
-    border: "solid 2px #cfd8dc",
-  },
   child: {
     padding: "5px 10px",
   },
+  root: {
+    backgroundColor: blueGrey[400],
+    border: "solid 2px #cfd8dc",
+    borderRadius: 3,
+    margin: "5px auto 25px",
+    maxWidth: 360,
+    padding: 0,
+    width: "90%",
+  },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-    margin: "0 auto",
-    padding: 3,
     backgroundColor: blueGrey[500],
     borderBottom: "solid 1px #cfd8dc",
+    fontSize: 18,
+    fontWeight: "bold",
+    margin: "0 auto",
+    padding: 3,
+    textAlign: "center",
   },
 });
 
@@ -34,7 +34,9 @@ const UsersList = (props) => {
 
   return (
     <List component="nav" className={classes.root} aria-label="mailbox folders">
-      <p className={classes.title}>{props.title}</p>
+      <p className={classes.title}>
+        {props.title}　{props.memberList.length}人
+      </p>
       {props.memberList.map((member, index) => {
         return (
           <ListItem key={String(index)} className={classes.child} divider>

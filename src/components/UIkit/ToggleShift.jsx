@@ -7,16 +7,16 @@ import { TimeSelect } from "./index";
 
 const useStyles = makeStyles({
   icon: {
-    width: "15%",
     color: blueGrey[50],
+    width: "15%",
   },
 });
 
 const ToggleShift = React.memo((props) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [open, setOpen] = useState(false),
+    [start, setStart] = useState("10: 00"),
+    [end, setEnd] = useState("23: 30");
 
   const timeArr = [...Array(15)].map((_, i) => i + 9);
   const timeLange = [];
@@ -31,6 +31,7 @@ const ToggleShift = React.memo((props) => {
   const handleChangeStart = (event) => {
     setStart(event.target.value);
   };
+
   const handleChangeEnd = (event) => {
     setEnd(event.target.value);
   };
@@ -41,16 +42,15 @@ const ToggleShift = React.memo((props) => {
     if (!open) {
       props.func({ lange: "休み", time: 0 });
     } else {
-      if (start !== "" && end !== "" && i1 > i2) {
+      if (i1 > i2) {
         alert("範囲に誤りがあります");
-        setStart("");
-        setEnd("");
+        setStart("10: 00");
+        setEnd("23: 00");
       } else {
         props.func({ lange: `${start}-${end}`, time: i2 - i1 });
       }
     }
   }, [start, end, open]);
-  // console.log()
 
   return (
     <div className="d-flex f-between time-field">
@@ -63,17 +63,17 @@ const ToggleShift = React.memo((props) => {
       {open ? (
         <div className="d-flex">
           <TimeSelect
+            arr={timeLange}
+            handleChange={handleChangeStart}
             label={"start"}
             value={start}
-            handleChange={handleChangeStart}
-            arr={timeLange}
           />
           <p className="time-line">ー</p>
           <TimeSelect
+            arr={timeLange}
+            handleChange={handleChangeEnd}
             label={"end"}
             value={end}
-            handleChange={handleChangeEnd}
-            arr={timeLange}
           />
         </div>
       ) : (

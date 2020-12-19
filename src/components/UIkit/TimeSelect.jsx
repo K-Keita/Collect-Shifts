@@ -24,22 +24,22 @@ const useStyles = makeStyles({
   },
 });
 
-const TimeSelect = (props) => {
+const TimeSelect = React.memo((props) => {
   const classes = useStyles();
 
   return (
     <FormControl className={classes.formControl}>
       <InputLabel id="select-label">{props.label}</InputLabel>
       <Select
-        labelId="select-label"
-        id="select"
-        value={props.value}
         className={classes.select}
+        id="select"
+        labelId="select-label"
         onChange={props.handleChange}
+        value={props.value}
         MenuProps={{
           anchorOrigin: {
-            vertical: "bottom",
             horizontal: "left",
+            vertical: "bottom",
           },
           getContentAnchorEl: null,
           classes: {
@@ -57,6 +57,6 @@ const TimeSelect = (props) => {
       </Select>
     </FormControl>
   );
-};
+});
 
 export default TimeSelect;

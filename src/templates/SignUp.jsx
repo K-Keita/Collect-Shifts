@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { TextInput, PrimaryButton } from "../components/UIkit/index";
-import { signUp } from "../reducks/users/operations";
+import { PrimaryButton, TextInput } from "../components/UIkit/index";
 import { push } from "connected-react-router";
+import { signUp } from "../reducks/users/operations";
+import { useDispatch } from "react-redux";
 
 const CreateGroupPage = () => {
   const dispatch = useDispatch();
@@ -40,48 +40,48 @@ const CreateGroupPage = () => {
     <div className="main-container">
       <h2>アカウント登録</h2>
       <TextInput
+        fullWidth={true}
         label={"ユーザー名"}
-        type={"text"}
-        fullWidth={true}
-        value={username}
         onChange={inputUsername}
+        type={"text"}
+        value={username}
       />
       <TextInput
+        fullWidth={true}
         label={"メールアドレス"}
-        type={"email"}
-        fullWidth={true}
-        value={email}
         onChange={inputEmail}
+        type={"email"}
+        value={email}
       />
       <TextInput
+        fullWidth={true}
         label={"パスワード"}
-        type={"password"}
-        fullWidth={true}
-        value={password}
         onChange={inputPassword}
+        type={"password"}
+        value={password}
       />
       <TextInput
-        label={"パスワード(確認用)"}
-        type={"password"}
         fullWidth={true}
-        value={confirmPassword}
+        label={"パスワード(確認用)"}
         onChange={inputConfirmPassword}
+        type={"password"}
+        value={confirmPassword}
       />
       <div className="midium-space" />
       <PrimaryButton
+        fullWidth={true}
+        label={"登録"}
         onClick={() =>
           dispatch(signUp(username, email, password, confirmPassword))
         }
-        label={"登録"}
         width={"70%"}
-        fullWidth={true}
       />
       <div className="w-border" />
       <PrimaryButton
-        label={"アカウントをお持ちの方"}
-        width={"55%"}
         fullWidth={true}
+        label={"アカウントをお持ちの方"}
         onClick={() => dispatch(push("/signin"))}
+        width={"55%"}
       />
     </div>
   );

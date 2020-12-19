@@ -1,14 +1,8 @@
 import React from "react";
-import { Divider } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { getGroupMembers, getShiftList } from "../reducks/groups/selectors";
 import { UsersList } from "../components/UIkit";
-import { getMemberList, getShiftList } from "../reducks/groups/selectors";
+import { useSelector } from "react-redux";
 
-const getName = (arr, newArr) => {
-  arr.map((value) => {
-    return newArr.push(value.name);
-  });
-};
 const getManage = (arr, newArr) => {
   arr.map((value) => {
     if (value.manage) {
@@ -16,20 +10,24 @@ const getManage = (arr, newArr) => {
     }
   });
 };
+const getName = (arr, newArr) => {
+  arr.map((value) => {
+    return newArr.push(value.name);
+  });
+};
 
 const Members = () => {
   const selector = useSelector((state) => state);
+  const groupMembers = getGroupMembers(selector),
+    shiftList = getShiftList(selector);
 
-  const memberList = getMemberList(selector);
-  const shiftList = getShiftList(selector);
-
+  const manager = [];
   const member = [];
   const shift = [];
-  const manager = [];
 
-  getName(memberList, member);
+  getManage(groupMembers, manager);
+  getName(groupMembers, member);
   getName(shiftList, shift);
-  getManage(memberList, manager);
 
   const handInShift = [...new Set(member)].filter((value) =>
     shift.includes(value)
@@ -44,10 +42,9 @@ const Members = () => {
   return (
     <div className="main-container">
       <h3 className="sub-label">メンバー: {member.length}人</h3>
-      <UsersList memberList={manager} title={"管理者"} />
-      <UsersList memberList={handInShift} title={"提出者"} />
-      <Divider />
-      <UsersList memberList={notHandInShift} title={"未提出者"} />
+      <UsersList groupMembers={manager} title={"管理者"} />
+      <UsersList groupMembers={handInShift} title={"提出者"} />
+      <UsersList groupMembers={notHandInShift} title={"未提出者"} />
     </div>
   );
 };

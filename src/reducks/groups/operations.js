@@ -6,7 +6,6 @@ import {
 } from "../groups/actions";
 import { saveGroupId, deleteGroupId, signOut } from "../users/operations";
 import { push } from "connected-react-router";
-import { SignalCellularOff } from "@material-ui/icons";
 
 const d = new Date();
 const y = d.getFullYear();
@@ -18,17 +17,20 @@ const prevFirstDate = new Date(y, m - 1, s - 7);
 const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
 const prevDateId = `${prevFirstDate.getFullYear()}${prevFirstDate.getMonth()}${prevFirstDate.getDate()}`;
 
-export const saveGroupIcon = (images, groupId, password) => {
+//グループのアイコンの登録
+export const saveGroupIcon = (images, groupId, groupPassword) => {
   return async (dispatch) => {
+    const timestamp = FirebaseTimestamp.now();
     const snapshot = await db.collection("groups").doc(groupId).get();
     const data = snapshot.data();
-    if (data.groupPassword !== password) {
+    if (data.groupPassword !== groupPassword) {
       alert("パスワードが違います");
       return false;
     }
 
     const updateData = {
       groupIcon: images,
+      updated_at: timestamp,
     };
 
     db.collection("groups")
@@ -37,11 +39,11 @@ export const saveGroupIcon = (images, groupId, password) => {
       .then(() => {
         dispatch(
           groupInAction({
-            groupId: groupId,
-            groupPassword: data.groupPassword,
-            groupName: data.groupName,
-            memberList: data.memberList,
             groupIcon: images,
+            groupId: groupId,
+            groupName: data.groupName,
+            groupPassword: data.groupPassword,
+            groupMembers: data.groupMembers,
           })
         );
         alert("アイコンを変更しました");
@@ -49,6 +51,7 @@ export const saveGroupIcon = (images, groupId, password) => {
   };
 };
 
+//グループの作成
 export const createGroup = (
   groupName,
   groupId,
@@ -72,29 +75,29 @@ export const createGroup = (
     }
 
     const timestamp = FirebaseTimestamp.now();
-    const memberList = {
+    const groupMembers = {
+      manage: true,
       name: username,
       id: uid,
-      manage: true,
     };
 
     const initializeDate = {
+      created_at: timestamp,
       groupName: groupName,
       groupId: groupId,
-      groupPassword: groupPassword,
-      created_at: timestamp,
-      updated_at: timestamp,
-      memberList: [memberList],
       groupIcon: "",
+      groupPassword: groupPassword,
+      groupMembers: [groupMembers],
+      updated_at: timestamp,
     };
 
     dispatch(
       groupInAction({
+        groupName: groupName,
+        groupIcon: "",
         groupId: groupId,
         groupPassword: groupPassword,
-        groupName: groupName,
-        memberList: [memberList],
-        groupIcon: "",
+        groupMembers: [groupMembers],
       })
     );
 
@@ -108,8 +111,10 @@ export const createGroup = (
   };
 };
 
+// シフトの削除
 export const deleteShift = (groupId, username) => {
   return async (dispatch) => {
+    const timestamp = FirebaseTimestamp.now();
     const snapshot = await db
       .collection("groups")
       .doc(groupId)
@@ -126,26 +131,24 @@ export const deleteShift = (groupId, username) => {
       }
       return upShift.push(value);
     });
+
     const updateData = {
       shiftList: upShift,
+      updated_at: timestamp,
     };
+
     db.collection("groups")
       .doc(groupId)
       .collection("shiftsList")
       .doc(dateId)
       .set(updateData, { merge: true })
       .then(() => {
-        // dispatch(
-        //   fetchShiftsListAction({
-        //     shiftList: upShift,
-        //     prevShiftList: data.prevShiftList,
-        //   })
-        // );
-        console.log("pp");
+        console.log("delete-ok");
       });
   };
 };
 
+//グループの退会
 export const exitGroup = (uid, groupId, username) => {
   return async (dispatch) => {
     if (
@@ -159,17 +162,17 @@ export const exitGroup = (uid, groupId, username) => {
     const snapshot = await db.collection("groups").doc(groupId).get();
 
     const data = snapshot.data();
-    const memberList = data.memberList;
+    const groupMembers = data.groupMembers;
 
     const updateList = [];
-    memberList.map((value) => {
+    groupMembers.map((value) => {
       if (value.name === username && value.id === uid) {
         return false;
       }
       return updateList.push(value);
     });
     const updateData = {
-      memberList: updateList,
+      groupMembers: updateList,
       updated_at: timestamp,
     };
     db.collection("groups")
@@ -183,47 +186,48 @@ export const exitGroup = (uid, groupId, username) => {
   };
 };
 
-export const enterGroup = (groupname, groupId, username, uid) => {
+//グループに参加
+export const enterGroup = (groupName, groupId, username, uid) => {
   return async (dispatch) => {
-    const id = String(groupId);
-    const snapshot = await db.collection("groups").doc(id).get();
+    const snapshot = await db.collection("groups").doc(groupId).get();
 
     if (!snapshot.exists) {
       alert("グループが存在しません");
       return false;
     }
+
     const data = snapshot.data();
-    if (data.groupName !== groupname) {
+    if (data.groupName !== groupName) {
       alert("グループ名とIDが一致しません");
       return false;
     }
-    const memberList = data.memberList;
 
+    const groupMembers = data.groupMembers;
     const newMember = {
+      manage: false,
       name: username,
       id: uid,
-      manage: false,
     };
-    memberList.push(newMember);
+    groupMembers.push(newMember);
 
     const newData = {
-      memberList: memberList,
+      groupMembers: groupMembers,
     };
 
     dispatch(
       groupInAction({
-        groupId: data.groupId,
-        groupPassword: data.groupPassword,
-        groupName: data.groupName,
-        memberList: memberList,
+        groupId: groupId,
         groupIcon: data.groupIcon,
+        groupName: data.groupName,
+        groupPassword: data.groupPassword,
+        groupMembers: groupMembers,
       })
     );
 
     dispatch(fetchShifts(groupId, dateId));
 
     db.collection("groups")
-      .doc(id)
+      .doc(groupId)
       .set(newData, { merge: true })
       .then(() => {
         dispatch(saveGroupId(groupId, uid, username));
@@ -231,9 +235,9 @@ export const enterGroup = (groupname, groupId, username, uid) => {
   };
 };
 
+//シフトリストの呼び出し
 export const fetchShifts = (groupId, dateId) => {
   const timestamp = FirebaseTimestamp.now();
-  console.log("aa");
   if (groupId === "") {
     return false;
   }
@@ -258,12 +262,11 @@ export const fetchShifts = (groupId, dateId) => {
           prevShiftData.push(value);
         });
       }
-      console.log(prevShiftData);
 
       const data = {
-        shiftList: [],
-        prevShiftList: prevShiftData,
         created_at: timestamp,
+        prevShiftList: prevShiftData,
+        shiftList: [],
         updated_at: timestamp,
       };
 
@@ -276,8 +279,8 @@ export const fetchShifts = (groupId, dateId) => {
           console.log("create-table");
           dispatch(
             fetchShiftsListAction({
-              shiftList: [],
               prevShiftList: prevShiftData,
+              shiftList: [],
             })
           );
         });
@@ -286,78 +289,47 @@ export const fetchShifts = (groupId, dateId) => {
 
       dispatch(
         fetchShiftsListAction({
-          shiftList: data.shiftList,
           prevShiftList: data.prevShiftList,
+          shiftList: data.shiftList,
         })
       );
     }
   };
 };
 
-// export const changeShiftName = (groupId, username, uid) => {
-//   // const timestamp = FirebaseTimestamp.now();
-//   return async (dispatch) => {
-//     const snapshot = await db.collection("groups").doc(groupId).collection("shiftsList").doc(dateId).get()
-//     const data = snapshot.data();
-//     // const shiftList = data.shiftList;
-//     // const prevShiftList = data.prevShiftList;
-//     // console.log(data)
-//     // if (shiftList.length > 0) {
-//     //   shiftList.forEach(value => {
-//     //     if (value.id === uid) {
-//     //       value.name = username;
-//     //     }
-//     //   })
-//     // }
-//     // console.log(prevShiftList)
-//     // if (prevShiftList.length > 0) {
-//     //   prevShiftList.forEach(value => {
-//     //     if (value.id === uid) {
-//     //       value.name = username
-//     //     }
-//     //   })
-//     // }
-//     const updateData = {
-//       shiftList: data.shiftList,
-//       prevShiftList: data.prevShiftList
-//     }
-
-//     dispatch(fetchShiftsListAction(updateData))
-
-//     const doc = await db.collection("groupId").doc(groupId).collection("shiftsList").doc(dateId).set(updateData, {merge: true})
-//         console.log("tesutook");
-//   }
-// }
-
+//シフト登録
 export const saveShifts = (groupId, shift, name, uid) => {
   return async (dispatch) => {
     const timestamp = FirebaseTimestamp.now();
-    const doc = await db
+    const snapshot = await db
       .collection("groups")
       .doc(groupId)
       .collection("shiftsList")
       .doc(dateId)
       .get();
     const newData = {
-      name: name,
       list: shift,
+      name: name,
       id: uid,
     };
-    console.log(newData);
 
-    if (doc.exists) {
-      const data = doc.data();
+    if (snapshot.exists) {
+      const data = snapshot.data();
       const shiftList = data.shiftList;
+
       const arr = [];
       shiftList.map((value) => {
         return arr.push(value.name);
       });
-      if (arr.includes(newData.name)) {
-        alert("既に登録されています。");
-        return false;
+      const i = arr.indexOf(newData.name);
+      if (i !== -1) {
+        if (!window.confirm("既に登録されていますが、変更しますか？")) {
+          return false;
+        }
+        shiftList[i] = newData;
+      } else {
+        shiftList.push(newData);
       }
-
-      shiftList.push(newData);
 
       const updateData = {
         shiftList: shiftList,
@@ -372,8 +344,8 @@ export const saveShifts = (groupId, shift, name, uid) => {
         .then(() => {
           dispatch(
             fetchShiftsListAction({
-              shiftList: shiftList,
               prevShiftList: data.prevShiftList,
+              shiftList: shiftList,
             })
           );
           alert("登録しました");
@@ -387,14 +359,15 @@ export const saveShifts = (groupId, shift, name, uid) => {
         .get();
       const prevShiftData = [];
       if (prevSnapshot.exists) {
-        const prevData = prevSnapshot.data();
-        prevShiftData.push(prevData);
+        const data = prevSnapshot.data();
+        const prevShiftData = data.prevShiftList;
+        prevShiftData.push(data);
       }
 
       const initializeDate = {
-        shiftList: [newData],
         created_at: timestamp,
         prevShiftList: prevShiftData,
+        shiftList: [newData],
         updated_at: timestamp,
       };
 
@@ -404,7 +377,6 @@ export const saveShifts = (groupId, shift, name, uid) => {
         .doc(dateId)
         .set(initializeDate)
         .then(() => {
-          console.log("create");
           dispatch(
             fetchShiftsListAction({
               prevShiftList: prevShiftData,
@@ -416,6 +388,8 @@ export const saveShifts = (groupId, shift, name, uid) => {
     }
   };
 };
+
+//シフトに登録した名前の変更
 export const changeShiftName = (groupId, name, uid) => {
   return async (dispatch) => {
     const timestamp = FirebaseTimestamp.now();
@@ -448,9 +422,9 @@ export const changeShiftName = (groupId, name, uid) => {
     }
 
     const updateData = {
+      prevShiftList: prevShiftList,
       shiftList: shiftList,
       updated_at: timestamp,
-      prevShiftList: prevShiftList,
     };
 
     db.collection("groups")
@@ -470,31 +444,33 @@ export const changeShiftName = (groupId, name, uid) => {
   };
 };
 
-export const registManage = (managePassword, uid, groupId) => {
+//管理者登録
+export const registManage = (groupPassword, uid, groupId) => {
   return async (dispatch) => {
     const snapshot = await db.collection("groups").doc(groupId).get();
     const data = snapshot.data();
-    if (data.groupPassword !== managePassword) {
+    if (data.groupPassword !== groupPassword) {
       alert("管理者パスワードが違います");
       return false;
     }
 
-    const memberList = data.memberList;
-    memberList.forEach((value) => {
+    const groupMembers = data.groupMembers;
+    groupMembers.forEach((value) => {
       if (value.id === uid) {
         value.manage = true;
       }
     });
+
     const updateData = {
-      memberList: memberList,
+      groupMembers: groupMembers,
     };
     dispatch(
       groupInAction({
         groupId: data.groupId,
-        groupPassword: data.groupPassword,
-        groupName: data.groupName,
-        memberList: memberList,
         groupIcon: data.groupIcon,
+        groupName: data.groupName,
+        groupPassword: data.groupPassword,
+        groupMembers: groupMembers,
       })
     );
     db.collection("groups")
@@ -506,30 +482,32 @@ export const registManage = (managePassword, uid, groupId) => {
   };
 };
 
+//メンバーの名前変更
 export const changeMemberName = (name, uid, groupId) => {
   return async (dispatch) => {
+    const timestamp = FirebaseTimestamp.now();
     const snapshot = await db.collection("groups").doc(groupId).get();
     const data = snapshot.data();
 
-    const memberList = data.memberList;
-    memberList.forEach((value) => {
+    const groupMembers = data.groupMembers;
+    groupMembers.forEach((value) => {
       if (value.id === uid) {
         value.name = name;
       }
     });
+
     const updateData = {
-      memberList: memberList,
-      groupName: "tesuto",
+      groupMembers: groupMembers,
+      updated_at: timestamp,
     };
-    console.log(memberList);
 
     dispatch(
       groupInAction({
-        groupId: data.groupId,
-        groupPassword: data.groupPassword,
-        groupName: data.groupName,
-        memberList: memberList,
         groupIcon: data.groupIcon,
+        groupId: data.groupId,
+        groupName: data.groupName,
+        groupPassword: data.groupPassword,
+        groupMembers: groupMembers,
       })
     );
 
@@ -542,13 +520,14 @@ export const changeMemberName = (name, uid, groupId) => {
   };
 };
 
-export const changeGroupName = (groupId, newGroupName, password) => {
+//グループ名の変更
+export const changeGroupName = (groupId, newGroupName, groupPassword) => {
   return async (dispatch) => {
     const timestamp = FirebaseTimestamp.now();
     const snapshot = await db.collection("groups").doc(groupId).get();
     const data = snapshot.data();
 
-    if (data.groupPassword !== password) {
+    if (data.groupPassword !== groupPassword) {
       alert("パスワードが違います");
       return false;
     }
@@ -560,11 +539,11 @@ export const changeGroupName = (groupId, newGroupName, password) => {
 
     dispatch(
       groupInAction({
-        groupId: data.groupId,
-        groupPassword: data.groupPassword,
-        groupName: newGroupName,
-        memberList: data.memberList,
         groupIcon: data.groupIcon,
+        groupId: data.groupId,
+        groupName: newGroupName,
+        groupPassword: data.groupPassword,
+        groupMembers: data.groupMembers,
       })
     );
 
@@ -572,56 +551,33 @@ export const changeGroupName = (groupId, newGroupName, password) => {
       .doc(groupId)
       .set(updateData, { merge: true })
       .then(() => {
-        console.log("kokokm");
+        alert("変更しました。");
       });
   };
 };
 
-// export const changeGroupName = (groupId, groupName, managePassword) => {
-//   // const timestamp = FirebaseTimestamp.now()
-//   return async (dispatch) => {
-//     const snapshot = await db.collection("groupId").doc(groupId).get();
-//     const data = snapshot.data()
-//     if (data.groupPassword !== managePassword) {
-//       alert ("管理者パスワードが違います");
-//       return false;
-//     }
-//     const updateData = {
-//       groupName: groupName,
-//       // updated_at: timestamp
-//     }
-//     dispatch(groupInAction({
-//       groupId: data.groupId,
-//       groupPassword: data.groupPassword,
-//       groupName: groupName,
-//       memberList: data.memberList,
-//     }))
-
-//     const doc = await db.collection("groups").doc(groupId).set(updateData, {merge: true})
-//       // .then(() => {
-//         alert ("変更しました")
-//       // })
-//   }
-// }
-
+//グループにサインイン
 export const groupIn = (groupId) => {
-  const id = String(groupId);
   return async (dispatch) => {
     const snapshots = await db
       .collection("groups")
-      .where("groupId", "==", id)
+      .where("groupId", "==", groupId)
       .get();
+
     snapshots.forEach((doc) => {
+      if (!doc.exists) {
+        alert("グループ情報が取得できません。");
+        return false;
+      }
       const data = doc.data();
-      const memberList = data.memberList;
 
       dispatch(
         groupInAction({
-          groupId: data.groupId,
-          groupPassword: data.groupPassword,
-          groupName: data.groupName,
-          memberList: memberList,
           groupIcon: data.groupIcon,
+          groupId: data.groupId,
+          groupName: data.groupName,
+          groupPassword: data.groupPassword,
+          groupMembers: data.groupMembers,
         })
       );
     });

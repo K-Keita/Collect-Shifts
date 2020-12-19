@@ -1,25 +1,20 @@
 import React from "react";
 import { ToggleContent } from "../components/index";
 import {
+  ExitGroup,
   ChangeGroupName,
   ChangeName,
-  SaveGroupIcon,
-  ExitGroup,
   RegistManage,
+  SaveGroupIcon,
   SignOut,
 } from "../SettingPages/index";
 
 const ManagementPage = () => {
   const changeName = <ChangeName />;
-
-  const registManagement = <RegistManage />;
-
-  const saveGroupIcon = <SaveGroupIcon />;
-
   const changeGroupName = <ChangeGroupName />;
-
+  const saveGroupIcon = <SaveGroupIcon />;
+  const registManagement = <RegistManage />;
   const signout = <SignOut />;
-
   const exitGroup = <ExitGroup />;
 
   const contentArr = [

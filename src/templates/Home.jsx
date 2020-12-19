@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import React, { useState } from "react";
+import Calendar from "react-calendar";
 import { getUserName } from "../reducks/users/selectors";
-import { getGroupName, getShiftList } from "../reducks/groups/selectors";
+import { getGroupName } from "../reducks/groups/selectors";
+import { useSelector } from "react-redux";
 
 const d = new Date();
 const y = d.getFullYear();
@@ -12,10 +12,8 @@ const m = d.getMonth() + 1;
 const Home = () => {
   const [value, onChange] = useState(new Date());
   const selector = useSelector((state) => state);
-  const username = getUserName(selector);
-  const groupName = getGroupName(selector);
-  // const shiftList = getShiftList(selector);
-  // console.log(shiftList)
+  const groupName = getGroupName(selector),
+    username = getUserName(selector);
 
   const sun = d.getDay() === 0 ? 7 : d.getDay();
   const s = d.getDate() + (14 - sun + 1);
@@ -33,15 +31,15 @@ const Home = () => {
       <h2 className="main-title">Home</h2>
       <div className="calendar-container">
         <Calendar
-          value={value}
-          onChange={onChange}
           locale="ja-JP"
+          maxDate={maxDate}
+          minDate={d}
+          next2Label={null}
+          onChange={onChange}
           onClickDay={() => console.log(value.getDate())}
           prev2AriaLabel={null}
-          minDate={d}
-          maxDate={maxDate}
-          next2Label={null}
           prev2Label={null}
+          value={value}
         />
       </div>
 

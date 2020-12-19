@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import Auth from "./Auth";
+import { getUserGroupId } from "./reducks/users/selectors";
 import { Route, Switch } from "react-router";
 import {
   CreateGroupPage,
@@ -14,8 +15,7 @@ import {
   SignUp,
   Top,
 } from "./templates/index";
-import Auth from "./Auth";
-import { getUserGroupId } from "./reducks/users/selectors";
+import { useSelector } from "react-redux";
 
 const Router = () => {
   const selector = useSelector((state) => state);

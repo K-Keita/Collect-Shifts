@@ -1,9 +1,9 @@
-import React from "react";
 import "./styles/App.css";
-import { Header } from "./header/index";
-import { Footer } from "./footer/index";
-import Router from "./Router";
 import "react-calendar/dist/Calendar.css";
+import React from "react";
+import Router from "./Router";
+import { Footer } from "./footer/index";
+import { Header } from "./header/index";
 
 const App = () => {
   return (

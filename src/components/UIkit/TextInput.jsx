@@ -5,15 +5,15 @@ import blueGrey from "@material-ui/core/colors/blueGrey";
 
 const useStyles = makeStyles({
   root: {
+    backgroundColor: blueGrey[100],
     color: blueGrey[800],
     margin: 12,
     padding: 0,
-    backgroundColor: blueGrey[100],
   },
   textField: {
     fontSize: 14,
-    padding: 0,
     margin: "-8px 0 0 0",
+    padding: 0,
   },
 });
 
@@ -26,11 +26,11 @@ const TextInput = (props) => {
         className={classes.textField}
         fullWidth={true}
         id={props.id}
-        value={props.value}
         label={props.label}
-        variant="filled"
-        type={props.type}
         onChange={props.onChange}
+        type={props.type}
+        value={props.value}
+        variant="filled"
       />
     </form>
   );

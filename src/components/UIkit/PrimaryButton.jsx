@@ -26,9 +26,9 @@ const PrimaryButton = (props) => {
     <div style={{ width: props.width }} className="m-center">
       <Button
         className={classes.button}
-        variant="outlined"
-        onClick={props.onClick}
         fullWidth={props.fullWidth}
+        onClick={props.onClick}
+        variant="outlined"
       >
         {props.label}
       </Button>

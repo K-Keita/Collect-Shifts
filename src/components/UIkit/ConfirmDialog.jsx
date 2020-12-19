@@ -56,9 +56,11 @@ const ConfirmDialog = (props) => {
             className={classes.dialogText}
           >
             {props.shiftWeek.map((shift, index) => {
+              const shiftName =
+                shift.name.time === 0 ? "休み" : shift.name.lange;
               return (
                 <span key={String(index)}>
-                  {shift.date}({shift.day}) : {shift.name.lange}
+                  {shift.date}({shift.day}) : {shiftName}
                   <br />
                 </span>
               );
@@ -66,13 +68,13 @@ const ConfirmDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.handleClose} className={classes.dialogButton}>
+          <Button className={classes.dialogButton} onClick={props.handleClose}>
             キャンセル
           </Button>
           <Button
-            onClick={props.saveShift}
-            className={classes.dialogButton}
             autoFocus
+            className={classes.dialogButton}
+            onClick={props.saveShift}
           >
             登録
           </Button>

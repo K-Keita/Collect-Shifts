@@ -3,12 +3,11 @@ export const groupInAction = (groupState) => {
   return {
     type: "GROUP_IN",
     payload: {
-      groupName: groupState.groupName,
-      groupId: groupState.groupId,
-      groupPassword: groupState.groupPassword,
-      memberList: groupState.memberList,
-      managementList: groupState.managementList,
       groupIcon: groupState.groupIcon,
+      groupId: groupState.groupId,
+      groupName: groupState.groupName,
+      groupPassword: groupState.groupPassword,
+      groupMembers: groupState.groupMembers,
     },
   };
 };
@@ -18,12 +17,11 @@ export const groupOutAction = () => {
   return {
     type: "GROUP_OUT",
     payload: {
-      groupName: "",
-      groupId: "",
-      groupPassword: "",
-      memberList: "",
-      managementList: "",
       groupIcon: "",
+      groupId: "",
+      groupName: "",
+      groupPassword: "",
+      groupMembers: "",
     },
   };
 };
@@ -33,8 +31,8 @@ export const fetchShiftsListAction = (shiftState) => {
   return {
     type: "FETCH_SHIFTLIST",
     payload: {
-      shiftList: shiftState.shiftList,
       prevShiftList: shiftState.prevShiftList,
+      shiftList: shiftState.shiftList,
     },
   };
 };

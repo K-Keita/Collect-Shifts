@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ImageArea } from "../components/index";
-import { saveGroupIcon } from "../reducks/groups/operations";
-import { PrimaryButton, TextInput } from "../components/UIkit/index";
 import { getGroupIcon, getGroupId } from "../reducks/groups/selectors";
+import { ImageArea } from "../components/index";
+import { PrimaryButton, TextInput } from "../components/UIkit/index";
+import { saveGroupIcon } from "../reducks/groups/operations";
+import { useSelector, useDispatch } from "react-redux";
 
 const SaveGroupIcon = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const groupId = getGroupId(selector);
-  const groupIcon = getGroupIcon(selector);
+  const groupIcon = getGroupIcon(selector),
+    groupId = getGroupId(selector);
 
-  const [password, setPassword] = useState("");
-  const [images, setImages] = useState("");
+  const [images, setImages] = useState(""),
+    [password, setPassword] = useState("");
 
   useEffect(() => {
     setImages(groupIcon);
@@ -29,16 +29,19 @@ const SaveGroupIcon = () => {
     <>
       <div className="content-form">
         <TextInput
+          id={"manage-password2"}
           label={"管理者パスワード"}
-          type={"password"}
           onChange={inputPassword}
+          type={"password"}
+          value={password}
         />
         <ImageArea images={images} setImages={setImages} />
       </div>
       <div className="content-button">
         <PrimaryButton
-          label={"登録"}
-          onClick={() => dispatch(saveGroupIcon(images, groupId, password))}
+          fullWidth={false}
+          label={"登録する"}
+          onClick={() => dispatch(saveGroupIcon(groupId, images, password))}
         />
       </div>
     </>

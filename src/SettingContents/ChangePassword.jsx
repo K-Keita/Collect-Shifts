@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { PrimaryButton, TextInput } from "../components/UIkit";
 import { resetPassword } from "../reducks/users/operations";
+import { PrimaryButton, TextInput } from "../components/UIkit";
+import { useDispatch } from "react-redux";
 
 const ChangePassword = () => {
   const [email, setEmail] = useState("");
@@ -20,9 +20,9 @@ const ChangePassword = () => {
         <TextInput
           id="reset-email"
           label={"メールアドレス"}
+          onChange={inputEmail}
           type={"email"}
           value={email}
-          onChange={inputEmail}
         />
       </div>
       <div className="content-button">

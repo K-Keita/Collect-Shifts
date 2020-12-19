@@ -337,6 +337,10 @@
   bottom: 80px;
 }
 
+.large-space {
+  margin: 50px;
+}
+
 .aaa {
   white-space: nowrap;
   overflow: scroll;
@@ -345,6 +349,7 @@
 
 .aaa > h3 {
   margin-left: 20px;
+  margin-bottom: 5px;
 }
 
 .mm {

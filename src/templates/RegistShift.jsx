@@ -1,42 +1,38 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
+  ConfirmDialog,
   PrimaryButton,
   ToggleShift,
-  ConfirmDialog,
 } from "../components/UIkit/index";
-import { saveShifts } from "../reducks/groups/operations";
-import { getUserName, getUserId } from "../reducks/users/selectors";
 import { getGroupId, getGroupName } from "../reducks/groups/selectors";
+import { getUserName, getUserId } from "../reducks/users/selectors";
+import { saveShifts } from "../reducks/groups/operations";
+import { useDispatch, useSelector } from "react-redux";
 
 const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
+const sun = d.getDay() === 0 ? 7 : d.getDay();
+const s = d.getDate() + (14 - sun + 1);
+const firstDate = new Date(y, m - 1, s);
+const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
 
 const RegistShift = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+  const groupId = getGroupId(selector),
+    uid = getUserId(selector),
+    username = getUserName(selector);
 
-  const groupId = getGroupId(selector);
-  const username = getUserName(selector);
-  const groupName = getGroupName(selector);
+  const [open, setOpen] = useState(false),
+    [monday, setMonday] = useState(""),
+    [tuesday, setTuesday] = useState(""),
+    [wednesday, setWednesday] = useState(""),
+    [thursday, setThursday] = useState(""),
+    [friday, setFriday] = useState(""),
+    [saturday, setSaturday] = useState(""),
+    [sunday, setSunday] = useState("");
 
-  const [monday, setMonday] = useState("");
-  const [tuesday, setTuesday] = useState("");
-  const [wednesday, setWednesday] = useState("");
-  const [thursday, setThursday] = useState("");
-  const [friday, setFriday] = useState("");
-  const [saturday, setSaturday] = useState("");
-  const [sunday, setSunday] = useState("");
-
-  const [open, setOpen] = React.useState(false);
-  const uid = getUserId(selector);
-
-  const sun = d.getDay() === 0 ? 7 : d.getDay();
-  const s = d.getDate() + (14 - sun + 1);
-  const firstDate = new Date(y, m - 1, s);
-
-  const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
   const shiftWeek = [
     { func: setMonday, name: monday },
     { func: setTuesday, name: tuesday },
@@ -46,14 +42,8 @@ const RegistShift = () => {
     { func: setSaturday, name: saturday },
     { func: setSunday, name: sunday },
   ];
-  console.log(monday.time);
 
   const handleClickOpen = () => {
-    // shiftWeek.forEach(value => {
-    //   if (value.name.time >= 0) {
-    //     console.log("aaa")
-    //   }
-    // })
     setOpen(true);
   };
 
@@ -66,7 +56,6 @@ const RegistShift = () => {
     shiftWeek.map((shift) => {
       return arr.push({ lange: shift.name.lange, time: shift.name.time });
     });
-    console.log(arr);
 
     dispatch(saveShifts(groupId, arr, username, uid));
     setOpen(false);
@@ -94,29 +83,29 @@ const RegistShift = () => {
         {shiftWeek.map((value, index) => {
           return (
             <ToggleShift
-              timeLine={value.name}
-              func={value.func}
-              key={index}
               date={value.date}
               day={value.day}
+              func={value.func}
+              key={index}
+              timeLine={value.name}
             />
           );
         })}
       </div>
       <div className="midium-space" />
       <PrimaryButton
-        onClick={handleClickOpen}
-        label={"確認"}
         fullWidth={true}
+        label={"確認"}
+        onClick={handleClickOpen}
         width={"50%"}
       />
       <div>
         <ConfirmDialog
-          open={open}
+          dateId={dateId}
           handleClose={handleClose}
+          open={open}
           saveShift={enterShift}
           shiftWeek={shiftWeek}
-          dateId={dateId}
         />
       </div>
     </div>

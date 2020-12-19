@@ -1,16 +1,15 @@
 import { createSelector } from "reselect";
 
 const groupsSelector = (state) => state.groups;
-const shiftsSelector = (state) => state.shifts;
-
-export const getGroupId = createSelector(
-  [groupsSelector],
-  (state) => state.groupId
-);
 
 export const getGroupIcon = createSelector(
   [groupsSelector],
   (state) => state.groupIcon
+);
+
+export const getGroupId = createSelector(
+  [groupsSelector],
+  (state) => state.groupId
 );
 
 export const getGroupName = createSelector(
@@ -18,15 +17,13 @@ export const getGroupName = createSelector(
   (state) => state.groupName
 );
 
-export const getManagementList = createSelector(
+export const getGroupMembers = createSelector(
   [groupsSelector],
-  (state) => state.managementList
+  (state) => state.groupMembers
 );
 
-export const getMemberList = createSelector(
-  [groupsSelector],
-  (state) => state.memberList
-);
+const shiftsSelector = (state) => state.shifts;
+
 export const getPrevShiftList = createSelector(
   [shiftsSelector],
   (state) => state.prevShiftList

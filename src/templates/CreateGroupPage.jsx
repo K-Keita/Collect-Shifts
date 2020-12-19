@@ -1,20 +1,18 @@
 import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Divider } from "@material-ui/core";
-import { TextInput, PrimaryButton } from "../components/UIkit/index";
 import { createGroup } from "../reducks/groups/operations";
 import { getUserName, getUserId } from "../reducks/users/selectors";
 import { push } from "connected-react-router";
+import { PrimaryButton, TextInput } from "../components/UIkit/index";
+import { useDispatch, useSelector } from "react-redux";
 
 const CreateGroupPage = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+  const uid = getUserId(selector),
+    username = getUserName(selector);
 
-  const username = getUserName(selector);
-  const uid = getUserId(selector);
-
-  const [groupName, setGroupName] = useState(""),
-    [groupId, setGroupId] = useState(""),
+  const [groupId, setGroupId] = useState(""),
+    [groupName, setGroupName] = useState(""),
     [groupPassword, setGroupPassword] = useState("");
 
   const inputGroupName = useCallback(
@@ -40,42 +38,42 @@ const CreateGroupPage = () => {
     <div className="main-container">
       <h2>グループ作成</h2>
       <TextInput
+        id="groupName"
         label={"グループ名"}
-        type={"text"}
-        fullWidth={true}
-        value={groupName}
         onChange={inputGroupName}
-      />
-      <TextInput
-        label={"グループID"}
         type={"text"}
-        fullWidth={true}
-        value={groupId}
-        onChange={inputGroupId}
+        value={groupName}
       />
       <TextInput
+        id="groupId"
+        label={"グループID"}
+        onChange={inputGroupId}
+        type={"text"}
+        value={groupId}
+      />
+      <TextInput
+        id="manage-password"
         label={"管理者パスワード"}
-        type={"password"}
-        fullWidth={true}
-        value={groupPassword}
         onChange={inputGroupPassword}
+        type={"password"}
+        value={groupPassword}
       />
       <PrimaryButton
+        fullWidth={true}
+        label={"登録"}
         onClick={() =>
           dispatch(
-            createGroup(groupName, groupId, groupPassword, username, uid)
+            createGroup(groupId, groupName, groupPassword, uid, username)
           )
         }
-        label={"登録"}
-        fullWidth={true}
         width={"70%"}
       />
       <div className="w-border" />
       <PrimaryButton
-        label={"グループに参加"}
-        width={"50%"}
         fullWidth={true}
+        label={"グループに参加"}
         onClick={() => dispatch(push("/enter"))}
+        width={"50%"}
       />
     </div>
   );

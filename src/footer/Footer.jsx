@@ -1,46 +1,45 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch } from "react-redux";
-import { push } from "connected-react-router";
 import AppBar from "@material-ui/core/AppBar";
-import ListAltIcon from "@material-ui/icons/ListAlt";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import SettingsIcon from "@material-ui/icons/Settings";
-import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
-import HomeIcon from "@material-ui/icons/Home";
-import PeopleIcon from "@material-ui/icons/People";
 import blueGrey from "@material-ui/core/colors/blueGrey";
-import { useSelector } from "react-redux";
+import HomeIcon from "@material-ui/icons/Home";
+import IconButton from "@material-ui/core/IconButton";
+import ListAltIcon from "@material-ui/icons/ListAlt";
+import PeopleIcon from "@material-ui/icons/People";
+import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
+import SettingsIcon from "@material-ui/icons/Settings";
+import Toolbar from "@material-ui/core/Toolbar";
 import { getIsSignedIn } from "../reducks/users/selectors";
 import { getGroupId } from "../reducks/groups/selectors";
+import { makeStyles } from "@material-ui/core/styles";
+import { push } from "connected-react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
-  iconBox: {
-    width: "20%",
+  appBar: {
+    background: blueGrey[400],
+    borderTop: "solid 2px #607d8b",
+    bottom: 0,
+    boxSizing: "border-box",
     margin: 0,
-    borderRight: "inset 1px #37474f",
+    top: "auto",
+    width: "100%",
   },
   icon: {
     width: "100%",
   },
+  iconBox: {
+    borderRight: "inset 1px #37474f",
+    margin: 0,
+    width: "20%",
+  },
   iconText: {
-    textAlign: "center",
-    margin: "-16px 0 0 0",
     fontSize: 10,
+    margin: "-16px 0 0 0",
+    textAlign: "center",
   },
   toolBar: {
     padding: 0,
     width: "100%",
-  },
-  appBar: {
-    width: "100%",
-    margin: 0,
-    top: "auto",
-    bottom: 0,
-    background: blueGrey[400],
-    borderTop: "solid 2px #607d8b",
-    boxSizing: "border-box",
   },
 });
 
@@ -48,8 +47,8 @@ const Footer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const isSignedIn = getIsSignedIn(selector);
-  const groupId = getGroupId(selector);
+  const groupId = getGroupId(selector),
+    isSignedIn = getIsSignedIn(selector);
 
   const templatePage = [
     { icon: <PeopleIcon />, path: "/list", text: "メンバー" },
@@ -72,10 +71,10 @@ const Footer = () => {
             return (
               <div key={String(index)} className={classes.iconBox}>
                 <IconButton
-                  key={String(index)}
                   className={classes.icon}
-                  onClick={() => linkPage(page.path)}
                   color="inherit"
+                  key={String(index)}
+                  onClick={() => linkPage(page.path)}
                 >
                   {page.icon}
                 </IconButton>

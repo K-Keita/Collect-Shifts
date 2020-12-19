@@ -1,14 +1,18 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { PrimaryButton } from "../components/UIkit";
 import { signOut } from "../reducks/users/operations";
+import { useDispatch } from "react-redux";
 
 const SignOut = () => {
   const dispatch = useDispatch();
 
   return (
     <div className="content-button">
-      <PrimaryButton label={"ログアウト"} onClick={() => dispatch(signOut())} />
+      <PrimaryButton
+        fullWidth={false}
+        label={"ログアウト"}
+        onClick={() => dispatch(signOut())}
+      />
     </div>
   );
 };

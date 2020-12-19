@@ -3,11 +3,11 @@ export const signInAction = (userState) => {
   return {
     type: "SIGN_IN",
     payload: {
+      groupId: userState.groupId,
       isSignedIn: true,
       role: userState.role,
       uid: userState.uid,
       username: userState.username,
-      groupId: userState.groupId,
     },
   };
 };

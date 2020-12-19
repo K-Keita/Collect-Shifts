@@ -1,71 +1,79 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import blueGrey from "@material-ui/core/colors/blueGrey";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import blueGrey from "@material-ui/core/colors/blueGrey";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 720,
-    maxWidth: 1000,
-    margin: "0 1% 0 1%",
-    border: "solid 2px #fff",
-    borderRadius: 10,
-  },
-  headCell: {
-    background: blueGrey[500],
-    border: "solid 1px #fff",
-    padding: "12px 0px",
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-    color: blueGrey[50],
-  },
   bodyCell: {
     background: blueGrey[300],
     border: "solid 1px #fff",
     borderTop: "solid 2px #fff",
+    color: "#fff",
     padding: "12px 0px",
     textAlign: "center",
-    color: "#fff",
   },
   bodyCell_name: {
+    background: blueGrey[400],
     border: "solid 1px #fff",
     borderTop: "solid 2px #fff",
+    color: "#fff",
+    fontWeight: "bold",
     padding: "12px 0px",
     textAlign: "center",
-    fontWeight: "bold",
-    color: "#fff",
-    background: blueGrey[400],
   },
   bodyCell_out: {
+    background: blueGrey[300],
     border: "solid 1px #fff",
     borderTop: "solid 2px #fff",
+    color: "#fff",
+    opacity: 0.9,
     padding: "12px 0px",
     textAlign: "center",
-    color: "#fff",
-    background: blueGrey[300],
-    opacity: 0.9,
+  },
+  headCell: {
+    background: blueGrey[500],
+    border: "solid 1px #fff",
+    borderTop: "solid 2px #fff",
+    color: blueGrey[50],
+    fontSize: 16,
+    fontWeight: "bold",
+    padding: "12px 0px",
+    textAlign: "center",
+  },
+  table: {
+    border: "solid 2px #fff",
+    borderRadius: 10,
+    margin: "0 1% 0 1%",
+    maxWidth: 1000,
+    minWidth: 750,
   },
 });
 
 const ShiftTable = (props) => {
   const classes = useStyles();
-  console.log(props.shiftWeek);
+
+  const timeNum = [...Array(7)].map(() => 0);
+  console.log(timeNum);
+  props.shiftList.map((shift) => {
+    shift.list.map((value, index) => {
+      timeNum[index] = timeNum[index] + value.time;
+    });
+  });
 
   return (
     <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <TableRow>
-          <TableCell width="120px" className={classes.headCell}>
+          <TableCell width="110px" className={classes.headCell}>
             名前
           </TableCell>
           {props.shiftWeek.map((value) => {
             return (
-              <TableCell width="75px" key={value} className={classes.headCell}>
+              <TableCell width="85px" key={value} className={classes.headCell}>
                 {value}
               </TableCell>
             );
@@ -104,20 +112,22 @@ const ShiftTable = (props) => {
             </TableRow>
           );
         })}
-        {props.shiftList.map((shift, index) => {
-          return (
-            <TableRow key={String(index)}>
-              <TableCell className={classes.bodyCell_name}>時間数</TableCell>
-              {shift.list.map((value, index) => {
-                return (
-                  <TableCell key={String(index)} className={classes.bodyCell}>
-                    {value.time} h
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          );
-        })}
+        <TableRow>
+          <TableCell width="110px" className={classes.headCell}>
+            時間数
+          </TableCell>
+          {timeNum.map((value, index) => {
+            return (
+              <TableCell
+                width="85px"
+                key={String(index)}
+                className={classes.headCell}
+              >
+                {value / 2} h
+              </TableCell>
+            );
+          })}
+        </TableRow>
       </TableBody>
     </Table>
   );

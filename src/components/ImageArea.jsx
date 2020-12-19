@@ -1,9 +1,9 @@
 import React from "react";
-import { IconButton, makeStyles } from "@material-ui/core";
-import { storage } from "../firebase/index";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { NoImage } from "../components/index";
 import ImagePreview from "./ImagePreview";
+import { IconButton, makeStyles } from "@material-ui/core";
+import { NoImage } from "../components/index";
+import { storage } from "../firebase/index";
 
 const useStyles = makeStyles({
   icon: {
@@ -58,9 +58,9 @@ const ImageArea = (props) => {
           <AddCircleIcon />
           <input
             className="d-hidden"
-            type="file"
             id="image"
             onChange={(event) => uploadImage(event)}
+            type="file"
           />
         </label>
       </IconButton>

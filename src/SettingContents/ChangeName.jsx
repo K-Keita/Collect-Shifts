@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserId } from "../reducks/users/selectors";
-import { PrimaryButton, TextInput } from "../components/UIkit";
 import { changeName } from "../reducks/users/operations";
 import { getGroupId } from "../reducks/groups/selectors";
+import { getUserId } from "../reducks/users/selectors";
+import { PrimaryButton, TextInput } from "../components/UIkit";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChangeName = React.memo(() => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
-  const [newName, setNewName] = useState("");
+  const groupId = getGroupId(selector),
+    uid = getUserId(selector);
 
-  const uid = getUserId(selector);
-  const groupId = getGroupId(selector);
+  const [newName, setNewName] = useState("");
 
   const inputNewName = useCallback(
     (event) => {
@@ -24,17 +24,17 @@ const ChangeName = React.memo(() => {
     <>
       <div className="content-form">
         <TextInput
-          label={"新しい名前"}
           id="change-name"
+          label={"新しい名前"}
+          onChange={inputNewName}
           type={"text"}
           value={newName}
-          onChange={inputNewName}
         />
       </div>
       <div className="content-button">
         <PrimaryButton
           label={"変更する"}
-          onClick={() => dispatch(changeName(newName, uid, groupId))}
+          onClick={() => dispatch(changeName(groupId, newName, uid))}
         />
       </div>
     </>
