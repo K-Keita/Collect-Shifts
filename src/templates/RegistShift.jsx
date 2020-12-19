@@ -6,18 +6,19 @@ import {
 } from "../components/UIkit/index";
 import { getGroupId, getGroupName } from "../reducks/groups/selectors";
 import { getUserName, getUserId } from "../reducks/users/selectors";
-import { saveShifts } from "../reducks/groups/operations";
+import { saveShifts } from "../reducks/shifts/operations";
 import { useDispatch, useSelector } from "react-redux";
 
 const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
-const sun = d.getDay() === 0 ? 7 : d.getDay();
-const s = d.getDate() + (14 - sun + 1);
-const firstDate = new Date(y, m - 1, s);
-const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
 
 const RegistShift = () => {
+  const sun = d.getDay() === 0 ? 7 : d.getDay();
+  const s = d.getDate() + (14 - sun + 1);
+  const firstDate = new Date(y, m - 1, s);
+  const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
+
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
   const groupId = getGroupId(selector),
@@ -52,12 +53,12 @@ const RegistShift = () => {
   };
 
   const enterShift = () => {
-    const arr = [];
+    const shiftArr = [];
     shiftWeek.map((shift) => {
-      return arr.push({ lange: shift.name.lange, time: shift.name.time });
+      return shiftArr.push({ lange: shift.name.lange, time: shift.name.time });
     });
 
-    dispatch(saveShifts(groupId, arr, username, uid));
+    dispatch(saveShifts(groupId, shiftArr, uid, username));
     setOpen(false);
   };
 

@@ -1,7 +1,6 @@
 export { default as ConfirmDialog } from "./ConfirmDialog";
 export { default as DialogTime } from "./ToggleShift";
 export { default as PrimaryButton } from "./PrimaryButton";
-export { default as SecondButton } from "./SecondButton";
 export { default as TextInput } from "./TextInput";
 export { default as TimeSelect } from "./TimeSelect";
 export { default as ToggleShift } from "./ToggleShift";

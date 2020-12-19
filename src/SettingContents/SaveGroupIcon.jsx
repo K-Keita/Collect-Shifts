@@ -12,17 +12,17 @@ const SaveGroupIcon = () => {
     groupId = getGroupId(selector);
 
   const [images, setImages] = useState(""),
-    [password, setPassword] = useState("");
+    [groupPassword, setGroupPassword] = useState("");
 
   useEffect(() => {
     setImages(groupIcon);
   }, [groupIcon]);
 
-  const inputPassword = useCallback(
+  const inputGroupPassword = useCallback(
     (event) => {
-      setPassword(event.target.value);
+      setGroupPassword(event.target.value);
     },
-    [setPassword]
+    [setGroupPassword]
   );
 
   return (
@@ -31,9 +31,9 @@ const SaveGroupIcon = () => {
         <TextInput
           id={"manage-password2"}
           label={"管理者パスワード"}
-          onChange={inputPassword}
+          onChange={inputGroupPassword}
           type={"password"}
-          value={password}
+          value={groupPassword}
         />
         <ImageArea images={images} setImages={setImages} />
       </div>
@@ -41,7 +41,7 @@ const SaveGroupIcon = () => {
         <PrimaryButton
           fullWidth={false}
           label={"登録する"}
-          onClick={() => dispatch(saveGroupIcon(groupId, images, password))}
+          onClick={() => dispatch(saveGroupIcon(groupId, groupPassword, images))}
         />
       </div>
     </>

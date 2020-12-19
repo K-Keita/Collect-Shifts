@@ -7,7 +7,7 @@ import {
   RegistManage,
   SaveGroupIcon,
   SignOut,
-} from "../SettingPages/index";
+} from "../SettingContents/index";
 
 const ManagementPage = () => {
   const changeName = <ChangeName />;

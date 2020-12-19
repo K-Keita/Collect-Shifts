@@ -8,24 +8,28 @@ import {
   getGroupId,
   getGroupName,
 } from "../reducks/groups/selectors";
-import { getIsSignedIn } from "../reducks/users/selectors";
 import { ImagePreview } from "../components";
 import { makeStyles } from "@material-ui/core/styles";
 import { push } from "connected-react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
+import { getIsSignedIn } from "../reducks/users/selectors";
 
 const useStyles = makeStyles({
   headTitle: {
     color: blueGrey[50],
     fontWeight: "bold",
-    margin: "0 10px 0 auto",
+    marginLeft: "auto",
+    marginRight: 10,
+    maxWidth: 210,
+    textAlign: "center",
   },
-  iconBox: {
-    margin: 0,
-  },
-  iconText: {
-    fontSize: 8,
-    margin: "-16px 0 0 0",
+  mainTitle: {
+    background: blueGrey[300],
+    border: "solid 1px #fff",
+    marginLeft: "-10px",
+    opacity: 0.8,
+    padding: 6,
+    textAlign: "center",
   },
   topTitle: {
     color: blueGrey[50],
@@ -50,12 +54,13 @@ const Header = () => {
 
   const groupIcon = getGroupIcon(selector),
     groupId = getGroupId(selector),
-    groupName = getGroupName(selector);
+    groupName = getGroupName(selector),
+    isSignedIn = getIsSignedIn(selector);
 
   return (
     <AppBar position="fixed" className={classes.root}>
-      <Toolbar>
-        <div>main title</div>
+      <Toolbar style={{minWidth: "350px"}}>
+        <div className={classes.mainTitle}>Collect<br/>Shifts</div>
         {groupId !== "" ? (
           <>
             <Typography variant="h6" className={classes.headTitle}>
@@ -64,13 +69,13 @@ const Header = () => {
             {groupIcon !== "" && <ImagePreview path={groupIcon.path} />}
           </>
         ) : (
-          window.location.pathname !== "/top" && (
-            <Typography
-              className={classes.topTitle}
-              onClick={() => dispatch(push("/top"))}
-            >
-              Top-Page
-            </Typography>
+          isSignedIn ? (
+            <>
+            <p>グループ</p>
+            <p className={classes.headTitle} style={{cursor: "pointer"}} onClick={() => dispatch(push("/top"))}>TopPage</p>
+            </>
+          ) : (
+            <p className={classes.headTitle} style={{cursor: "pointer"}} onClick={() => dispatch(push("/top"))}>TopPage</p>
           )
         )}
       </Toolbar>

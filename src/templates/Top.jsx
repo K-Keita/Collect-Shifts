@@ -11,11 +11,10 @@ const Top = () => {
       <div>
         <img src={topImage} alt="maintitle" className="image-box" />
       </div>
-      <div className="m-tesuto">
-        <p className="mm-tesuto">シンプルなシフト管理アプリ</p>
-        <h1>Main Title</h1>
+      <div className="top-title">
+        <h1>Collect<br/>Shifts</h1>
       </div>
-      <div className="testo">
+      <div className="top-container">
         <p onClick={() => dispatch(push("/signup"))}>アカウント登録</p>
         <p onClick={() => dispatch(push("/signin"))}>ログイン</p>
       </div>

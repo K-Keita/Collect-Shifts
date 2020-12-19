@@ -1,17 +1,17 @@
 import React from "react";
-import { getShiftList, getPrevShiftList } from "../reducks/groups/selectors";
+import { getShiftList, getPrevShiftList } from "../reducks/shifts/selectors";
 import { ShiftTable } from "../components";
 import { useSelector } from "react-redux";
 
 const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
-const sun = d.getDay() === 0 ? 7 : d.getDay();
-const s = d.getDate() + (14 - sun + 1);
-const firstDate = new Date(y, m - 1, s);
-const prevFirstDate = new Date(y, m - 1, s - 7);
 
 const ShiftList = () => {
+  const sun = d.getDay() === 0 ? 7 : d.getDay();
+  const s = d.getDate() + (14 - sun + 1);
+  const firstDate = new Date(y, m - 1, s);
+  const prevFirstDate = new Date(y, m - 1, s - 7);
   const selector = useSelector((state) => state);
   const prevShiftList = getPrevShiftList(selector),
     shiftList = getShiftList(selector);

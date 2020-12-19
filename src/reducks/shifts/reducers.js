@@ -1,17 +1,14 @@
 import initialState from "../store/initialState";
 import * as Actions from "./actions";
 
-export const GroupsReducer = (state = initialState.group, action) => {
+export const ShiftsListReducer = (state = initialState.shift, action) => {
   switch (action.type) {
-    case Actions.GROUP_IN:
+    case Actions.FETCH_SHIFTLIST:
       return {
         ...state,
         ...action.payload,
       };
-    case Actions.GROUP_OUT:
-      return {
-        ...action.payload,
-      };
+
     default:
       return state;
   }

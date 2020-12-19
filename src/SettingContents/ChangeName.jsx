@@ -34,7 +34,7 @@ const ChangeName = React.memo(() => {
       <div className="content-button">
         <PrimaryButton
           label={"変更する"}
-          onClick={() => dispatch(changeName(groupId, newName, uid))}
+          onClick={() => dispatch(changeName(groupId, uid, newName))}
         />
       </div>
     </>

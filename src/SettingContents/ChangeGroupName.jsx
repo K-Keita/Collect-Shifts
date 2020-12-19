@@ -34,7 +34,7 @@ const ChangeGroupName = React.memo(() => {
           label={"管理者パスワード"}
           onChange={inputPassword}
           type={"password"}
-          value={GroupPassword}
+          value={groupPassword}
         />
         <TextInput
           id="new-group"
@@ -48,7 +48,7 @@ const ChangeGroupName = React.memo(() => {
         <PrimaryButton
           label={"変更する"}
           onClick={() =>
-            dispatch(changeGroupName(groupId, newGroupName, groupPassword))
+            dispatch(changeGroupName(groupId, groupPassword, newGroupName))
           }
         />
       </div>

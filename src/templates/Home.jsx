@@ -44,15 +44,12 @@ const Home = () => {
       </div>
 
       <div className="midium-space" />
-
-      <div className="text-area">
         <h3>・名前　　　:　{username}</h3>
         <h3>・グループ　:　{groupName}</h3>
         <h3>
-          ・シフト範囲: 　{startDate}〜{endDate}
+            ・シフト範囲:　{startDate}〜{endDate}
         </h3>
-        <h3>・締め切り　: 　{deadlineDate}</h3>
-      </div>
+        <h3>・締め切り　:　{deadlineDate}</h3>
     </div>
   );
 };

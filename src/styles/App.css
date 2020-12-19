@@ -98,11 +98,6 @@
   margin: 30px;
 }
 
-/* .min-content {
-  width: 75%;
-
-} */
-
 .n-margin {
   margin: 0;
 }
@@ -209,7 +204,6 @@
   background-color: #78909c;
 }
 
-
 .time-field_label {
   line-height: 55px;
   margin: 0;
@@ -228,15 +222,6 @@
   width: 100%;
   text-align: center;
   margin: 0;
-}
-
-.text-area {
-  width: 300px;
-  margin: 10px auto;
-}
-
-.text-area > p {
-  margin: 2px;
 }
 
 .w-border {
@@ -273,10 +258,9 @@
   box-sizing: border-box;
 }
 
-.testo {
+.top-container {
   position: absolute;
   width: 200px;
-  /* height: 100px; */
   background-color: #607d8b;
   opacity: 0.5;
   top: 50%;
@@ -285,11 +269,11 @@
   margin: auto;
 }
 
-.testo:hover {
+.top-container:hover {
   opacity: 0.8;
 }
 
-.testo > p {
+.top-container > p {
   padding: 3px;
   color: #eceff1;
   text-align: center;
@@ -297,29 +281,31 @@
   opacity: 1;
 }
 
-.testo > p:hover {
+.top-container > p:hover {
   font-weight: bold;
   color: #fff;
 }
 
-.m-tesuto {
+.top-title {
   position: absolute;
   text-align: center;
-  top: 33%;
+  top: 30%;
   left: 0;
   right: 0;
   margin: auto;
   color: #fff;
 }
 
-.m-tesuto > h1 {
+.top-title > h1 {
   margin: 0;
+  padding: 0;
   font-size: 50px;
+  line-height: 45px;
 }
 
-.m-tesuto > p {
+.top-title > p {
   font-size: 14px;
-  margin: 0 0 -12px 0;
+  margin: 0 0 -10px 0;
 }
 
 .noimage {

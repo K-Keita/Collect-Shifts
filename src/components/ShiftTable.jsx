@@ -53,14 +53,13 @@ const useStyles = makeStyles({
   },
 });
 
-const ShiftTable = (props) => {
+const ShiftTable = React.memo((props) => {
   const classes = useStyles();
 
   const timeNum = [...Array(7)].map(() => 0);
-  console.log(timeNum);
   props.shiftList.map((shift) => {
-    shift.list.map((value, index) => {
-      timeNum[index] = timeNum[index] + value.time;
+    return shift.list.map((value, index) => {
+      return timeNum[index] = timeNum[index] + value.time;
     });
   });
 
@@ -131,6 +130,6 @@ const ShiftTable = (props) => {
       </TableBody>
     </Table>
   );
-};
+});
 
 export default ShiftTable;
