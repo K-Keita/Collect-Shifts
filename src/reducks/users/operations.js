@@ -23,7 +23,7 @@ export const isValidEmailFormat = (email) => {
 //ユーザー名の変更
 export const changeName = (groupId, uid, username) => {
   if (username === "") {
-    alert ("必須項目が未入力です")
+    alert("必須項目が未入力です");
     return false;
   }
   return async (dispatch) => {
@@ -76,7 +76,7 @@ export const deleteGroupId = (groupId, uid) => {
       .set(updateData, { merge: true })
       .then(() => {
         dispatch(push("/top"));
-      })
+      });
 
     auth.signOut().then(() => {
       dispatch(signOutAction());
@@ -87,37 +87,40 @@ export const deleteGroupId = (groupId, uid) => {
 //ログイン状態の確認、情報の取得
 export const listenAuthState = () => {
   return async (dispatch) => {
-    return auth.onAuthStateChanged(async (user) => {
+    return auth.onAuthStateChanged( async (user) => {
       if (user) {
         const uid = user.uid;
 
-        const snapshot = await usersRef.doc(uid).get();
-        const data = snapshot.data();
-        const groupId = data.groupId;
+        const snapshot = usersRef
+          .doc(uid)
+          .get()
 
-        dispatch(
-          signInAction({
-            groupId: groupId,
-            role: data.role,
-            isSignIn: true,
-            uid: uid,
-            username: data.username,
-          })
-        );
+            const data = (await snapshot).data();
+            const groupId = await data.groupId;
 
-        if (groupId === "") {
-          dispatch(push("/enter"));
-        } else {
-          dispatch(fetchShifts(dateId, groupId));
-          dispatch(groupIn(groupId));
-        }
+            dispatch(
+              signInAction({
+                groupId: groupId,
+                role: data.role,
+                isSignIn: true,
+                uid: uid,
+                username: data.username,
+              })
+            );
+
+            if (groupId === "") {
+              dispatch(push("/enter"));
+            } else {
+              dispatch(fetchShifts(dateId, groupId));
+              dispatch(groupIn(groupId));
+            }
+          
       } else {
         dispatch(push("/top"));
       }
     });
   };
 };
-
 
 //パスワードのリセットメールを送る
 export const resetPassword = (email) => {
@@ -152,46 +155,49 @@ export const signIn = (email, password) => {
     alert("メールアドレスの形式が不正です。");
     return false;
   }
+
   return async (dispatch) => {
-    auth.signInWithEmailAndPassword(email, password).then((result) => {
-      const user = result.user;
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        const user = result.user;
 
-      if (user) {
-        const uid = user.uid;
+        if (user) {
+          const uid = user.uid;
 
-        usersRef
-          .doc(uid)
-          .get()
-          .then((snapshot) => {
-            const data = snapshot.data();
+          usersRef
+            .doc(uid)
+            .get()
+            .then((snapshot) => {
+              const data = snapshot.data();
 
-            dispatch(
-              signInAction({
-                groupId: data.groupId,
-                isSignIn: true,
-                role: data.role,
-                uid: uid,
-                username: data.username,
-              })
-            );
+              dispatch(
+                signInAction({
+                  groupId: data.groupId,
+                  isSignIn: true,
+                  role: data.role,
+                  uid: uid,
+                  username: data.username,
+                })
+              );
 
-            if (data.groupId === "") {
-              dispatch(push("/enter"));
-            } else {
-              dispatch(groupIn(data.groupId))
-              dispatch(fetchShifts(dateId, data.groupId))
-              dispatch(push('/'))
-            }
-          })
+              if (data.groupId === "") {
+                dispatch(push("/enter"));
+              } else {
+                dispatch(groupIn(data.groupId));
+                dispatch(fetchShifts(dateId, data.groupId));
+                dispatch(push("/"));
+              }
+            });
         } else {
-          throw new Error ("ユーザー情報を取得でしません");
+          throw new Error("ユーザー情報を取得でしません");
         }
       })
       .catch((error) => {
         alert("メールアドレスとパスワードが一致しません");
-        throw new Error (error);
+        throw new Error(error);
       });
-    };
+  };
 };
 
 //サインアップ
@@ -208,7 +214,12 @@ export const signUp = (username, email, password, confirmPassword) => {
     }
 
     if (!isValidEmailFormat(email)) {
-      alert("メールアドレスの形式が不正です。もう1度お試しください。");
+      alert("メールアドレスの形式が不正です。もう1度お試しください");
+      return false;
+    }
+
+    if (String(password).length < 6) {
+      alert ("パスワードの文字数が足りません")
       return false;
     }
 
@@ -236,8 +247,10 @@ export const signUp = (username, email, password, confirmPassword) => {
             uid: uid,
           };
 
-          const setData = await usersRef.doc(uid).set(userInitialData)
-          dispatch(push("/enter"))
+          usersRef.doc(uid).set(userInitialData)
+           .then(() => {
+             dispatch(push("/enter"));
+           })
         }
       });
   };
@@ -264,11 +277,12 @@ export const saveGroupId = (groupId, uid, username) => {
       .doc(uid)
       .set(data, { merge: true })
       .then(() => {
-        alert("グループに加入しました");
+        alert("グループに登録しました");
         dispatch(push("/"));
-      }).catch((error) => {
-        throw new Error (error)
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 

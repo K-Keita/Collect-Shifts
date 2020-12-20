@@ -22,16 +22,14 @@ const Members = () => {
   const selector = useSelector((state) => state);
   const groupMembers = getGroupMembers(selector),
     shiftList = getShiftList(selector);
-    console.log(groupMembers)
 
-    const member = [];
-    const shift = [];
-    const manager = [];
+  const member = [];
+  const shift = [];
+  const manager = [];
 
-    console.log(groupMembers, shiftList)
-    getName(groupMembers, member);
-    getName(shiftList, shift);
-    getManage(groupMembers, manager);
+  getName(groupMembers, member);
+  getName(shiftList, shift);
+  getManage(groupMembers, manager);
 
   const handInShift = [...new Set(member)].filter((value) =>
     shift.includes(value)
@@ -45,7 +43,7 @@ const Members = () => {
 
   return (
     <div className="main-container">
-      <h3 className="sub-label">メンバー: {member.length}人</h3>
+      <h3 className="sub-label">＜メンバー: {member.length}人＞</h3>
       <UsersList memberList={manager} title={"管理者"} />
       <UsersList memberList={handInShift} title={"提出者"} />
       <UsersList memberList={notHandInShift} title={"未提出者"} />

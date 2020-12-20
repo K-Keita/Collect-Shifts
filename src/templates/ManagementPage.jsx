@@ -28,7 +28,7 @@ const ManagementPage = () => {
 
   return (
     <div className="main-container">
-      <h3 className="sub-label">設定</h3>
+      <h3 className="sub-label">＜設定＞</h3>
       <div className="w-border" />
       {contentArr.map((value, index) => {
         return (

@@ -39,8 +39,8 @@ const ShiftList = () => {
   }
 
   return (
-    <div className="aaa">
-      <h3 className="sub-label_position">シフト一覧</h3>
+    <div className="list-container">
+      <h3 className="sub-label_position">＜シフト一覧＞</h3>
       <div className="midium-space" />
       <h3>
         {prevShiftWeek[0]}〜{prevShiftWeek[6]}

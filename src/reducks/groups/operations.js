@@ -1,11 +1,12 @@
 import { db, FirebaseTimestamp } from "../../firebase/index";
-import {
-  groupInAction,
-  groupOutAction,
-} from "../groups/actions";
+import { groupInAction, groupOutAction } from "../groups/actions";
 import { saveGroupId, deleteGroupId } from "../users/operations";
 import { push } from "connected-react-router";
-import {fetchShifts, deleteShift, changeShiftName} from "../shifts/operations"
+import {
+  fetchShifts,
+  deleteShift,
+  changeShiftName,
+} from "../shifts/operations";
 
 const groupsRef = db.collection("groups");
 
@@ -21,7 +22,7 @@ const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.get
 export const changeGroupName = (groupId, groupPassword, newGroupName) => {
   return async (dispatch) => {
     if (groupPassword === "" || newGroupName === "") {
-      alert ("必須項目が未入力です")
+      alert("必須項目が未入力です");
       return false;
     }
     const timestamp = FirebaseTimestamp.now();
@@ -53,9 +54,10 @@ export const changeGroupName = (groupId, groupPassword, newGroupName) => {
       .set(updateData, { merge: true })
       .then(() => {
         alert("変更しました");
-      }).catch((error) => {
-        throw new Error(error);
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 
@@ -93,9 +95,10 @@ export const changeMemberName = (groupId, uid, username) => {
       .set(updateData, { merge: true })
       .then(() => {
         dispatch(changeShiftName(groupId, uid, username));
-      }).catch((error) => {
-        throw new Error(error);
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 
@@ -105,7 +108,7 @@ export const createGroup = (
   groupName,
   groupPassword,
   uid,
-  username,
+  username
 ) => {
   return async (dispatch) => {
     if (username === "" || uid === "") {
@@ -154,11 +157,12 @@ export const createGroup = (
       .set(initializeDate)
       .then(() => {
         dispatch(saveGroupId(groupId, uid, username));
-        dispatch(fetchShifts(dateId, groupId))
+        dispatch(fetchShifts(dateId, groupId));
         dispatch(push("/"));
-      }).catch((error) => {
-        throw new Error(error);
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 
@@ -166,7 +170,7 @@ export const createGroup = (
 export const enterGroup = (groupId, groupName, uid, username) => {
   return async (dispatch) => {
     if (groupId === "" || groupName === "") {
-      alert ("必須項目が未入力です")
+      alert("必須項目が未入力です");
       return false;
     }
     const snapshot = await groupsRef.doc(groupId).get();
@@ -205,14 +209,15 @@ export const enterGroup = (groupId, groupName, uid, username) => {
     );
 
     groupsRef
-    .doc(groupId)
-    .set(newData, { merge: true })
-    .then(() => {
-        dispatch(fetchShifts(dateId, groupId)); 
+      .doc(groupId)
+      .set(newData, { merge: true })
+      .then(() => {
+        dispatch(fetchShifts(dateId, groupId));
         dispatch(saveGroupId(groupId, uid, username));
-      }).catch((error) => {
-        throw new Error(error);
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 
@@ -251,9 +256,10 @@ export const exitGroup = (groupId, uid, username) => {
       .then(() => {
         dispatch(deleteShift(groupId, username));
         dispatch(deleteGroupId(groupId, uid));
-      }).catch((error) => {
-        throw new Error(error);
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 
@@ -268,7 +274,7 @@ export const groupIn = (groupId) => {
     snapshots.forEach((doc) => {
       if (!doc.exists) {
         alert("グループ情報が取得できません");
-        dispatch(push("/enter"))
+        dispatch(push("/enter"));
         return false;
       }
       const data = doc.data();
@@ -290,7 +296,7 @@ export const groupIn = (groupId) => {
 export const registManage = (groupId, groupPassword, uid) => {
   return async (dispatch) => {
     if (groupPassword === "") {
-      alert ("必須項目が未入力です");
+      alert("必須項目が未入力です");
       return false;
     }
     const snapshot = await groupsRef.doc(groupId).get();
@@ -324,9 +330,10 @@ export const registManage = (groupId, groupPassword, uid) => {
       .set(updateData, { merge: true })
       .then(() => {
         alert("管理者登録しました");
-      }).catch((error) => {
-        throw new Error(error);
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 
@@ -360,8 +367,9 @@ export const saveGroupIcon = (groupId, groupPassword, images) => {
       .set(updateData, { merge: true })
       .then(() => {
         alert("アイコンを変更しました");
-      }).catch((error) => {
-        throw new Error(error);
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };

@@ -1,7 +1,5 @@
 import { db, FirebaseTimestamp } from "../../firebase/index";
-import {
-  fetchShiftsListAction,
-} from "./actions";
+import { fetchShiftsListAction } from "./actions";
 
 const groupsRef = db.collection("groups");
 
@@ -101,13 +99,16 @@ export const deleteShift = (groupId, username) => {
       .doc(dateId)
       .set(updateData, { merge: true })
       .then(() => {
-        dispatch(fetchShiftsListAction({
-          prevShiftList: [],
-          shiftList: [],
-        }))
-      }).catch((error) => {
-        throw new Error (error)
+        dispatch(
+          fetchShiftsListAction({
+            prevShiftList: [],
+            shiftList: [],
+          })
+        );
       })
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 };
 
@@ -120,7 +121,7 @@ export const fetchShifts = (dateId, groupId) => {
       .collection("shiftsList")
       .doc(dateId)
       .get();
-      
+
     if (!snapshot.exists) {
       const prevSnapshot = await db
         .collection("groups")
@@ -149,7 +150,7 @@ export const fetchShifts = (dateId, groupId) => {
         .doc(groupId)
         .collection("shiftsList")
         .doc(dateId)
-        .set(data, {merge: true})
+        .set(data, { merge: true })
         .then(() => {
           dispatch(
             fetchShiftsListAction({
@@ -229,7 +230,7 @@ export const saveShifts = (groupId, shift, uid, username) => {
         .collection("shiftsList")
         .doc(prevDateId)
         .get();
-        
+
       const prevShiftData = [];
       if (prevSnapshot.exists) {
         const data = prevSnapshot.data();
@@ -257,14 +258,7 @@ export const saveShifts = (groupId, shift, uid, username) => {
             })
           );
           alert("登録しました");
-        })  
+        });
     }
   };
 };
-
-
-
-
-
-
-

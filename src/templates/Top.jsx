@@ -12,7 +12,12 @@ const Top = () => {
         <img src={topImage} alt="maintitle" className="image-box" />
       </div>
       <div className="top-title">
-        <h1>Collect<br/>Shifts</h1>
+        <p>シンプルなシフト管理アプリ</p>
+        <h1>
+          Collect
+          <br />
+          Shifts
+        </h1>
       </div>
       <div className="top-container">
         <p onClick={() => dispatch(push("/signup"))}>アカウント登録</p>

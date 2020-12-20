@@ -76,7 +76,7 @@ const RegistShift = () => {
 
   return (
     <div className="main-container">
-      <h3 className="sub-label">シフト登録</h3>
+      <h3 className="sub-label">＜シフト登録＞</h3>
       <div className="sub-border">
         <div className="time-field_title">
           {shiftWeek[0].date}日　〜　{shiftWeek[6].date}日

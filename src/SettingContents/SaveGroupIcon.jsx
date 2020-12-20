@@ -41,7 +41,9 @@ const SaveGroupIcon = () => {
         <PrimaryButton
           fullWidth={false}
           label={"登録する"}
-          onClick={() => dispatch(saveGroupIcon(groupId, groupPassword, images))}
+          onClick={() =>
+            dispatch(saveGroupIcon(groupId, groupPassword, images))
+          }
         />
       </div>
     </>

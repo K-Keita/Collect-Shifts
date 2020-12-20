@@ -150,14 +150,14 @@
 }
 
 .sub-label {
-  text-align: right;
+  text-align: left;
+  margin: 0 0 18px 5px;
 }
 
 .sub-label_position {
-  position: absolute;
-  top: -20px;
-  right: 20px;
-  z-index: 1;
+  text-align: left;
+  width: 90%;
+  margin: 0 0 18px 5%;
 }
 
 .sub-title {
@@ -327,23 +327,10 @@
   margin: 50px;
 }
 
-.aaa {
+.list-container {
   white-space: nowrap;
   overflow: scroll;
   position: relative;
-}
-
-.aaa > h3 {
-  margin-left: 20px;
-  margin-bottom: 5px;
-}
-
-.mm {
-  margin: 12px;
-}
-
-.akk {
-  display: block;
 }
 
 @media(min-width: 600px) {

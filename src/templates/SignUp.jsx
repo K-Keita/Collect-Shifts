@@ -55,7 +55,7 @@ const CreateGroupPage = () => {
       />
       <TextInput
         fullWidth={true}
-        label={"パスワード"}
+        label={"パスワード(6文字以上)"}
         onChange={inputPassword}
         type={"password"}
         value={password}

@@ -11,7 +11,7 @@ import {
 import { ImagePreview } from "../components";
 import { makeStyles } from "@material-ui/core/styles";
 import { push } from "connected-react-router";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { getIsSignedIn } from "../reducks/users/selectors";
 
 const useStyles = makeStyles({
@@ -21,7 +21,6 @@ const useStyles = makeStyles({
     marginLeft: "auto",
     marginRight: 10,
     maxWidth: 210,
-    textAlign: "center",
   },
   mainTitle: {
     background: blueGrey[300],
@@ -59,23 +58,45 @@ const Header = () => {
 
   return (
     <AppBar position="fixed" className={classes.root}>
-      <Toolbar style={{minWidth: "350px"}}>
-        <div className={classes.mainTitle}>Collect<br/>Shifts</div>
-        {groupId !== "" ? (
+      <Toolbar style={{ minWidth: "350px" }}>
+        <div className={classes.mainTitle}>
+          Collect
+          <br />
+          Shifts
+        </div>
+        {groupId !== "" && isSignedIn ? (
           <>
             <Typography variant="h6" className={classes.headTitle}>
               {groupName}
             </Typography>
             {groupIcon !== "" && <ImagePreview path={groupIcon.path} />}
           </>
+        ) : isSignedIn ? (
+          <>
+            <p
+              className={classes.headTitle}
+              style={{ cursor: "pointer" }}
+              onClick={() => dispatch(push("/enter"))}
+            >
+              グループ
+            </p>
+            <p
+              className={classes.headTitle}
+              style={{ cursor: "pointer" }}
+              onClick={() => dispatch(push("/top"))}
+            >
+              TopPage
+            </p>
+          </>
         ) : (
-          isSignedIn ? (
-            <>
-            <p>グループ</p>
-            <p className={classes.headTitle} style={{cursor: "pointer"}} onClick={() => dispatch(push("/top"))}>TopPage</p>
-            </>
-          ) : (
-            <p className={classes.headTitle} style={{cursor: "pointer"}} onClick={() => dispatch(push("/top"))}>TopPage</p>
+          window.location.pathname !== "/top" && (
+            <p
+              className={classes.headTitle}
+              style={{ cursor: "pointer" }}
+              onClick={() => dispatch(push("/top"))}
+            >
+              TopPage
+            </p>
           )
         )}
       </Toolbar>

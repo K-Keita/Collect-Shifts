@@ -59,7 +59,7 @@ const ShiftTable = React.memo((props) => {
   const timeNum = [...Array(7)].map(() => 0);
   props.shiftList.map((shift) => {
     return shift.list.map((value, index) => {
-      return timeNum[index] = timeNum[index] + value.time;
+      return (timeNum[index] = timeNum[index] + value.time);
     });
   });
 
