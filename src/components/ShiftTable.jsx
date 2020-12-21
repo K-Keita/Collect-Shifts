@@ -8,36 +8,23 @@ import TableRow from "@material-ui/core/TableRow";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  bodyCell: {
-    background: blueGrey[300],
-    border: "solid 1px #fff",
-    borderTop: "solid 2px #fff",
-    color: "#fff",
+  bodyCell_a: {
+    background: blueGrey[200],
+    border: "solid 1px #455a64",
+    color: "#263238",
     padding: "12px 0px",
     textAlign: "center",
   },
-  bodyCell_name: {
-    background: blueGrey[400],
-    border: "solid 1px #fff",
-    borderTop: "solid 2px #fff",
-    color: "#fff",
-    fontWeight: "bold",
-    padding: "12px 0px",
-    textAlign: "center",
-  },
-  bodyCell_out: {
+  bodyCell_b: {
     background: blueGrey[300],
-    border: "solid 1px #fff",
-    borderTop: "solid 2px #fff",
-    color: "#fff",
-    opacity: 0.9,
+    border: "solid 1px #455a64",
+    color: "#263238",
     padding: "12px 0px",
     textAlign: "center",
   },
   headCell: {
     background: blueGrey[500],
-    border: "solid 1px #fff",
-    borderTop: "solid 2px #fff",
+    border: "solid 1px #455a64",
     color: blueGrey[50],
     fontSize: 16,
     fontWeight: "bold",
@@ -48,8 +35,8 @@ const useStyles = makeStyles({
     border: "solid 2px #fff",
     borderRadius: 10,
     margin: "0 1% 0 1%",
-    maxWidth: 1000,
-    minWidth: 750,
+    maxWidth: 850,
+    minWidth: 730,
   },
 });
 
@@ -81,12 +68,14 @@ const ShiftTable = React.memo((props) => {
       </TableHead>
       <TableBody>
         {props.shiftList.map((shift, index) => {
+          const a = index % 2 === 1 ? classes.bodyCell_a : classes.bodyCell_b;
           return (
             <TableRow key={String(index)}>
               <TableCell
-                className={classes.bodyCell_name}
+                className={a}
                 component="th"
                 scope="row"
+                style={{fontWeight: "bold"}}
               >
                 {shift.name}
               </TableCell>
@@ -95,14 +84,14 @@ const ShiftTable = React.memo((props) => {
                   return (
                     <TableCell
                       key={String(index)}
-                      className={classes.bodyCell_out}
+                      className={a}
                     >
                       {value.lange}
                     </TableCell>
                   );
                 } else {
                   return (
-                    <TableCell key={String(index)} className={classes.bodyCell}>
+                    <TableCell key={String(index)} className={a}>
                       {value.lange}
                     </TableCell>
                   );

@@ -4,7 +4,7 @@ import {
   PrimaryButton,
   ToggleShift,
 } from "../components/UIkit/index";
-import { getGroupId, getGroupName } from "../reducks/groups/selectors";
+import { getGroupId } from "../reducks/groups/selectors";
 import { getUserName, getUserId } from "../reducks/users/selectors";
 import { saveShifts } from "../reducks/shifts/operations";
 import { useDispatch, useSelector } from "react-redux";

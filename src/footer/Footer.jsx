@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     width: "100%",
   },
   iconBox: {
-    borderRight: "inset 1px #37474f",
+    borderRight: "inset 1px #eceff1",
     margin: 0,
     width: "20%",
   },
