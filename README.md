@@ -1,15 +1,12 @@
 # Collect Shifts
-
----
-
 一週間ごとのシフトを集め、管理するアプリです。実際にシフト集めの際に、使用してもらっています。
 
+![トップ画像](https:/topImage.jpg)
+
 ## URL
----
-[shift-app-24b30.web.app]
+[https://shift-app-24b30.web.app](https://shift-app-24b30.web.app)
 
 ## 使用技術
----
 - React.js(react-hooks)
 - Redux
 - firebase
@@ -20,7 +17,6 @@
 - material-ui
 
 ## 機能一覧
----
 - アカウント登録、ログイン機能
 - シフトの登録、変更機能
 - グループ機能
