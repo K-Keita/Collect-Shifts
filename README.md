@@ -1,7 +1,8 @@
 # Collect Shifts
 一週間ごとのシフトを集め、管理するアプリです。実際にシフト集めの際に、使用してもらっています。
 
-![トップ画像](https:/topImage.jpg)
+![トップ画像](file:///Users/kitagawakeita/Desktop/homeImage.png)
+![MemberList](file:///Users/kitagawakeita/Desktop/memberList.png)
 
 ## URL
 [https://shift-app-24b30.web.app](https://shift-app-24b30.web.app)
