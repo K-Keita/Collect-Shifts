@@ -1,8 +1,7 @@
 # Collect Shifts
-一週間ごとのシフトを集め、管理するアプリです。実際にシフト集めの際に、使用してもらっています。
+一週間ごとのシフトを集め、管理するアプリです。スマホファーストのデザイン（レスポンシブ対応）
 
-<img src="https://user-images.githubusercontent.com/68856311/102765211-a4f0ef80-43bf-11eb-8b50-c5b1a203c0e5.jpg" alt="top-image" width="320px">
-<img src="https://user-images.githubusercontent.com/68856311/102765226-aae6d080-43bf-11eb-9758-652c06f211e2.jpg" alt="top-image" width="320px">
+<img src="https://user-images.githubusercontent.com/68856311/102765211-a4f0ef80-43bf-11eb-8b50-c5b1a203c0e5.jpg" alt="top-image" width="320px"><img src="https://user-images.githubusercontent.com/68856311/102765226-aae6d080-43bf-11eb-9758-652c06f211e2.jpg" alt="top-image" width="320px">
 
 ## URL
 [https://shift-app-24b30.web.app](https://shift-app-24b30.web.app)

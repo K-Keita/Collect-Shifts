@@ -20,8 +20,12 @@ const useStyles = makeStyles({
 const TextInput = (props) => {
   const classes = useStyles();
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+  }
+
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form onSubmit={onFormSubmit} className={classes.root} noValidate autoComplete="off">
       <TextField
         className={classes.textField}
         fullWidth={true}
