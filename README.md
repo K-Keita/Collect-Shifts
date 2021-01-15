@@ -1,7 +1,7 @@
 # Collect Shifts
 一週間ごとのシフトを集め、管理するアプリです。スマホファーストのデザイン（レスポンシブ対応）
 
-<img width="220" alt="Collect-Shifts:top" src="https://user-images.githubusercontent.com/68856311/104692439-57ac3780-574b-11eb-8319-b7e49502b2a0.png">   <img width="220" alt="CollectShifts:list" src="https://user-images.githubusercontent.com/68856311/104692426-4fec9300-574b-11eb-807c-d374d157d335.png">   <img width="220" alt="Collect-Shifts:member" src="https://user-images.githubusercontent.com/68856311/104692438-5549dd80-574b-11eb-8d49-b22c84f1d574.png">
+<img width="300" alt="Collect-Shifts:top" src="https://user-images.githubusercontent.com/68856311/104692439-57ac3780-574b-11eb-8319-b7e49502b2a0.png">        <img width="300" alt="Collect-Shifts:member" src="https://user-images.githubusercontent.com/68856311/104692438-5549dd80-574b-11eb-8d49-b22c84f1d574.png">
 
 
 ## URL
