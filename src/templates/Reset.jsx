@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import topImage from "../images/topImage.jpg";
 import { resetPassword } from "../reducks/users/operations";
 import { PrimaryButton, TextInput } from "../components/UIkit";
 import { push } from "connected-react-router";
@@ -16,6 +17,9 @@ const Reset = () => {
 
   return (
     <div className="main-container">
+      <div>
+        <img src={topImage} alt="maintitle" className="image-box_a" />
+      </div>
       <h2>パスワードのリセット</h2>
       <TextInput
         label={"メールアドレス"}

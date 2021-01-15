@@ -136,6 +136,18 @@
   min-width: 800px;
   min-height: 700px;
   overflow: hidden;
+
+  &_a {
+    position: absolute;
+    top: -20px;
+    left: -180px;
+    opacity: 0.1;
+    width: 100%;
+    min-width: 800px;
+    min-height: 700px;
+    overflow: hidden;
+
+  }
 }
 
 .small-space {
@@ -341,6 +353,10 @@
 @media(min-width: 600px) {
   .image-box {
     left: 0px;
+
+    &_a {
+      left: 0px;
+    }
   }
 
   .main {

@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import topImage from "../images/topImage.jpg";
 import { PrimaryButton, TextInput } from "../components/UIkit/index";
 import { push } from "connected-react-router";
 import { signUp } from "../reducks/users/operations";
@@ -38,6 +39,9 @@ const CreateGroupPage = () => {
 
   return (
     <div className="main-container">
+      <div>
+        <img src={topImage} alt="maintitle" className="image-box_a" />
+      </div>
       <h2>アカウント登録</h2>
       <TextInput
         fullWidth={true}

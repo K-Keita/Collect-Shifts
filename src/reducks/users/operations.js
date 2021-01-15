@@ -16,7 +16,7 @@ const firstDate = new Date(y, m - 1, s);
 const dateId = `${firstDate.getFullYear()}${firstDate.getMonth()}${firstDate.getDate()}`;
 
 export const isValidEmailFormat = (email) => {
-  const regex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   return regex.test(email);
 };
 
@@ -96,25 +96,28 @@ export const listenAuthState = () => {
           .get()
 
             const data = (await snapshot).data();
-            const groupId = await data.groupId;
 
-            dispatch(
-              signInAction({
-                groupId: groupId,
-                role: data.role,
-                isSignIn: true,
-                uid: uid,
-                username: data.username,
-              })
-            );
+            if (data) {
+              const groupId = await data.groupId;
 
-            if (groupId === "") {
-              dispatch(push("/enter"));
-            } else {
-              dispatch(fetchShifts(dateId, groupId));
-              dispatch(groupIn(groupId));
+              dispatch(
+                signInAction({
+                  groupId: groupId,
+                  role: data.role,
+                  isSignIn: true,
+                  uid: uid,
+                  username: data.username,
+                })
+              );
+
+              if (groupId === "") {
+                dispatch(push("/enter"));
+              } else {
+                dispatch(fetchShifts(dateId, groupId));
+                dispatch(groupIn(groupId));
+              }
             }
-          
+
       } else {
         dispatch(push("/top"));
       }

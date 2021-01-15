@@ -1,4 +1,5 @@
 import "react-calendar/dist/Calendar.css";
+import topImage from "../images/topImage.jpg";
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import { getUserName } from "../reducks/users/selectors";
@@ -28,6 +29,9 @@ const Home = () => {
 
   return (
     <div className="main-container">
+      <div>
+        <img src={topImage} alt="maintitle" className="image-box_a" />
+      </div>
       <h2 className="main-title">Home</h2>
       <div className="calendar-container">
         <Calendar

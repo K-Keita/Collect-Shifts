@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import topImage from "../images/topImage.jpg";
 import { useDispatch } from "react-redux";
 import { PrimaryButton, TextInput } from "../components/UIkit/index";
 import { push } from "connected-react-router";
@@ -24,6 +25,9 @@ const SignIn = () => {
 
   return (
     <div className="main-container">
+      <div>
+        <img src={topImage} alt="maintitle" className="image-box_a" />
+      </div>
       <h2>サインイン</h2>
       <TextInput
         fullWidth={true}

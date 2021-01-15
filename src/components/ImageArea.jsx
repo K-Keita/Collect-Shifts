@@ -17,6 +17,11 @@ const ImageArea = (props) => {
 
   const uploadImage = (event) => {
     const file = event.target.files;
+    const imgWidth = "100px";
+    const imgHeight = "100px";
+
+    file.width = imgWidth;
+    file.height = imgHeight;
     let blob = new Blob(file, { type: "image/jpeg" });
 
     const S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
