@@ -1,4 +1,4 @@
-import "./styles/App.css";
+import "./styles/App.scss";
 import "react-calendar/dist/Calendar.css";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";

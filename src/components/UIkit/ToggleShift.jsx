@@ -68,7 +68,7 @@ const ToggleShift = React.memo((props) => {
             label={"start"}
             value={start}
           />
-          <p className="time-line">ー</p>
+          <p className="time-field_line">ー</p>
           <TimeSelect
             arr={timeLange}
             handleChange={handleChangeEnd}

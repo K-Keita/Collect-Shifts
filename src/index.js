@@ -1,4 +1,4 @@
-import "./styles/index.css";
+import "./styles/index.scss";
 import * as History from "history";
 import * as serviceWorker from "./serviceWorker";
 import React from "react";
