@@ -22,10 +22,15 @@ const TextInput = (props) => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-  }
+  };
 
   return (
-    <form onSubmit={onFormSubmit} className={classes.root} noValidate autoComplete="off">
+    <form
+      onSubmit={onFormSubmit}
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+    >
       <TextField
         className={classes.textField}
         fullWidth={true}

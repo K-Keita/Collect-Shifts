@@ -23,7 +23,6 @@
   }
 }
 
-
 .icon-box {
   margin: 5px 10px 0 0;
   color: white;
@@ -109,14 +108,13 @@
   width: 100%;
 }
 
-.midium-space {
+.medium-space {
   margin: 30px;
 }
 
 .n-margin {
   margin: 0;
 }
-
 
 .noimage {
   background-color: #455a64;
@@ -146,7 +144,6 @@
     min-width: 800px;
     min-height: 700px;
     overflow: hidden;
-
   }
 }
 
@@ -215,7 +212,6 @@
   position: relative;
 }
 
-
 .time-field {
   border-bottom: solid 1px #eceff1;
   background-color: #90a4ae;
@@ -262,8 +258,6 @@
   }
 }
 
-
-
 .w-border {
   border: solid 1px #cfd8dc;
   opacity: 0.7;
@@ -297,7 +291,6 @@
     box-sizing: border-box;
   }
 }
-
 
 .top {
   &-container {
@@ -350,7 +343,7 @@
   }
 }
 
-@media(min-width: 600px) {
+@media (min-width: 600px) {
   .image-box {
     left: 0px;
 

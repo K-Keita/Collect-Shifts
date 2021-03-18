@@ -46,7 +46,7 @@ const Home = () => {
           value={value}
         />
       </div>
-      <div className="midium-space" />
+      <div className="medium-space" />
       <h3>・名前　　　:　{username}</h3>
       <h3>・グループ　:　{groupName}</h3>
       <h3>

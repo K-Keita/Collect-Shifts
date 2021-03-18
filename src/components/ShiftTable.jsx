@@ -75,7 +75,7 @@ const ShiftTable = React.memo((props) => {
                 className={a}
                 component="th"
                 scope="row"
-                style={{fontWeight: "bold"}}
+                style={{ fontWeight: "bold" }}
               >
                 {shift.name}
               </TableCell>
@@ -85,7 +85,7 @@ const ShiftTable = React.memo((props) => {
                     <TableCell
                       key={String(index)}
                       className={a}
-                      style={{color: "#37474f"}}
+                      style={{ color: "#37474f" }}
                     >
                       {value.lange}
                     </TableCell>

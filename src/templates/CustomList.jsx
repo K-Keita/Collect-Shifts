@@ -13,7 +13,7 @@ const d = new Date();
 const y = d.getFullYear();
 const m = d.getMonth() + 1;
 
-const RegistShift = () => {
+const CustomList = () => {
   const sun = d.getDay() === 0 ? 7 : d.getDay();
   const s = d.getDate() + (14 - sun + 1);
   const firstDate = new Date(y, m - 1, s);
@@ -61,16 +61,14 @@ const RegistShift = () => {
     dispatch(saveShifts(groupId, shiftArr, uid, username));
     setOpen(false);
   };
+  console.log(shiftWeek);
 
   for (var i = 0; i < 7; i++) {
-    const shiftDate = firstDate.getDate();
     const shiftDay = ["日", "月", "火", "水", "木", "金", "土"][
       firstDate.getDay()
     ];
 
     firstDate.setDate(firstDate.getDate() + 1);
-
-    shiftWeek[i].date = shiftDate;
     shiftWeek[i].day = shiftDay;
   }
 
@@ -78,9 +76,7 @@ const RegistShift = () => {
     <div className="main-container">
       <h3 className="sub-label">＜シフト登録＞</h3>
       <div className="sub-border">
-        <div className="time-field_title">
-          {shiftWeek[0].date}日　〜　{shiftWeek[6].date}日
-        </div>
+        <div className="time-field_title">カスタム</div>
         {shiftWeek.map((value, index) => {
           return (
             <ToggleShift
@@ -113,4 +109,4 @@ const RegistShift = () => {
   );
 };
 
-export default RegistShift;
+export default CustomList;
