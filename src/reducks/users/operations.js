@@ -87,37 +87,34 @@ export const deleteGroupId = (groupId, uid) => {
 //ログイン状態の確認、情報の取得
 export const listenAuthState = () => {
   return async (dispatch) => {
-    return auth.onAuthStateChanged( async (user) => {
+    return auth.onAuthStateChanged(async (user) => {
       if (user) {
         const uid = user.uid;
 
-        const snapshot = usersRef
-          .doc(uid)
-          .get()
+        const snapshot = usersRef.doc(uid).get();
 
-            const data = (await snapshot).data();
+        const data = (await snapshot).data();
 
-            if (data) {
-              const groupId = await data.groupId;
+        if (data) {
+          const groupId = await data.groupId;
 
-              dispatch(
-                signInAction({
-                  groupId: groupId,
-                  role: data.role,
-                  isSignIn: true,
-                  uid: uid,
-                  username: data.username,
-                })
-              );
+          dispatch(
+            signInAction({
+              groupId: groupId,
+              role: data.role,
+              isSignIn: true,
+              uid: uid,
+              username: data.username,
+            })
+          );
 
-              if (groupId === "") {
-                dispatch(push("/enter"));
-              } else {
-                dispatch(fetchShifts(dateId, groupId));
-                dispatch(groupIn(groupId));
-              }
-            }
-
+          if (groupId === "") {
+            dispatch(push("/enter"));
+          } else {
+            dispatch(fetchShifts(dateId, groupId));
+            dispatch(groupIn(groupId));
+          }
+        }
       } else {
         dispatch(push("/top"));
       }
@@ -222,7 +219,7 @@ export const signUp = (username, email, password, confirmPassword) => {
     }
 
     if (String(password).length < 6) {
-      alert ("パスワードの文字数が足りません")
+      alert("パスワードの文字数が足りません");
       return false;
     }
 
@@ -250,10 +247,12 @@ export const signUp = (username, email, password, confirmPassword) => {
             uid: uid,
           };
 
-          usersRef.doc(uid).set(userInitialData)
-           .then(() => {
-             dispatch(push("/enter"));
-           })
+          usersRef
+            .doc(uid)
+            .set(userInitialData)
+            .then(() => {
+              dispatch(push("/enter"));
+            });
         }
       });
   };

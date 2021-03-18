@@ -51,7 +51,7 @@ const EnterGroupPage = () => {
         onClick={() => dispatch(enterGroup(groupId, groupName, uid, username))}
         width={"70%"}
       />
-      <div className="midium-space w-border" />
+      <div className="medium-space w-border" />
       <PrimaryButton
         fullWidth={true}
         label={"グループを作成"}

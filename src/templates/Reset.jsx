@@ -33,7 +33,7 @@ const Reset = () => {
         onClick={() => dispatch(resetPassword(email))}
         fullWidth={true}
       />
-      <div className="midium-space" />
+      <div className="medium-space" />
       <div className="w-border" />
       <PrimaryButton
         width={"50%"}

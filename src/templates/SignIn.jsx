@@ -63,7 +63,7 @@ const SignIn = () => {
         onClick={() => dispatch(push("/reset"))}
         width={"50%"}
       />
-      {/* <div className="w-border midium-space" />
+      {/* <div className="w-border medium-space" />
       <PrimaryButton
         fullWidth={true}
         label={"グループに参加"}

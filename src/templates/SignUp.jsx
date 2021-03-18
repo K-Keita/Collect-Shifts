@@ -71,7 +71,7 @@ const CreateGroupPage = () => {
         type={"password"}
         value={confirmPassword}
       />
-      <div className="midium-space" />
+      <div className="medium-space" />
       <PrimaryButton
         fullWidth={true}
         label={"登録"}
