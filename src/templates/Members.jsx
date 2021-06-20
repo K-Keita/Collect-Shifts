@@ -42,12 +42,14 @@ const Members = () => {
   );
 
   return (
-    <div className="main-container">
+    <>
+    <div className="main-container scroll">
       <h3 className="sub-label">＜メンバー: {member.length}人＞</h3>
       <UsersList memberList={manager} title={"管理者"} />
       <UsersList memberList={handInShift} title={"提出者"} />
       <UsersList memberList={notHandInShift} title={"未提出者"} />
     </div>
+    </>
   );
 };
 

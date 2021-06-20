@@ -195,7 +195,7 @@ export const signIn = (email, password) => {
       })
       .catch((error) => {
         alert("メールアドレスとパスワードが一致しません");
-        throw new Error(error);
+        // throw new Error(error);
       });
   };
 };

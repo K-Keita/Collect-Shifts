@@ -25,9 +25,9 @@ const SignIn = () => {
 
   return (
     <div className="main-container">
-      <div>
+      {/* <div>
         <img src={topImage} alt="maintitle" className="image-box_a" />
-      </div>
+      </div> */}
       <h2>サインイン</h2>
       <TextInput
         fullWidth={true}

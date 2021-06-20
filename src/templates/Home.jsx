@@ -29,9 +29,9 @@ const Home = () => {
 
   return (
     <div className="main-container">
-      <div>
+      {/* <div>
         <img src={topImage} alt="maintitle" className="image-box_a" />
-      </div>
+      </div> */}
       <h2 className="main-title">Home</h2>
       <div className="calendar-container">
         <Calendar

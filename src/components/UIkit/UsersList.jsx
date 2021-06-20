@@ -17,6 +17,8 @@ const useStyles = makeStyles({
     maxWidth: 360,
     padding: 0,
     width: "90%",
+    maxHeight: 200,
+    overflow: "auto",
   },
   title: {
     backgroundColor: blueGrey[500],

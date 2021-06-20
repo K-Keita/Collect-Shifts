@@ -7,7 +7,7 @@ const Top = () => {
   const dispatch = useDispatch();
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div>
       <div>
         <img src={topImage} alt="maintitle" className="image-box" />
       </div>
